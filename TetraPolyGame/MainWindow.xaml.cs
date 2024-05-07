@@ -16,6 +16,8 @@ namespace TetraPolyGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const int numRows = 10; // Define the number of rows
+        private const int numCols = 10; // Define the number of columns
         public MainWindow()
         {
             InitializeComponent();
