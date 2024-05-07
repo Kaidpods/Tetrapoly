@@ -19,7 +19,6 @@ namespace TetraPolyGame
         public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 }
