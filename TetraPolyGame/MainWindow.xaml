@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow" Height="795" Width="887" ResizeMode="NoResize">
+    <Grid Name="gameBoardGrid" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Rectangle Name="pos0" HorizontalAlignment="Left" Height="60" Margin="0,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos1" HorizontalAlignment="Left" Height="60" Margin="60,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos2" HorizontalAlignment="Left" Height="60" Margin="120,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos3" HorizontalAlignment="Left" Height="60" Margin="180,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos4" HorizontalAlignment="Left" Height="60" Margin="240,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos5" HorizontalAlignment="Left" Height="60" Margin="300,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos6" HorizontalAlignment="Left" Height="60" Margin="360,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos7" HorizontalAlignment="Left" Height="60" Margin="420,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos8" HorizontalAlignment="Left" Height="60" Margin="480,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos9" HorizontalAlignment="Left" Height="60" Margin="540,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos10" HorizontalAlignment="Left" Height="60" Margin="600,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos11" HorizontalAlignment="Left" Height="60" Margin="600,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos12" HorizontalAlignment="Left" Height="60" Margin="600,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos13" HorizontalAlignment="Left" Height="60" Margin="600,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos14" HorizontalAlignment="Left" Height="60" Margin="600,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos15" HorizontalAlignment="Left" Height="60" Margin="600,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos16" HorizontalAlignment="Left" Height="60" Margin="600,365,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos17" HorizontalAlignment="Left" Height="60" Margin="600,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos18" HorizontalAlignment="Left" Height="60" Margin="600,485,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos19" HorizontalAlignment="Left" Height="60" Margin="600,545,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos20" HorizontalAlignment="Left" Height="60" Margin="600,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos21" HorizontalAlignment="Left" Height="60" Margin="540,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos22" HorizontalAlignment="Left" Height="60" Margin="480,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos23" HorizontalAlignment="Left" Height="60" Margin="420,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos24" HorizontalAlignment="Left" Height="60" Margin="360,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos25" HorizontalAlignment="Left" Height="60" Margin="300,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos26" HorizontalAlignment="Left" Height="60" Margin="240,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos27" HorizontalAlignment="Left" Height="60" Margin="180,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos28" HorizontalAlignment="Left" Height="60" Margin="120,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos29" HorizontalAlignment="Left" Height="60" Margin="60,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos30" HorizontalAlignment="Left" Height="60" Margin="0,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos31" HorizontalAlignment="Left" Height="60" Margin="0,545,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos32" HorizontalAlignment="Left" Height="60" Margin="0,485,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos33" HorizontalAlignment="Left" Height="60" Margin="0,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos34" HorizontalAlignment="Left" Height="60" Margin="0,365,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos35" HorizontalAlignment="Left" Height="60" Margin="0,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos36" HorizontalAlignment="Left" Height="60" Margin="0,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos37" HorizontalAlignment="Left" Height="60" Margin="0,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos38" HorizontalAlignment="Left" Height="60" Margin="0,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="pos39" HorizontalAlignment="Left" Height="60" Margin="0,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Rectangle Name="posJail" HorizontalAlignment="Left" Height="60" Margin="630,637,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
     </Grid>
 </Window>
