@@ -30,6 +30,7 @@ namespace TetraPolyGame
         {
             // Implement logic to add a house to the property
             // Example: numberOfHouses++;
+            numberOfHouses++;
         }
 
         public override int GetRent()
