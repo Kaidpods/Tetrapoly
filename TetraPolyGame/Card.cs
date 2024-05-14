@@ -45,6 +45,11 @@ namespace TetraPolyGame
             return rent;
         }
 
+        public virtual int GetPrice()
+        {
+            return price;
+        }
+
         public virtual void SetRent(int RentToSet)
         {
             // Implement your rent calculation logic here
@@ -66,6 +71,11 @@ namespace TetraPolyGame
         public bool IsMortgaged()
         {
             return mortgaged;
+        }
+
+        public int GetMortgagePrice()
+        {
+            return mortgageCost;
         }
 
         public virtual string ToString()

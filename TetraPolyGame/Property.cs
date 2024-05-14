@@ -35,7 +35,7 @@ namespace TetraPolyGame
             numberOfHouses++;
         }
 
-        public void RemoveHouse()
+        public void RemoveHouse(int HouseAmount)
         {
 
             numberOfHouses--;
