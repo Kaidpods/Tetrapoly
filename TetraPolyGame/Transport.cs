@@ -14,9 +14,9 @@ namespace TetraPolyGame
             rent = 25;
             multiplier = 1.0;
         }
-        public int GetRollRent(int diceRoll)
+        public int GetRailRent()
         {
-            return Convert.ToInt32(diceRoll * GetMult());
+            return Convert.ToInt32(GetRent() * GetMult());
         }
     }
 }
