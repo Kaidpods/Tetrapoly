@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,13 @@ namespace TetraPolyGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MSSQLdataAccess database = new();
+        private List<Card> Cards = new();
         public MainWindow()
         {
             InitializeComponent();
+            Cards = database.GetProperties();
+
         }
     }
 }
