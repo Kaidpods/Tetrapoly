@@ -214,6 +214,19 @@ namespace TetraPolyGame
             return _CardsOwend;
         }
         // get a Chance Communities card
-        publicL
+        public List<chanceCommunities> GetchanceCommunitiesOwend()
+        {
+            return _chanceCommunitiesOwend;
+        }
+        public void AddchanceCommunitiesOwend(chanceCommunities chance)
+        {
+            _chanceCommunitiesOwend.Add(chance);
+        }
+        public List<chanceCommunities> removechanceCommunitiesOwend(int i)
+        {
+            chanceCommunities chance=_chanceCommunitiesOwend[i];
+            _chanceCommunitiesOwend.Remove(chance);
+            return chance;
+        }
     }
 }
