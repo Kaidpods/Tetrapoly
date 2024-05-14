@@ -12,16 +12,14 @@ namespace TetraPolyGame
     {
         private int numberOfHouses;
         private string colour; // e.g., "Brown," "Blue," etc.
-        private int position;
         private int[] houseRent;
 
         public Property(string name, int position, int price, int rent, int[] houseRent, Player owned, bool mortgaged,
                         int mortgagePrice, int mortgageCost, int numberOfHouses, string colour)
-            : base(name, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
+            : base(name, position, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
         {
             this.numberOfHouses = numberOfHouses;
             this.colour = colour;
-            this.position = position;
             this.houseRent = houseRent;
         }
 
@@ -47,11 +45,7 @@ namespace TetraPolyGame
             // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
             return base.GetRent();
         }
-        
-        private int GetPosition()
-        {
-            return position;
-        }
+       
 
         public override void UpdateRent()
         {

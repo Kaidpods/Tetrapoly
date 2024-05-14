@@ -10,17 +10,20 @@ namespace TetraPolyGame
     public abstract class Card
     {
         private string name;
+        private int position;
         private int price;
         private int rent;
         private Player owned;
         private bool mortgaged;
         private int mortgagePrice;
         private int mortgageCost;
+        
 
-        public Card(string name, int price, int rent, Player owned, bool mortgaged,
+        public Card(string name, int position, int price, int rent, Player owned, bool mortgaged,
                     int mortgagePrice, int mortgageCost)
         {
             this.name = name;
+            this.position = position;
             this.price = price;
             this.rent = rent;
             this.owned = owned;
@@ -76,6 +79,11 @@ namespace TetraPolyGame
         public int GetMortgagePrice()
         {
             return mortgageCost;
+        }
+
+        private int GetPosition()
+        {
+            return position;
         }
 
         public virtual string ToString()
