@@ -12,7 +12,7 @@ namespace TetraPolyGame
         protected string _Name;
         protected int _Money;
         protected int _Position;
-        protected List<Object> _CardsOwend;
+        protected List<Card> _CardsOwend = [];
         //this is the constroctor for the Player
         public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail)
         {
@@ -39,16 +39,16 @@ namespace TetraPolyGame
             return t;
         }
         // it add a hous
-        public void AddHouse(Property pro, int whichpro)
+        public void AddHouse(Property pro)
         {
-            pro.AddHouse(whichpro);
+            pro.AddHouse();
         }
         // it remove a hous
         public void RemoveHouse(Property pro, int whichpro,int mnyhosetoremove)
         {
             for(int x=0;x!= mnyhosetoremove;x++) 
             {
-                pro[whichpro].RemoveHouse();
+                pro.RemoveHouse(mnyhosetoremove);
             }
         }
         // it buy a card
@@ -64,16 +64,23 @@ namespace TetraPolyGame
         // it mortgage a card
         public void MortgageCard(Card card)
         {
-            card.setIsMortageged(true);
-            int mor = card.GetMortgagePrice();
-            addMoney(mor);
+            if (card.IsMortgaged() == false)
+            {
+                card.ToggleMorgaged();
+                int mor = card.GetMortgagePrice();
+                addMoney(mor);
+            }
+            
         }
         // it onmortgage a card
         public void OnMortgageCard(Card card)
         {
-            int mor = card.GetMortgageCost();
-            LoseMoney(mor);
-            card.setIsMortageged(false);
+            if (card.IsMortgaged() == true)
+            {
+                int mor = card.GetMortgagePrice();
+                LoseMoney(mor);
+                card.ToggleMorgaged();
+            }
         }
         // get a random nummber between 1 and 6
         public int RollDice()
@@ -162,7 +169,7 @@ namespace TetraPolyGame
             int total = 0;
             while (_CardsOwend[count]!=null) 
             {
-                if (_CardsOwend[count] is Card && _CardsOwend[count].GetIsMortageged() == false)
+                if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == false)
                 {
                     total=_CardsOwend[count].GetMortgagePrice(); 
                 }
@@ -207,7 +214,7 @@ namespace TetraPolyGame
             return _Money;
         }
         // get a Cards
-        public List<Object> GetCards()
+        public List<Card> GetCards()
         {
             return _CardsOwend;
         }

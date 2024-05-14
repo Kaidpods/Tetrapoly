@@ -15,7 +15,7 @@ namespace TetraPolyGame
         private int position;
         private int[] houseRent;
 
-        public Property(string name, int position, int price, int rent, int[] houseRent, Player owned, bool mortgaged,
+        public Property(string name, int position, int price, int rent, int[] houseRent, Player_dupe owned, bool mortgaged,
                         int mortgagePrice, int mortgageCost, int numberOfHouses, string colour)
             : base(name, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
         {
@@ -35,7 +35,7 @@ namespace TetraPolyGame
             numberOfHouses++;
         }
 
-        public void RemoveHouse()
+        public void RemoveHouse(int HouseAmount)
         {
 
             numberOfHouses--;

@@ -12,12 +12,12 @@ namespace TetraPolyGame
         private string name;
         private int price;
         private int rent;
-        private Player owned;
+        private Player_dupe owned;
         private bool mortgaged;
         private int mortgagePrice;
         private int mortgageCost;
 
-        public Card(string name, int price, int rent, Player owned, bool mortgaged,
+        public Card(string name, int price, int rent, Player_dupe owned, bool mortgaged,
                     int mortgagePrice, int mortgageCost)
         {
             this.name = name;
@@ -28,7 +28,7 @@ namespace TetraPolyGame
             this.mortgagePrice = mortgagePrice;
             this.mortgageCost = mortgageCost;
         }
-        public void ToggleOwnership(Player WhoBought)
+        public void ToggleOwnership(Player_dupe WhoBought)
         {
             owned = WhoBought;
         }
@@ -45,6 +45,11 @@ namespace TetraPolyGame
             return rent;
         }
 
+        public virtual int GetPrice()
+        {
+            return price;
+        }
+
         public virtual void SetRent(int RentToSet)
         {
             // Implement your rent calculation logic here
@@ -58,7 +63,7 @@ namespace TetraPolyGame
             // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
         }
 
-        public Player IsOwned()
+        public Player_dupe IsOwned()
         {
             return owned;
         }
@@ -66,6 +71,11 @@ namespace TetraPolyGame
         public bool IsMortgaged()
         {
             return mortgaged;
+        }
+
+        public int GetMortgagePrice()
+        {
+            return mortgageCost;
         }
 
         public virtual string ToString()
