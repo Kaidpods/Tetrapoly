@@ -5,8 +5,6 @@ namespace TetraPolyGame
 {
     public class Player
     { 
-
-
 	    protected bool _IsAilve;
         protected bool _InJail;
         protected string _Name;
@@ -14,14 +12,14 @@ namespace TetraPolyGame
         protected int _Position;
         protected List<Card> _CardsOwend = [];
         //this is the constroctor for the Player
-        public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail)
+        public Player(string name, int money, int position, Card cardowend)
         {
             _Name = name;
             _Money = money;
             _Position = position;
             _CardsOwend.Add(cardowend);
-            _IsAilve = isailve;
-            _InJail = injail;    
+            _IsAilve = true;
+            _InJail = false;    
         }
         //check a is the card 
         public bool CheckSet(Card check)

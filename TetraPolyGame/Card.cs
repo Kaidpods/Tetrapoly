@@ -12,12 +12,12 @@ namespace TetraPolyGame
         private string name;
         private int price;
         private int rent;
-        private Player_dupe owned;
+        private Player owned;
         private bool mortgaged;
         private int mortgagePrice;
         private int mortgageCost;
 
-        public Card(string name, int price, int rent, Player_dupe owned, bool mortgaged,
+        public Card(string name, int price, int rent, Player owned, bool mortgaged,
                     int mortgagePrice, int mortgageCost)
         {
             this.name = name;
@@ -28,7 +28,7 @@ namespace TetraPolyGame
             this.mortgagePrice = mortgagePrice;
             this.mortgageCost = mortgageCost;
         }
-        public void ToggleOwnership(Player_dupe WhoBought)
+        public void ToggleOwnership(Player WhoBought)
         {
             owned = WhoBought;
         }
@@ -63,7 +63,7 @@ namespace TetraPolyGame
             // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
         }
 
-        public Player_dupe IsOwned()
+        public Player IsOwned()
         {
             return owned;
         }
