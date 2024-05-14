@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Channels;
 using System.Windows.Automation.Peers;
 namespace TetraPolyGame
 {
@@ -15,11 +16,11 @@ namespace TetraPolyGame
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
-        public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail,ChanceCommunity chanceCommunityOwend)
+        public Player(string name, int money, Card cardowend, bool isailve, bool injail,ChanceCommunity chanceCommunityOwend)
         {
             _Name = name;
             _Money = money;
-            _Position = position;
+            _Position = 0;
             _CardsOwend.Add(cardowend);
             _IsAilve = isailve;
             _InJail = injail;    
@@ -41,16 +42,16 @@ namespace TetraPolyGame
             return t;
         }
         // it add a hous
-        public void AddHouse(Property pro, int whichpro)
+        public void AddHouse(Property pro)
         {
-            pro.AddHouse(whichpro);
+            pro.AddHouse();
         }
         // it remove a hous
-        public void RemoveHouse(Property pro, int whichpro,int mnyhosetoremove)
+        public void removeHouse(Property pro,int mnyhosetoremove)
         {
             for(int x=0;x!= mnyhosetoremove;x++) 
             {
-                pro[whichpro].RemoveHouse();
+                pro.RemoveHouse();
             }
         }
         // it buy a card
@@ -203,6 +204,16 @@ namespace TetraPolyGame
         {
             return _IsAilve;
         }
+        // set Ailve
+        public void SetAilve(bool B)
+        {
+            _IsAilve = B;
+        }
+        // get is in Jail
+        public bool GetInJail()
+        {
+            return _InJail;
+        }
         // get a money
         public int Getmoney()
         {
@@ -218,10 +229,12 @@ namespace TetraPolyGame
         {
             return _chanceCommunitiesOwend;
         }
+        // add a Chance Communities card
         public void AddchanceCommunitiesOwend(chanceCommunities chance)
         {
             _chanceCommunitiesOwend.Add(chance);
         }
+        // remove a Chance Communities card
         public List<chanceCommunities> removechanceCommunitiesOwend(int i)
         {
             chanceCommunities chance=_chanceCommunitiesOwend[i];

@@ -39,6 +39,11 @@ namespace TetraPolyGame
             numberOfHouses--;
         }
 
+        public string GetColour()
+        {
+            return colour;
+        }
+
         public override int GetRent()
         {
             // Implement logic to calculate and set the rent based on house count and other factors
