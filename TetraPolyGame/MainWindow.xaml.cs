@@ -24,11 +24,52 @@ namespace TetraPolyGame
         private MSSQLdataAccess database = new();
         private List<Card> Cards = new();
         protected List<Player> Players = new();
+        private int truncount = 0;
         public MainWindow()
         {
             InitializeComponent();
             Cards = database.GetProperties();
 
+        }
+        public void setPlayers(Player p)
+        {
+            Players.Add(p);
+        }
+        public void turnorder()
+        {
+            bool t=true;
+            while (t == true)
+            {
+                if (Players[truncount] == null)
+                {
+                    truncount = 0;
+                }
+                Players[truncount].MovePlayer();
+                checkposition(truncount);
+                t=Onlyoneleft();
+                truncount = truncount + 1;
+            }
+        }
+        public bool Onlyoneleft()
+        {
+            bool b = true;
+            int c = 0;
+            int count = 0;
+            while (Players[c] == null)
+            {
+                if (Players[c].GetAilve() == true)
+                {
+                    count=count + 1;
+                }
+            }
+            if(count < 2)
+            {
+                b= false;
+            }else if (count > 1)
+            {
+                b=true;
+            }
+            return b;
         }
         public void checkposition(int turn)
         {
@@ -122,7 +163,19 @@ namespace TetraPolyGame
                         {
                             Players[turn].buy(true, Cards[count]);
                         }
-                         
+                        if ((Players[turn].GetPosition()==2)||(Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                        {
+                            Community.getcard();
+                        }
+                        if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
+                        {
+                            Chance.getcard();
+                        }
+                        if (Players[turn].GetPosition() == 30)
+                        {
+                            Players[turn].SetInJaile(true);
+                            Players[turn].setPosition(-1);
+                        }
                     }
                     t=false; 
                 }

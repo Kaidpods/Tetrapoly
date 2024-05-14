@@ -199,6 +199,11 @@ namespace TetraPolyGame
         {
             return _Position;
         }
+        //set the position
+        public void setPosition(int position) 
+        {
+            _Position = position;
+        }
         // get a Ailve
         public bool GetAilve()
         {
@@ -213,6 +218,11 @@ namespace TetraPolyGame
         public bool GetInJail()
         {
             return _InJail;
+        }
+        // set a  in jail
+        public void SetInJaile(bool b)
+        {
+            _InJail = b;
         }
         // get a money
         public int Getmoney()
