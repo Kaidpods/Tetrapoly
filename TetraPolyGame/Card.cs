@@ -81,7 +81,7 @@ namespace TetraPolyGame
             return mortgageCost;
         }
 
-        private int GetPosition()
+        public int GetPosition()
         {
             return position;
         }

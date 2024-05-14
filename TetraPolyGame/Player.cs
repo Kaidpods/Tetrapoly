@@ -12,7 +12,7 @@ namespace TetraPolyGame
         protected bool _InJail;
         protected string _Name;
         protected int _Money;
-        protected int _Positio;
+        protected int _Position;
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
@@ -47,7 +47,7 @@ namespace TetraPolyGame
             pro.AddHouse();
         }
         // it remove a hous
-        public void RemoveHouse(Property pro,int mnyhosetoremove)
+        public void removeHouse(Property pro,int mnyhosetoremove)
         {
             for(int x=0;x!= mnyhosetoremove;x++) 
             {
