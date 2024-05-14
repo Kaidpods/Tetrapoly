@@ -1,86 +1,215 @@
 ﻿using System;
-
-public class Player
+using System.ComponentModel.DataAnnotations;
+using System.Windows.Automation.Peers;
+namespace TetraPolyGame
 {
-	public Player()
-	{
-        protected bool _IsAilve;
+    public class Player
+    { 
+
+
+	    protected bool _IsAilve;
         protected bool _InJail;
-        protected bool _IsBankrupt;
         protected string _Name;
         protected int _Money;
         protected int _Position;
-        protected List<card> _CardsOwend;
-        public Player(bool isialve, string name, int money, int position, int cardowend, bool isailve, bool injail,bool isbankrupt)
+        protected List<Object> _CardsOwend;
+        //this is the constroctor for the Player
+        public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail)
         {
-            _IsAilve = isailve;
             _Name = name;
             _Money = money;
             _Position = position;
             _CardsOwend.Add(cardowend);
             _IsAilve = isailve;
-            _InJail =injail;
-            _IsBankrupt=isbankrupt;
+            _InJail = injail;    
         }
-        public bool CheckSet(card check)
+        //check a is the card 
+        public bool CheckSet(Card check)
         {
-            bool t=false;
-            if(check == _CardsOwend)
+            bool t = false;
+            int count = 0;
+            while (_CardsOwend[count] != null)
             {
-                t= true;
-            }
+                if (_CardsOwend[count] is Card && _CardsOwend[count]== check)
+                {
+                    t = true;
+                }
+                count = count + 1;
+            }           
             return t;
         }
-        public void AddHouse(property pro,int whichpro) {
-            _CardsOwend[whichpro].Porperty(pro);
-        }
-        public int RemoveHouse(property pro, int whichpro)
+        // it add a hous
+        public void AddHouse(Property pro, int whichpro)
         {
-            _CardsOwend[whichpro].Property(pro);
+            pro.AddHouse(whichpro);
         }
-        public void byCard(card CARD)
+        // it remove a hous
+        public void RemoveHouse(Property pro, int whichpro,int mnyhosetoremove)
         {
-            _CardsOwend.Add(CARD);            
+            for(int x=0;x!= mnyhosetoremove;x++) 
+            {
+                pro[whichpro].RemoveHouse();
+            }
         }
-        public void SellCard(card CARD)
+        // it buy a card
+        public void byCard(Card CARD)
+        {
+            _CardsOwend.Add(CARD);
+        }
+        // it sell a card
+        public void SellCard(Card CARD)
         {
             _CardsOwend.Remove(CARD);
         }
-        public void MortgageCard(card  card)
-        { 
-        
+        // it mortgage a card
+        public void MortgageCard(Card card)
+        {
+            card.setIsMortageged(true);
+            int mor = card.GetMortgagePrice();
+            addMoney(mor);
         }
+        // it onmortgage a card
+        public void OnMortgageCard(Card card)
+        {
+            int mor = card.GetMortgageCost();
+            LoseMoney(mor);
+            card.setIsMortageged(false);
+        }
+        // get a random nummber between 1 and 6
         public int RollDice()
         {
+            Random d = new Random();
+            int dn=d.Next(1,6);
+            return dn;
+        }
+        //it move the player
+        virtual public void MovePlayer()
+        {
+            if (_IsAilve == true)
+            {
+                if (_InJail == false)
+                {
+                    int count = 0;
+                    bool b = true;
+                    while (b = true)
+                    {
+                        int move = RollDice();
+                        int move2 = RollDice();
+                        _Position = _Position + move + move2;
+                        if (move2 == move)
+                        {
+                            count = count + 1;
+                            if (count != 3)
+                            {
+                                b = true;
+                            }
+                            else
+                            {
+                                _Position = -1;
+                                _InJail = true;
+                                b = false;
+                            }
+                        }
+                        else
+                        {
+                            b=false;
+                        }
+                    }
+                }
+                if (_InJail == true)
+                {
+                    int r1 = RollDice();
+                    int r2 = RollDice();
+                    if (r1 == r2)
+                    {
+                        _InJail = false;
+                        _Position = 9;
+                    }
+                }
+            }
+        }
+        // buy a card
+        virtual public void buy(bool chois,Card gc)
+        {
+            if (chois==true)
+            { 
+                int se = gc.GetPrice();
+                LoseMoney(se);
+                byCard(gc);
+            }
 
         }
-        public void MovePlayer()
+        //player the lose money
+        virtual public void LoseMoney(int money)
         {
-            
+            _Money = _Money - money;
+            if(_Money > 0){
+                bool b=checktotalmorgag();
+                if (b==true) 
+                {
+                    asktomortgage();
+                }
+                if (b==false)
+                {
+                    _IsAilve=false;
+                }
+            }
         }
-        public void LoseMoney(int money)
+        //can the player be save if the player morgage a property
+        public bool checktotalmorgag()
         {
-            
+            int count = 0;
+            int total = 0;
+            while (_CardsOwend[count]!=null) 
+            {
+                if (_CardsOwend[count] is Card && _CardsOwend[count].GetIsMortageged() == false)
+                {
+                    total=_CardsOwend[count].GetMortgagePrice(); 
+                }
+               
+                count =count + 1;
+            }
+            if (total >= (_Money * -1))
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
         }
+        //add money
         public void addMoney(int money)
         {
-
+            _Money += money;
         }
+        //when you go pass go
         public void PassedGo()
         {
-            
+            if (_Position <= 40)
+            {
+                _Position = _Position - 40;
+                addMoney(200);
+            }
         }
-        public int CheckPosition()
+        // get a Position
+        public int GetPosition()
         {
-            
+            return _Position;
         }
-        public bool CheckBankrupt()
+        // get a Ailve
+        public bool GetAilve()
         {
-            
+            return _IsAilve;
         }
-        public bool CheckAilve()
+        // get a money
+        public int Getmoney()
         {
-            
+            return _Money;
+        }
+        // get a Cards
+        public List<Object> GetCards()
+        {
+            return _CardsOwend;
         }
     }
 }
