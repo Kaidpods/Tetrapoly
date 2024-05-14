@@ -12,7 +12,7 @@ namespace TetraPolyGame
         protected bool _InJail;
         protected string _Name;
         protected int _Money;
-        protected int _Position;
+        protected int _Positio;
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
