@@ -12,9 +12,10 @@ namespace TetraPolyGame
         protected string _Name;
         protected int _Money;
         protected int _Position;
-        protected List<Object> _CardsOwend;
+        protected List<Card> _CardsOwend;
+        protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
-        public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail)
+        public Player(string name, int money, int position, Card cardowend, bool isailve, bool injail,ChanceCommunity chanceCommunityOwend)
         {
             _Name = name;
             _Money = money;
@@ -22,6 +23,7 @@ namespace TetraPolyGame
             _CardsOwend.Add(cardowend);
             _IsAilve = isailve;
             _InJail = injail;    
+            _chanceCommunitiesOwend=chanceCommunityOwend;
         }
         //check a is the card 
         public bool CheckSet(Card check)
@@ -207,9 +209,11 @@ namespace TetraPolyGame
             return _Money;
         }
         // get a Cards
-        public List<Object> GetCards()
+        public List<Card> GetCards()
         {
             return _CardsOwend;
         }
+        // get a Chance Communities card
+        publicL
     }
 }
