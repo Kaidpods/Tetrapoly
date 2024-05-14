@@ -67,6 +67,18 @@ namespace TetraPolyGame
         {
             return mortgaged;
         }
+
+        public virtual string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append(name +", ");
+            sb.Append(price +", ");
+            sb.Append(rent + ", ");
+            sb.Append(mortgageCost + ", ");
+            sb.Append(mortgagePrice);
+
+            return sb.ToString();
+        }
     }
 
 }

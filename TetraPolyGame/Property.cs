@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TetraPolyGame
 {
@@ -11,14 +13,16 @@ namespace TetraPolyGame
         private int numberOfHouses;
         private string colour; // e.g., "Brown," "Blue," etc.
         private int position;
+        private int[] houseRent;
 
-        public Property(string name, int position, int price, int rent, Player owned, bool mortgaged,
+        public Property(string name, int position, int price, int rent, int[] houseRent, Player owned, bool mortgaged,
                         int mortgagePrice, int mortgageCost, int numberOfHouses, string colour)
             : base(name, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
         {
             this.numberOfHouses = numberOfHouses;
             this.colour = colour;
             this.position = position;
+            this.houseRent = houseRent;
         }
 
         public int GetHouseCount()
@@ -28,9 +32,13 @@ namespace TetraPolyGame
 
         public void AddHouse()
         {
-            // Implement logic to add a house to the property
-            // Example: numberOfHouses++;
             numberOfHouses++;
+        }
+
+        public void RemoveHouse()
+        {
+
+            numberOfHouses--;
         }
 
         public override int GetRent()
@@ -47,40 +55,22 @@ namespace TetraPolyGame
 
         public override void UpdateRent()
         {
-            int CurrentRent = GetRent();
+            SetRent(houseRent[numberOfHouses]);
+        }
 
-            int houses = GetHouseCount();
-            if (houses != 0)
-            {
-                switch (colour)
-                {
-                    case "BROWN":
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append(base.ToString());
+            sb.Append("[" + houseRent[1] +", ");
+            sb.Append(houseRent[2] + ", ");
+            sb.Append(houseRent[3] + ", ");
+            sb.Append(houseRent[4] + ", ");
+            sb.Append(houseRent[5] + "]");
+            sb.Append(", " + colour);
+            sb.Append(", " + position);
 
-                        break;
-                    case "LBLUE":
-
-                        break;
-                    case "PINK":
-
-                        break;
-                    case "ORANGE":
-
-                        break;
-                    case "RED":
-
-                        break;
-                    case "YELLOW":
-
-                        break;
-                    case "GREEN":
-
-                        break;
-                    case "DBLUE":
-
-                        break;
-
-                }
-            }
+            return sb.ToString();
         }
     }
 }

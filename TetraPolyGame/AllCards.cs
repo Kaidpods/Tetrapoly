@@ -10,9 +10,7 @@ namespace TetraPolyGame
     {
         public AllCards()
         {
-            Property card = new Property();
 
-            card.UpdateRent()
         }
     }
 }

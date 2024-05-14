@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using 
 
 namespace TetraPolyGame
 {
@@ -18,9 +17,13 @@ namespace TetraPolyGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MSSQLdataAccess database = new();
+        private List<Card> Cards = new();
         public MainWindow()
         {
             InitializeComponent();
+            Cards = database.GetProperties();
+
         }
     }
 }

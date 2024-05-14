@@ -1,117 +1,67 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text;
+using System.Windows;
 
 namespace TetraPolyGame
 {
-    internal class MSSQLdataAccess
+    public class MSSQLdataAccess
     {
         private readonly string _SQLconnectionStrng;
 
         public MSSQLdataAccess()
         {
-            _SQLconnectionStrng = "Data Source=kaidenserver.database.windows.net;Initial Catalog=PublicQuestions;User ID=ReadOnly;Connect Timeout=60;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            _SQLconnectionStrng = "Data Source=kaidenserver.database.windows.net;Initial Catalog=PublicQuestions;User ID=ReadOnly;Password=Reading123;Connect Timeout=60;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
-        public List<Object> GetCards()
+        public List<Card> GetProperties()
         {
-            List<Object> cards = new List<Object>();
+            List<Card> properties = [];
             try
             {
                 using (SqlConnection conn = new SqlConnection(_SQLconnectionStrng))
                 {
                     conn.Open();
-                    SqlCommand command = new SqlCommand("SELECT * FROM dbo.PropCards", conn);
+                    SqlCommand command = new SqlCommand("SELECT * FROM dbo.PropertyCards", conn);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            switch (reader.GetInt32(0))
+                            if (properties.Count == 9)
                             {
-                                case 1:
-                                    Question newQ = new TextQuestion(reader.GetString(1), reader.GetString(2), reader.GetInt32(3));
-                                    cards.Add(newQ);
-                                    break;
-
-                                case 2:
-                                    TrueFalseQuestion newTFQ = new TrueFalseQuestion(reader.GetString(1), bool.Parse(reader.GetString(2)), reader.GetInt32(3));
-                                    cards.Add(newTFQ);
-                                    break;
-
-                                case 3:
-                                    string line = reader.GetString(4);
-
-                                    List<string> options = line.Split(";").ToList();
-
-                                    MultipleChoiceQuestion newMQ = new MultipleChoiceQuestion(reader.GetString(1), reader.GetString(2), options, reader.GetInt32(3));
-                                    cards.Add(newMQ);
-                                    break;
+                                MessageBox.Show("Wait");
                             }
-                            //cards.Add(new Question(reader.GetString(1), reader.GetString(2), reader.GetInt32(3)));
+                            int[] houseRents = new int[6];
+                            // Read data from each row and create card objects
+                            string name = reader.GetString(0);
+                            int position = reader.GetInt32(2);
+                            int price = reader.GetInt32(3);
+                            int rent = reader.GetInt32(4);
+                            houseRents[0] = reader.GetInt32(4);
+                            houseRents[1] = reader.GetInt32(5);
+                            houseRents[2] = reader.GetInt32(6);
+                            houseRents[3] = reader.GetInt32(7);
+                            houseRents[4] = reader.GetInt32(8);
+                            houseRents[5] = reader.GetInt32(9);
+                            int mortgagePrice = reader.GetInt32(10);
+                            int mortgageCost = reader.GetInt32(11);
+                            int numHouses = reader.GetInt32(12);
+                            string colour = reader.GetString(13);
+                            // Other relevant columns can be retrieved similarly
+
+                            Property tempProp = new Property(name, position,price, rent, houseRents, null, false, mortgagePrice, mortgageCost, numHouses, colour);
+                            properties.Add(tempProp);
+
+
                         }
                     }
                 }
             }
             catch
             {
-                throw new Exception("Unable to retrieve cards!");
+                throw new Exception("Unable to retrieve property cards!");
             }
-            return cards;
-        }
-
-        public void InsertQuestionIntoDB(int QType, string question, string answer, int value, string[] options)
-        {
-            string sql = "";
-            StringBuilder sb = new StringBuilder();
-            if (QType == 0)
-            {
-                sql = "INSERT INTO [dbo].[publicquestion] ([type], [question], [answer], [value], [multichoice]) VALUES (1, N'" + question + "', N'" + answer + "', " + value + ", NULL)";
-            }
-            else if (QType == 1)
-            {
-                sql = "INSERT INTO [dbo].[publicquestion] ([type], [question], [answer], [value], [multichoice]) VALUES (2, N'" + question + "', N'" + answer + "', " + value + ", NULL)";
-            }
-            else if (QType == 2)
-            {
-                sb.Append("INSERT INTO [dbo].[publicquestion] ([type], [question], [answer], [value], [multichoice]) VALUES (3, N'" + question + "', N'" + answer + "', " + value + ", N'");
-
-                foreach (string option in options)
-                {
-                    sb.Append(option + ";");
-                }
-                sb.Remove(sb.Length, 1);
-                sb.Append("')");
-                sql = sb.ToString();
-                MessageBox.Show(sql);
-            }
-            using (SqlConnection cnn = new SqlConnection(_SQLconnectionStrng))
-            {
-                try
-                {
-                    // Open the connection to the database.
-                    // This is the first critical step in the process.
-                    // If we cannot reach the db then we have connectivity problems
-                    cnn.Open();
-
-                    // Prepare the command to be executed on the db
-                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
-                    {
-                        // Let's ask the db to execute the query
-                        int rowsAdded = cmd.ExecuteNonQuery();
-                        if (rowsAdded > 0)
-                            MessageBox.Show("Row inserted!!");
-                        else
-                            // Well this should never really happen
-                            MessageBox.Show("No row inserted");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // We should log the error somewhere,
-                    // for this example let's just show a message
-                    MessageBox.Show("ERROR:" + ex.Message);
-                }
-            }
+            return properties;
         }
     }
 }
