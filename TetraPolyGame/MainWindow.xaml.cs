@@ -24,11 +24,52 @@ namespace TetraPolyGame
         private MSSQLdataAccess database = new();
         private List<Card> Cards = new();
         protected List<Player> Players = new();
+        private int truncount = 0;
         public MainWindow()
         {
             InitializeComponent();
             Cards = database.GetProperties();
 
+        }
+        public void setPlayers(Player p)
+        {
+            Players.Add(p);
+        }
+        public void turnorder()
+        {
+            bool t=true;
+            while (t == true)
+            {
+                if (Players[truncount] == null)
+                {
+                    truncount = 0;
+                }
+                Players[truncount].MovePlayer();
+                checkposition(truncount);
+                t=Onlyoneleft();
+                truncount = truncount + 1;
+            }
+        }
+        public bool Onlyoneleft()
+        {
+            bool b = true;
+            int c = 0;
+            int count = 0;
+            while (Players[c] == null)
+            {
+                if (Players[c].GetAilve() == true)
+                {
+                    count=count + 1;
+                }
+            }
+            if(count < 2)
+            {
+                b= false;
+            }else if (count > 1)
+            {
+                b=true;
+            }
+            return b;
         }
         public void checkposition(int turn)
         {
@@ -122,13 +163,196 @@ namespace TetraPolyGame
                         {
                             Players[turn].buy(true, Cards[count]);
                         }
-                         
+                        if ((Players[turn].GetPosition()==2)||(Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                        {
+                            Community.getcard();
+                        }
+                        if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
+                        {
+                            Chance.getcard();
+                        }
+                        if (Players[turn].GetPosition() == 30)
+                        {
+                            Players[turn].SetInJaile(true);
+                            Players[turn].setPosition(-1);
+                        }
                     }
                     t=false; 
                 }
                 count=count + 1;
             }
         }
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            turnorder();
+        }
+        public void settokin()
+        {
+            int mp = Players[truncount].GetPosition();
+            if (mp == 0)
+            {
+
+            }
+            if (mp == 1)
+            {
+
+            }
+            if (mp == 2)
+            {
+
+            }
+            if (mp == 3)
+            {
+
+            }
+            if (mp == 4)
+            {
+
+            }
+            if (mp == 5)
+            {
+
+            }
+            if (mp == 6)
+            {
+
+            }
+            if (mp == 7)
+            {
+
+            }
+            if (mp == 8)
+            {
+
+            }
+            if (mp == 9)
+            {
+
+            }
+            if (mp == 10)
+            {
+
+            }
+            if (mp == 11)
+            {
+
+            }
+            if (mp == 12)
+            {
+
+            }
+            if (mp == 13)
+            {
+
+            }
+            if (mp == 14)
+            {
+
+            }
+            if (mp == 15)
+            {
+
+            }
+            if (mp == 16)
+            {
+
+            }
+            if (mp == 17)
+            {
+
+            }
+            if (mp == 18)
+            {
+
+            }
+            if (mp == 19)
+            {
+
+            }
+            if (mp == 20)
+            {
+
+            }
+            if (mp == 21)
+            {
+
+            }
+            if (mp == 22)
+            {
+
+            }
+            if (mp == 23)
+            {
+
+            }
+            if (mp == 24)
+            {
+
+            }
+            if (mp == 25)
+            {
+
+            }
+            if (mp == 26)
+            {
+
+            }
+            if (mp == 27)
+            {
+
+            }
+            if (mp == 28)
+            {
+
+            }
+            if (mp == 29)
+            {
+
+            }
+            if (mp == 30)
+            {
+
+            }
+            if (mp == 31)
+            {
+
+            }
+            if (mp == 32)
+            {
+
+            }
+            if (mp == 33)
+            {
+
+            }
+            if (mp == 34)
+            {
+
+            }
+            if (mp == 35)
+            {
+
+            }
+            if (mp == 36)
+            {
+
+            }
+            if (mp == 37)
+            {
+
+            }
+            if (mp == 38)
+            {
+
+            }
+            if (mp == 39)
+            {
+
+            }
+            if (mp == -1)
+            {
+
+            }
+        }
     }
 }

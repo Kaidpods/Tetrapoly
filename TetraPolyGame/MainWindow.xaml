@@ -48,5 +48,6 @@
         <Rectangle Name="pos38" HorizontalAlignment="Left" Height="60" Margin="0,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
         <Rectangle Name="pos39" HorizontalAlignment="Left" Height="60" Margin="0,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
         <Rectangle Name="posJail" HorizontalAlignment="Left" Height="60" Margin="630,637,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
+        <Button Content="roll dice" HorizontalAlignment="Left" Margin="170,702,0,0" VerticalAlignment="Top" Height="60" Width="340" Click="Button_Click"/>
     </Grid>
 </Window>
