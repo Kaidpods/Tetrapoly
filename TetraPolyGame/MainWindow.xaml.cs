@@ -5,14 +5,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using MessageBox = System.Windows.Forms.MessageBox;
+
 
 namespace TetraPolyGame
 {
@@ -21,14 +19,21 @@ namespace TetraPolyGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static AllCards cards = AllCards.Instance;
         private MSSQLdataAccess database = new();
         private List<Card> Cards = new();
         protected List<Player> Players = new();
         private int truncount = 0;
         public MainWindow()
         {
+            //If you want to add player via the eclipse icons
+            List<UIElement> players = [];
+
+            //players.Add(TestPlayer);
+
             InitializeComponent();
             Cards = database.GetProperties();
+            MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
 
         }
         public void setPlayers(Player p)
@@ -37,7 +42,7 @@ namespace TetraPolyGame
         }
         public void turnorder()
         {
-            bool t=true;
+            bool t = true;
             while (t == true)
             {
                 if (Players[truncount] == null)
@@ -46,7 +51,7 @@ namespace TetraPolyGame
                 }
                 Players[truncount].MovePlayer();
                 checkposition(truncount);
-                t=Onlyoneleft();
+                t = Onlyoneleft();
                 truncount = truncount + 1;
             }
         }
@@ -59,29 +64,30 @@ namespace TetraPolyGame
             {
                 if (Players[c].GetAilve() == true)
                 {
-                    count=count + 1;
+                    count = count + 1;
                 }
             }
-            if(count < 2)
+            if (count < 2)
             {
-                b= false;
-            }else if (count > 1)
+                b = false;
+            }
+            else if (count > 1)
             {
-                b=true;
+                b = true;
             }
             return b;
         }
         public void checkposition(int turn)
         {
-            bool t=true;
+            bool t = true;
             int count = 0;
-            int pos=Players[turn].GetPosition();
-            while (t==true) 
+            int pos = Players[turn].GetPosition();
+            while (t == true)
             {
                 if (pos == Cards[count].GetPosition())
                 {
                     int cut = 0;
-                    while (Players[cut]!=null)
+                    while (Players[cut] != null)
                     {
                         bool onby = Players[cut].CheckSet(Cards[count]);
                         if (onby == true)
@@ -92,11 +98,11 @@ namespace TetraPolyGame
                                 Players[cut].addMoney(r);
                                 Players[turn].LoseMoney(r);
                             }
-                            if ((Players[cut] == Players[turn]) && (Cards[count]is Property) && (Players[cut] is not algorithm))
+                            if ((Players[cut] == Players[turn]) && (Cards[count] is Property) && (Players[cut] is not algorithm))
                             {
                                 Property tempProp = Cards[count] as Property;
-                                DialogResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButtons.YesNo);
-                                if (result == System.Windows.Forms.DialogResult.Yes)
+                                MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
+                                if (result == MessageBoxResult.Yes)
                                 {
                                     int cost = 0;
                                     switch (tempProp.GetColour())
@@ -119,8 +125,8 @@ namespace TetraPolyGame
                                     Players[cut].AddHouse(pro);
                                 }
                             }
-                            else if((Players[cut] == Players[turn]) && (Cards[count] is Property))
-                            { 
+                            else if ((Players[cut] == Players[turn]) && (Cards[count] is Property))
+                            {
                                 Property tempProp = Cards[count] as Property;
                                 int cost = 0;
                                 switch (tempProp.GetColour())
@@ -145,13 +151,13 @@ namespace TetraPolyGame
                         }
                         cut = cut + 1;
                     }
-                    
+
                     if (null == Cards[count].IsOwned)
                     {
                         if ((Cards[count] is Property) || (Cards[count] is Transport) || (Cards[count] is Utility) && (Players[cut] is not algorithm))
                         {
-                            DialogResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButtons.YesNo);
-                            if (result == System.Windows.Forms.DialogResult.Yes)
+                            MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
+                            if (result == MessageBoxResult.Yes)
                             {
                                 Players[turn].buy(true, Cards[count]);
                             }
@@ -159,13 +165,14 @@ namespace TetraPolyGame
                             {
                                 Players[turn].buy(false, Cards[count]);
                             }
-                        }else if((Cards[count] is Property) || (Cards[count] is Transport) || (Cards[count] is Utility))
+                        }
+                        else if ((Cards[count] is Property) || (Cards[count] is Transport) || (Cards[count] is Utility))
                         {
                             Players[turn].buy(true, Cards[count]);
                         }
-                        if ((Players[turn].GetPosition()==2)||(Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                        if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
                         {
-                            Community.getcard();
+                            Commun.getcard();
                         }
                         if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
                         {
@@ -177,18 +184,36 @@ namespace TetraPolyGame
                             Players[turn].setPosition(-1);
                         }
                     }
-                    t=false; 
+                    t = false;
                 }
-                count=count + 1;
+                count = count + 1;
             }
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             turnorder();
         }
+
+        public void MovePlayer(UIElement e, int Position)
+        {
+            foreach (UIElement element in gameBoardGrid.Children)
+            {
+                if (element is Rectangle rectangle)
+                {
+                    if (rectangle.Name == ("pos") + Position.ToString())
+                    {
+                        Grid.SetColumn(e, Grid.GetColumn(rectangle));
+                        Grid.SetRow(e, Grid.GetRow(rectangle));
+                    }
+                }
+            }
+
+        }
         public void settokin()
         {
             int mp = Players[truncount].GetPosition();
+
             if (mp == 0)
             {
 
