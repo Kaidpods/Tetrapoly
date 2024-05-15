@@ -75,7 +75,6 @@ namespace TetraPolyGame
         {
             return mortgaged;
         }
-
         public int GetMortgagePrice()
         {
             return mortgageCost;

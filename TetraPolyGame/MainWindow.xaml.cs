@@ -182,6 +182,177 @@ namespace TetraPolyGame
                 count=count + 1;
             }
         }
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            turnorder();
+        }
+        public void settokin()
+        {
+            int mp = Players[truncount].GetPosition();
+            if (mp == 0)
+            {
+
+            }
+            if (mp == 1)
+            {
+
+            }
+            if (mp == 2)
+            {
+
+            }
+            if (mp == 3)
+            {
+
+            }
+            if (mp == 4)
+            {
+
+            }
+            if (mp == 5)
+            {
+
+            }
+            if (mp == 6)
+            {
+
+            }
+            if (mp == 7)
+            {
+
+            }
+            if (mp == 8)
+            {
+
+            }
+            if (mp == 9)
+            {
+
+            }
+            if (mp == 10)
+            {
+
+            }
+            if (mp == 11)
+            {
+
+            }
+            if (mp == 12)
+            {
+
+            }
+            if (mp == 13)
+            {
+
+            }
+            if (mp == 14)
+            {
+
+            }
+            if (mp == 15)
+            {
+
+            }
+            if (mp == 16)
+            {
+
+            }
+            if (mp == 17)
+            {
+
+            }
+            if (mp == 18)
+            {
+
+            }
+            if (mp == 19)
+            {
+
+            }
+            if (mp == 20)
+            {
+
+            }
+            if (mp == 21)
+            {
+
+            }
+            if (mp == 22)
+            {
+
+            }
+            if (mp == 23)
+            {
+
+            }
+            if (mp == 24)
+            {
+
+            }
+            if (mp == 25)
+            {
+
+            }
+            if (mp == 26)
+            {
+
+            }
+            if (mp == 27)
+            {
+
+            }
+            if (mp == 28)
+            {
+
+            }
+            if (mp == 29)
+            {
+
+            }
+            if (mp == 30)
+            {
+
+            }
+            if (mp == 31)
+            {
+
+            }
+            if (mp == 32)
+            {
+
+            }
+            if (mp == 33)
+            {
+
+            }
+            if (mp == 34)
+            {
+
+            }
+            if (mp == 35)
+            {
+
+            }
+            if (mp == 36)
+            {
+
+            }
+            if (mp == 37)
+            {
+
+            }
+            if (mp == 38)
+            {
+
+            }
+            if (mp == 39)
+            {
+
+            }
+            if (mp == -1)
+            {
+
+            }
+        }
     }
 }

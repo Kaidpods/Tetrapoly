@@ -67,16 +67,16 @@ namespace TetraPolyGame
         // it mortgage a card
         public void MortgageCard(Card card)
         {
-            card.setIsMortageged(true);
+            card.ToggleMorgaged();
             int mor = card.GetMortgagePrice();
             addMoney(mor);
         }
         // it onmortgage a card
         public void OnMortgageCard(Card card)
         {
-            int mor = card.GetMortgageCost();
+            int mor = card.GetMortgagePrice();
             LoseMoney(mor);
-            card.setIsMortageged(false);
+            card.ToggleMorgaged();
         }
         // get a random nummber between 1 and 6
         public int RollDice()
@@ -165,7 +165,7 @@ namespace TetraPolyGame
             int total = 0;
             while (_CardsOwend[count]!=null) 
             {
-                if (_CardsOwend[count] is Card && _CardsOwend[count].GetIsMortageged() == false)
+                if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == false)
                 {
                     total=_CardsOwend[count].GetMortgagePrice(); 
                 }
