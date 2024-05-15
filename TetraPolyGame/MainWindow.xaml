@@ -6,48 +6,83 @@
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
         Title="MainWindow" Height="795" Width="887" ResizeMode="NoResize">
-    <Grid Name="gameBoardGrid" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Rectangle Name="pos0" HorizontalAlignment="Left" Height="60" Margin="0,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos1" HorizontalAlignment="Left" Height="60" Margin="60,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos2" HorizontalAlignment="Left" Height="60" Margin="120,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos3" HorizontalAlignment="Left" Height="60" Margin="180,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos4" HorizontalAlignment="Left" Height="60" Margin="240,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos5" HorizontalAlignment="Left" Height="60" Margin="300,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos6" HorizontalAlignment="Left" Height="60" Margin="360,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos7" HorizontalAlignment="Left" Height="60" Margin="420,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos8" HorizontalAlignment="Left" Height="60" Margin="480,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos9" HorizontalAlignment="Left" Height="60" Margin="540,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos10" HorizontalAlignment="Left" Height="60" Margin="600,5,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos11" HorizontalAlignment="Left" Height="60" Margin="600,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos12" HorizontalAlignment="Left" Height="60" Margin="600,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos13" HorizontalAlignment="Left" Height="60" Margin="600,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos14" HorizontalAlignment="Left" Height="60" Margin="600,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos15" HorizontalAlignment="Left" Height="60" Margin="600,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos16" HorizontalAlignment="Left" Height="60" Margin="600,365,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos17" HorizontalAlignment="Left" Height="60" Margin="600,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos18" HorizontalAlignment="Left" Height="60" Margin="600,485,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos19" HorizontalAlignment="Left" Height="60" Margin="600,545,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos20" HorizontalAlignment="Left" Height="60" Margin="600,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos21" HorizontalAlignment="Left" Height="60" Margin="540,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos22" HorizontalAlignment="Left" Height="60" Margin="480,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos23" HorizontalAlignment="Left" Height="60" Margin="420,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos24" HorizontalAlignment="Left" Height="60" Margin="360,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos25" HorizontalAlignment="Left" Height="60" Margin="300,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos26" HorizontalAlignment="Left" Height="60" Margin="240,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos27" HorizontalAlignment="Left" Height="60" Margin="180,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos28" HorizontalAlignment="Left" Height="60" Margin="120,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos29" HorizontalAlignment="Left" Height="60" Margin="60,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos30" HorizontalAlignment="Left" Height="60" Margin="0,605,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos31" HorizontalAlignment="Left" Height="60" Margin="0,545,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos32" HorizontalAlignment="Left" Height="60" Margin="0,485,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos33" HorizontalAlignment="Left" Height="60" Margin="0,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos34" HorizontalAlignment="Left" Height="60" Margin="0,365,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos35" HorizontalAlignment="Left" Height="60" Margin="0,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos36" HorizontalAlignment="Left" Height="60" Margin="0,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos37" HorizontalAlignment="Left" Height="60" Margin="0,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos38" HorizontalAlignment="Left" Height="60" Margin="0,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="pos39" HorizontalAlignment="Left" Height="60" Margin="0,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Rectangle Name="posJail" HorizontalAlignment="Left" Height="60" Margin="630,637,0,0" Stroke="Black" VerticalAlignment="Top" Width="60"/>
-        <Button Content="roll dice" HorizontalAlignment="Left" Margin="170,702,0,0" VerticalAlignment="Top" Height="60" Width="340" Click="Button_Click"/>
+    <Grid Name="gameBoardGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Name="pos0" Grid.Column="0" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos4" Grid.Column="4" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos10" Grid.Column="10" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos11" Grid.Column="10" Grid.Row="1" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos12" Grid.Column="10" Grid.Row="2" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos13" Grid.Column="10" Grid.Row="3" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos14" Grid.Column="10" Grid.Row="4" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos15" Grid.Column="10" Grid.Row="5" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos16" Grid.Column="10" Grid.Row="6" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos17" Grid.Column="10" Grid.Row="7" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos18" Grid.Column="10" Grid.Row="8" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos19" Grid.Column="10" Grid.Row="9" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos20" Grid.Column="10" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos21" Grid.Column="9" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos22" Grid.Column="8" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos23" Grid.Column="7" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos24" Grid.Column="6" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos25" Grid.Column="5" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos26" Grid.Column="4" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos27" Grid.Column="3" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos28" Grid.Column="2" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos29" Grid.Column="1" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos30" Grid.Column="0" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos31" Grid.Column="0" Grid.Row="9" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos32" Grid.Column="0" Grid.Row="8" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos33" Grid.Column="0" Grid.Row="7" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos34" Grid.Column="0" Grid.Row="6" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos35" Grid.Column="0" Grid.Row="5" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos36" Grid.Column="0" Grid.Row="4" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos37" Grid.Column="0" Grid.Row="3" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos38" Grid.Column="0" Grid.Row="2" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos39" Grid.Column="0" Grid.Row="1" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="posJail" Height="60" Margin="480,483,150,154" Stroke="Black" Width="60"/>
+        <Ellipse Name ="TestPlayer" Stroke="Black" Grid.Row="3" Margin="0,0,40,40"/>
+        <Button Content="Button" Height="23" Margin="10,675,0,0" />
+        <Ellipse Name ="TestPlayer2" Stroke="Black" Grid.Row="3" Margin="40,0,0,40">
+            <Ellipse.Fill>
+                <ImageBrush/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse Name ="TestPlayer3" Stroke="Black" Grid.Row="3" Margin="40,40,0,0"/>
+        <Ellipse Name ="TestPlayer4" Stroke="Black" Grid.Row="3" Margin="0,40,40,0"/>
     </Grid>
 </Window>
