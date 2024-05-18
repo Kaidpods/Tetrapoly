@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Channels;
+using System.Windows;
 using System.Windows.Automation.Peers;
 namespace TetraPolyGame
 {
@@ -51,7 +52,7 @@ namespace TetraPolyGame
         {
             for(int x=0;x!= mnyhosetoremove;x++) 
             {
-                pro.RemoveHouse();
+                pro.RemoveHouse(mnyhosetoremove);
             }
         }
         // it buy a card
@@ -126,7 +127,7 @@ namespace TetraPolyGame
                     if (r1 == r2)
                     {
                         _InJail = false;
-                        _Position = 9;
+                        _Position = 10;
                     }
                 }
             }
@@ -179,6 +180,17 @@ namespace TetraPolyGame
             {
                 return false;
             }
+        }
+        // ask to margage
+        public void asktomortgage()
+        {
+            string s = "you need to morgae some of your a cards";
+            MessageBoxResult w = MessageBox.Show(s);
+        }
+        //get mony
+        public int getMoney()
+        {
+            return _Money;
         }
         //add money
         public void addMoney(int money)

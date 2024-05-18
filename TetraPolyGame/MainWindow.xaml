@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="795" Width="887" ResizeMode="NoResize">
     <Grid Name="gameBoardGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button x:Name="rolldice" Content="roll the dice " HorizontalAlignment="Center" Height="60" Grid.Row="3" VerticalAlignment="Center" Width="119" Grid.Column="5" Grid.ColumnSpan="2" Click="rolldice_Click"/>
+        <Button x:Name="morgage" Content="morgage the card" HorizontalAlignment="Center" Height="60" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="morgage_Click"/>
+        <Button x:Name="unmorgage" Content="unmorgage a card" HorizontalAlignment="Left" Height="60" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="unmorgage_Click"/>
+        <ComboBox x:Name="unmoragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="5" SelectionChanged="unmoragagepickacard_SelectionChanged" />
+        <ComboBox x:Name="moragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="5" SelectionChanged="moragagepickacard_SelectionChanged" />
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -84,5 +89,6 @@
         </Ellipse>
         <Ellipse Name ="TestPlayer3" Stroke="Black" Grid.Row="3" Margin="40,40,0,0"/>
         <Ellipse Name ="TestPlayer4" Stroke="Black" Grid.Row="3" Margin="0,40,40,0"/>
+        <Label x:Name="displaymoney" Grid.Column="3" Content="your nomber of money is 1000" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="60" Width="200" Margin="30,42,0,0" Grid.RowSpan="2" Grid.ColumnSpan="4"/>
     </Grid>
 </Window>

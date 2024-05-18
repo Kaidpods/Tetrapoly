@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.ComponentModel.Design;
 using System.Printing;
 using System.Text;
 using System.Windows;
@@ -50,11 +51,13 @@ namespace TetraPolyGame
                     truncount = 0;
                 }
                 Players[truncount].MovePlayer();
+                MovePlayer(UIElement e, Players[truncount].GetPosition);
                 checkposition(truncount);
                 t = Onlyoneleft();
                 truncount = truncount + 1;
             }
         }
+        
         public bool Onlyoneleft()
         {
             bool b = true;
@@ -190,10 +193,7 @@ namespace TetraPolyGame
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            turnorder();
-        }
+        
 
         public void MovePlayer(UIElement e, int Position)
         {
@@ -210,174 +210,81 @@ namespace TetraPolyGame
             }
 
         }
-        public void settokin()
+        private void rolldice_Click(object sender, RoutedEventArgs e)
         {
-            int mp = Players[truncount].GetPosition();
-
-            if (mp == 0)
+            int i = Players[truncount].getMoney();
+            if (i > 0)
             {
-
+                turnorder();
             }
-            if (mp == 1)
+            else
             {
-
+                Players[truncount].asktomortgage();
             }
-            if (mp == 2)
+            changebox();
+        }
+        public void changebox()
+        {
+            try
             {
+                unmoragagepickacard.Items.Clear();
+                moragagepickacard.Items.Clear();
+                List<Card> card = Players[truncount].GetCards();
+                int ii = 0;
+                string str;
+                string b5;
+                string b6;
+                unmoragagepickacard.SelectedIndex = 0;
+                moragagepickacard.SelectedIndex = 0;
+                string st = "your nomber of money is"+Players[truncount].getMoney;
+                displaymoney.Text = st;
+                while (card[ii] != null)
+                {
+                    try
+                    {
+                        b5 = card.ToString().Split(", ")[0];
+                        b6 = card.ToString().Split(", ")[3];
+                    }
+                    catch (Exception ae)
+                    {
+                        b5 = "there are no cards";
+                        b6 = null;
+                    }
+                    bool b1 = card[ii].IsMortgaged();
+                    string s = b5+","+b6+","+ii;
+                    if (b1 == false)
+                    {
+                        unmoragagepickacard.Items.Add(s);
+                    }
+                    else
+                    {
+                        moragagepickacard.Items.Add(s);
+                    }
+                    ii = ii + 1;
 
+                }
             }
-            if (mp == 3)
+            catch (Exception ee)
             {
-
             }
-            if (mp == 4)
-            {
+        }
 
-            }
-            if (mp == 5)
-            {
+        private void unmorgage_Click(object sender, RoutedEventArgs e)
+        {
+            List<Card> card = Players[truncount].GetCards();
+            string st = (string)unmoragagepickacard.SelectedValue;
+            int check=int.Parse(st.Split(",")[2]);
+            Players[truncount].OnMortgageCard(card[check]);
+            changebox();
+        }
 
-            }
-            if (mp == 6)
-            {
-
-            }
-            if (mp == 7)
-            {
-
-            }
-            if (mp == 8)
-            {
-
-            }
-            if (mp == 9)
-            {
-
-            }
-            if (mp == 10)
-            {
-
-            }
-            if (mp == 11)
-            {
-
-            }
-            if (mp == 12)
-            {
-
-            }
-            if (mp == 13)
-            {
-
-            }
-            if (mp == 14)
-            {
-
-            }
-            if (mp == 15)
-            {
-
-            }
-            if (mp == 16)
-            {
-
-            }
-            if (mp == 17)
-            {
-
-            }
-            if (mp == 18)
-            {
-
-            }
-            if (mp == 19)
-            {
-
-            }
-            if (mp == 20)
-            {
-
-            }
-            if (mp == 21)
-            {
-
-            }
-            if (mp == 22)
-            {
-
-            }
-            if (mp == 23)
-            {
-
-            }
-            if (mp == 24)
-            {
-
-            }
-            if (mp == 25)
-            {
-
-            }
-            if (mp == 26)
-            {
-
-            }
-            if (mp == 27)
-            {
-
-            }
-            if (mp == 28)
-            {
-
-            }
-            if (mp == 29)
-            {
-
-            }
-            if (mp == 30)
-            {
-
-            }
-            if (mp == 31)
-            {
-
-            }
-            if (mp == 32)
-            {
-
-            }
-            if (mp == 33)
-            {
-
-            }
-            if (mp == 34)
-            {
-
-            }
-            if (mp == 35)
-            {
-
-            }
-            if (mp == 36)
-            {
-
-            }
-            if (mp == 37)
-            {
-
-            }
-            if (mp == 38)
-            {
-
-            }
-            if (mp == 39)
-            {
-
-            }
-            if (mp == -1)
-            {
-
-            }
+        private void morgage_Click(object sender, RoutedEventArgs e)
+        {
+            List<Card> card = Players[truncount].GetCards();
+            string st = (string)unmoragagepickacard.SelectedValue;
+            int check = int.Parse(st.Split(",")[2]);
+            Players[truncount].MortgageCard(card[check]);
+            changebox();
         }
     }
 }
