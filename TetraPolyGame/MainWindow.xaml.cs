@@ -59,7 +59,7 @@ namespace TetraPolyGame
                 truncount = truncount + 1;
             }
         }
-        
+        // Onlyone left
         public bool Onlyoneleft()
         {
             bool b = true;
