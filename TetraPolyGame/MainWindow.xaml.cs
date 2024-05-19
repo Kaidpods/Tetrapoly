@@ -37,6 +37,7 @@ namespace TetraPolyGame
             MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
 
         }
+        //set the players
         public void setPlayers(Player p)
         {
             Players.Add(p);
