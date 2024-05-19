@@ -42,6 +42,7 @@ namespace TetraPolyGame
         {
             Players.Add(p);
         }
+        // next turn 
         public void turnorder()
         {
             bool t = true;
