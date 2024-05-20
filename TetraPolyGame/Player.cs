@@ -6,10 +6,10 @@ using System.Windows.Automation.Peers;
 namespace TetraPolyGame
 {
     public class Player
-    { 
+    {
 
 
-	    protected bool _IsAilve;
+        protected bool _IsAilve;
         protected bool _InJail;
         protected string _Name;
         protected int _Money;
@@ -23,28 +23,35 @@ namespace TetraPolyGame
             _Money = money;
             _Position = 0;
             _IsAilve = true;
-            _InJail = false;    
+            _InJail = false;
         }
         //check a is the card 
-        public bool CheckSet(Card check)
+        public bool CheckSet(Card check, List<Card> AllCards)
         {
+            //
+            int[] colours;
             bool t = false;
             int count = 0;
             if (_CardsOwend != null)
             {
-                while (_CardsOwend[count] != null)
+                foreach (Card card in _CardsOwend)
                 {
-                    if (_CardsOwend[count] is Card && _CardsOwend[count] == check)
+                    if (check is Property checkProperty)
                     {
-                        t = true;
+                        if (card is Property property && property.GetColour() == checkProperty.GetColour())
+                        {
+
+                        }
                     }
                     count = count + 1;
                 }
                 return t;
-            } else
+            }
+            else
             {
                 return false;
             }
+
         }
         // it add a hous
         public void AddHouse(Property pro)
@@ -52,9 +59,9 @@ namespace TetraPolyGame
             pro.AddHouse();
         }
         // it remove a hous
-        public void removeHouse(Property pro,int mnyhosetoremove)
+        public void removeHouse(Property pro, int mnyhosetoremove)
         {
-            for(int x=0;x!= mnyhosetoremove;x++) 
+            for (int x = 0; x != mnyhosetoremove; x++)
             {
                 pro.RemoveHouse(mnyhosetoremove);
             }
@@ -87,7 +94,7 @@ namespace TetraPolyGame
         public int RollDice()
         {
             Random d = new Random();
-            int dn=d.Next(1,6);
+            int dn = d.Next(1, 6);
             return dn;
         }
         //it move the player
@@ -120,7 +127,7 @@ namespace TetraPolyGame
                         }
                         else
                         {
-                            b=false;
+                            b = false;
                         }
                     }
                 }
@@ -137,10 +144,10 @@ namespace TetraPolyGame
             }
         }
         // buy a card
-        public virtual void buy(bool chois,Card gc)
+        public virtual void buy(bool chois, Card gc)
         {
-            if (chois==true)
-            { 
+            if (chois == true)
+            {
                 int se = gc.GetPrice();
                 LoseMoney(se);
                 byCard(gc);
@@ -151,15 +158,16 @@ namespace TetraPolyGame
         virtual public void LoseMoney(int money)
         {
             _Money = _Money - money;
-            if(_Money > 0){
-                bool b=checktotalmorgag();
-                if (b==true) 
+            if (_Money > 0)
+            {
+                bool b = checktotalmorgag();
+                if (b == true)
                 {
                     asktomortgage();
                 }
-                if (b==false)
+                if (b == false)
                 {
-                    _IsAilve=false;
+                    _IsAilve = false;
                 }
             }
         }
@@ -168,19 +176,20 @@ namespace TetraPolyGame
         {
             int count = 0;
             int total = 0;
-            while (_CardsOwend[count]!=null) 
+            while (_CardsOwend[count] != null)
             {
                 if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == false)
                 {
-                    total=_CardsOwend[count].GetMortgagePrice(); 
+                    total = _CardsOwend[count].GetMortgagePrice();
                 }
-               
-                count =count + 1;
+
+                count = count + 1;
             }
             if (total >= (_Money * -1))
             {
                 return true;
-            }else
+            }
+            else
             {
                 return false;
             }
@@ -216,7 +225,7 @@ namespace TetraPolyGame
             return _Position;
         }
         //set the position
-        public void setPosition(int position) 
+        public void setPosition(int position)
         {
             _Position = position;
         }
@@ -263,7 +272,7 @@ namespace TetraPolyGame
         // remove a Chance Communities card
         public void removechanceCommunitiesOwend(int i)
         {
-            ChanceCommunity chance=_chanceCommunitiesOwend[i];
+            ChanceCommunity chance = _chanceCommunitiesOwend[i];
             _chanceCommunitiesOwend.Remove(chance);
         }
         public void SetPos(int number)

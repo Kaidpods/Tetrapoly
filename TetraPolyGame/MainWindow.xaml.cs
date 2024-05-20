@@ -108,7 +108,6 @@ namespace TetraPolyGame
             {
                 if (pos == card.GetPosition())
                 {
-                    int cut = 0;
                     foreach (Player player in Players)
                     {
                         bool onby = player.CheckSet(card);
@@ -122,7 +121,7 @@ namespace TetraPolyGame
                             }
                             if ((player == Players[turn]) && (card is Property) && (player is not algorithm))
                             {
-                                Property tempProp = card as Property;
+                                Property tempProp = (Property)card ;
                                 MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
                                 if (result == MessageBoxResult.Yes)
                                 {
@@ -143,8 +142,7 @@ namespace TetraPolyGame
 
                                     }
                                     player.LoseMoney(cost);
-                                    Property pro = card as Property;
-                                    player.AddHouse(pro);
+                                    player.AddHouse(tempProp);
                                 }
                             }
                             else if ((player == Players[turn]) && (card is Property))
@@ -230,8 +228,9 @@ namespace TetraPolyGame
                 {
                     if (rectangle.Name == ("pos") + Position.ToString())
                     {
-                        Grid.SetColumn(e, Grid.GetColumn(element));
-                        Grid.SetRow(e, Grid.GetRow(element));
+                        Grid.SetColumn(e, Grid.GetColumn(rectangle));
+                        Grid.SetRow(e, Grid.GetRow(rectangle));
+                        break;
                     }
                 }
             }
