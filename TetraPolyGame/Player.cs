@@ -26,7 +26,7 @@ namespace TetraPolyGame
             _InJail = false;
         }
         //check a is the card 
-        public bool CheckSet(Card check, List<Card> AllCards)
+        public bool CheckSet(Card check)
         {
             //
             int[] colours;

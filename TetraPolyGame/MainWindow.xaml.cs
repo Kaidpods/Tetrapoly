@@ -110,16 +110,16 @@ namespace TetraPolyGame
                 {
                     foreach (Player player in Players)
                     {
-                        bool onby = player.CheckSet(card);
-                        if (onby == true)
+
+                        if (card.IsOwned() != null)
                         {
-                            if (player != Players[turn])
+                            if (card.IsOwned() != Players[turn])
                             {
                                 int r = card.GetRent();
                                 player.addMoney(r);
                                 Players[turn].LoseMoney(r);
                             }
-                            if ((player == Players[turn]) && (card is Property) && (player is not algorithm))
+                            else if ((card.IsOwned() == Players[turn]) && (card is Property) && (player is not algorithm))
                             {
                                 Property tempProp = (Property)card ;
                                 MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
@@ -145,9 +145,9 @@ namespace TetraPolyGame
                                     player.AddHouse(tempProp);
                                 }
                             }
-                            else if ((player == Players[turn]) && (card is Property))
+                            else if ((player == Players[turn]) && (card is Property) && player is algorithm)
                             {
-                                Property tempProp = card as Property;
+                                Property tempProp = (Property)card;
                                 int cost = 0;
                                 switch (tempProp.GetColour())
                                 {
@@ -165,14 +165,12 @@ namespace TetraPolyGame
 
                                 }
                                 player.LoseMoney(cost);
-                                Property pro = card as Property;
+                                Property pro = (Property)card;
                                 player.AddHouse(pro);
                             }
-                        }
-                        cut = cut + 1;
                     }
 
-                    if (null == card.IsOwned)
+                    else if (null == card.IsOwned)
                     {
                         if ((card is Property) || (card is Transport) || (card is Utility) && (Players[turn] is not algorithm))
                         {
