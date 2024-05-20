@@ -30,15 +30,21 @@ namespace TetraPolyGame
         {
             bool t = false;
             int count = 0;
-            while (_CardsOwend[count] != null)
+            if (_CardsOwend != null)
             {
-                if (_CardsOwend[count] is Card && _CardsOwend[count]== check)
+                while (_CardsOwend[count] != null)
                 {
-                    t = true;
+                    if (_CardsOwend[count] is Card && _CardsOwend[count] == check)
+                    {
+                        t = true;
+                    }
+                    count = count + 1;
                 }
-                count = count + 1;
-            }           
-            return t;
+                return t;
+            } else
+            {
+                return false;
+            }
         }
         // it add a hous
         public void AddHouse(Property pro)

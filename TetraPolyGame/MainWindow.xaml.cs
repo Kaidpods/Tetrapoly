@@ -40,8 +40,11 @@ namespace TetraPolyGame
             players.Add(TestPlayer4);
 
             Players.Add(new Player("Kaiden", 1000));
+            Players.Add(new Player("David", 1000));
+            Players.Add(new Player("Kyle", 1000));
+            Players.Add(new Player("Daniel", 1000));
 
-            
+
             Cards = database.GetProperties();
             List<ChanceCommunity> ComChaCards = database.GetCommunityChance();
             Shuffle.Shuffle.ShuffleList(ComChaCards);
@@ -106,18 +109,18 @@ namespace TetraPolyGame
                 if (pos == card.GetPosition())
                 {
                     int cut = 0;
-                    while (Players[cut] != null)
+                    foreach (Player player in Players)
                     {
-                        bool onby = Players[cut].CheckSet(card);
+                        bool onby = player.CheckSet(card);
                         if (onby == true)
                         {
-                            if (Players[cut] != Players[turn])
+                            if (player != Players[turn])
                             {
                                 int r = card.GetRent();
-                                Players[cut].addMoney(r);
+                                player.addMoney(r);
                                 Players[turn].LoseMoney(r);
                             }
-                            if ((Players[cut] == Players[turn]) && (card is Property) && (Players[cut] is not algorithm))
+                            if ((player == Players[turn]) && (card is Property) && (player is not algorithm))
                             {
                                 Property tempProp = card as Property;
                                 MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
@@ -139,12 +142,12 @@ namespace TetraPolyGame
                                         case "DBLUE": { cost = 200; break; }
 
                                     }
-                                    Players[cut].LoseMoney(cost);
+                                    player.LoseMoney(cost);
                                     Property pro = card as Property;
-                                    Players[cut].AddHouse(pro);
+                                    player.AddHouse(pro);
                                 }
                             }
-                            else if ((Players[cut] == Players[turn]) && (card is Property))
+                            else if ((player == Players[turn]) && (card is Property))
                             {
                                 Property tempProp = card as Property;
                                 int cost = 0;
@@ -163,9 +166,9 @@ namespace TetraPolyGame
                                     case "DBLUE": { cost = 200; break; }
 
                                 }
-                                Players[cut].LoseMoney(cost);
+                                player.LoseMoney(cost);
                                 Property pro = card as Property;
-                                Players[cut].AddHouse(pro);
+                                player.AddHouse(pro);
                             }
                         }
                         cut = cut + 1;
@@ -173,9 +176,9 @@ namespace TetraPolyGame
 
                     if (null == card.IsOwned)
                     {
-                        if ((card is Property) || (card is Transport) || (card is Utility) && (Players[cut] is not algorithm))
+                        if ((card is Property) || (card is Transport) || (card is Utility) && (Players[turn] is not algorithm))
                         {
-                            MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
+                            MessageBoxResult result = MessageBox.Show("Do you want to buy?", "Buying", MessageBoxButton.YesNo);
                             if (result == MessageBoxResult.Yes)
                             {
                                 Players[turn].buy(true, card);
@@ -262,7 +265,7 @@ namespace TetraPolyGame
                 moragagepickacard.SelectedIndex = 0;
                 string st = "your number of money is"+Players[truncount].getMoney;
                 displaymoney.Content = st;
-                while (card[ii] != null)
+                while (card != null)
                 {
                     try
                     {
