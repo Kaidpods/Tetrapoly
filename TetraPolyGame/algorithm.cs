@@ -9,11 +9,11 @@ namespace TetraPolyGame
      class algorithm : Player
     {
         //this is the constroctor for the algorithm 
-        public algorithm(string name, int money, int position, Card cardowend, bool isailve, bool injail) : base(name, money, position, cardowend, isailve, injail)
+        public algorithm(string name, int money) : base(name, money)
         {
         }
         //this make the algorithm buy card
-        public override void buy(Card gc)
+        public override void buy(bool choice,Card gc)
         {
             int se = gc.GetPrice();
             LoseMoney(se);
@@ -31,10 +31,10 @@ namespace TetraPolyGame
                     int total = 0;
                     while (_CardsOwend[count] != null)
                     {
-                        if (_CardsOwend[count] is Card && _CardsOwend[count].GetIsMortageged() == false)
+                        if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == false)
                         {
                             total = _CardsOwend[count].GetMortgagePrice();
-                            _CardsOwend[count].setIsMortageged(true);
+                            _CardsOwend[count].SetMorgaged(true);
                         }
 
                         count = count + 1;
@@ -54,9 +54,9 @@ namespace TetraPolyGame
             int count = 0;
             while (_CardsOwend[count] != null)
             {
-                if (_CardsOwend[count] is Card && _CardsOwend[count].GetIsMortageged() == true)
+                if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == true)
                 {
-                    int num = _CardsOwend[count].GetMortgageCost();
+                    int num = _CardsOwend[count].GetMortgagePrice();
                     if ( _Money == num)
                     {
                         base.OnMortgageCard(_CardsOwend[count]);

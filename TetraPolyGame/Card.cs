@@ -36,9 +36,9 @@ namespace TetraPolyGame
             owned = WhoBought;
         }
 
-        public void ToggleMorgaged()
+        public void SetMorgaged(bool TrueOrFalse)
         {
-            mortgaged = !mortgaged;
+            mortgaged = TrueOrFalse;
         }
 
         public virtual int GetRent()

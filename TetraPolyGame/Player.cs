@@ -13,19 +13,17 @@ namespace TetraPolyGame
         protected bool _InJail;
         protected string _Name;
         protected int _Money;
-        protected int _Position;
+        private int _Position;
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
-        public Player(string name, int money, Card cardowend, bool isailve, bool injail, List<ChanceCommunity> chanceCommunityOwend)
+        public Player(string name, int money)
         {
             _Name = name;
             _Money = money;
             _Position = 0;
-            _CardsOwend.Add(cardowend);
-            _IsAilve = isailve;
-            _InJail = injail;    
-            _chanceCommunitiesOwend=chanceCommunityOwend;
+            _IsAilve = true;
+            _InJail = false;    
         }
         //check a is the card 
         public bool CheckSet(Card check)
@@ -68,7 +66,7 @@ namespace TetraPolyGame
         // it mortgage a card
         public void MortgageCard(Card card)
         {
-            card.ToggleMorgaged();
+            card.SetMorgaged(true);
             int mor = card.GetMortgagePrice();
             addMoney(mor);
         }
@@ -77,7 +75,7 @@ namespace TetraPolyGame
         {
             int mor = card.GetMortgagePrice();
             LoseMoney(mor);
-            card.ToggleMorgaged();
+            card.SetMorgaged(false);
         }
         // get a random nummber between 1 and 6
         public int RollDice()
@@ -95,7 +93,7 @@ namespace TetraPolyGame
                 {
                     int count = 0;
                     bool b = true;
-                    while (b = true)
+                    while (b)
                     {
                         int move = RollDice();
                         int move2 = RollDice();
@@ -133,7 +131,7 @@ namespace TetraPolyGame
             }
         }
         // buy a card
-        virtual public void buy(bool chois,Card gc)
+        public virtual void buy(bool chois,Card gc)
         {
             if (chois==true)
             { 
@@ -261,6 +259,14 @@ namespace TetraPolyGame
         {
             ChanceCommunity chance=_chanceCommunitiesOwend[i];
             _chanceCommunitiesOwend.Remove(chance);
+        }
+        public void SetPos(int number)
+        {
+            setPosition(number);
+        }
+        public void MoveToPosition(int newPosition)
+        {
+            SetPos(newPosition);
         }
     }
 }

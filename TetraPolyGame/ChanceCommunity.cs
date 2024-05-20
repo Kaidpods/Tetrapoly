@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,26 +25,13 @@ namespace TetraPolyGame
         {
             Description = description;
             Type = type;
-            effectDescription = effectDesc;
-            this.effect = ParseEffect(effectDescription);
+            effectDescription = effectDesc; 
         }
-        public static Action<Player> ParseEffect(string effectDescription)
-        {
-            var config = new ParsingConfig { };
-            ParameterExpression playerParam = Expression.Parameter(typeof(Player), "p");
-            var lambda = DynamicExpressionParser.ParseLambda(
-                config,
-                [playerParam],
-                null,
-                effectDescription
-            );
 
-            return (Action<Player>)lambda.Compile();
-        }
         
         public void SetEffect()
         {
-            effect = ParseEffect(effectDescription);
+            effect = EffectParser.ParseEffect(effectDescription);
         }
 
         public void Execute(Player p)
