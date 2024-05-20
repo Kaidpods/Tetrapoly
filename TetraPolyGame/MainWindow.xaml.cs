@@ -23,17 +23,28 @@ namespace TetraPolyGame
         public static AllCards cards = AllCards.Instance;
         private MSSQLdataAccess database = new();
         private List<Card> Cards = new();
+        private Stack<ChanceCommunity> ChanceCommunities = new();
         protected List<Player> Players = new();
+        protected List<UIElement> players = [];
+        private Random rng = new Random();
         private int truncount = 0;
         public MainWindow()
         {
             //If you want to add player via the eclipse icons
-            List<UIElement> players = [];
+            
 
-            //players.Add(TestPlayer);
+            players.Add(TestPlayer);
+            players.Add(TestPlayer2);
+            players.Add(TestPlayer3);
+            players.Add(TestPlayer4);
+
 
             InitializeComponent();
             Cards = database.GetProperties();
+            List<ChanceCommunity> ComChaCards = database.GetCommunityChance();
+            Shuffle.Shuffle.ShuffleList(ComChaCards);
+            var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+            ChanceCommunities = chanceCommunities;
             MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
 
         }
@@ -53,7 +64,7 @@ namespace TetraPolyGame
                     truncount = 0;
                 }
                 Players[truncount].MovePlayer();
-                MovePlayer(UIElement e, Players[truncount].GetPosition);
+                MovePlayer(players[truncount], Players[truncount].GetPosition());
                 checkposition(truncount);
                 t = Onlyoneleft();
                 truncount = truncount + 1;
@@ -82,6 +93,7 @@ namespace TetraPolyGame
             }
             return b;
         }
+
         public void checkposition(int turn)
         {
             bool t = true;
@@ -177,11 +189,11 @@ namespace TetraPolyGame
                         }
                         if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
                         {
-                            Commun.getcard();
+                            getComCha(Players[turn]);
                         }
                         if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
                         {
-                            Chance.getcard();
+                            getComCha(Players[turn]);
                         }
                         if (Players[turn].GetPosition() == 30)
                         {
@@ -194,7 +206,11 @@ namespace TetraPolyGame
                 count = count + 1;
             }
         }
-
+        public void getComCha(Player player)
+        {
+            ChanceCommunity temp = ChanceCommunities.Pop();
+            temp.Execute(player);
+        }
         
         /// <summary>
         /// Moves the visual elements on the board
@@ -242,7 +258,7 @@ namespace TetraPolyGame
                 string b6;
                 unmoragagepickacard.SelectedIndex = 0;
                 moragagepickacard.SelectedIndex = 0;
-                string st = "your nomber of money is"+Players[truncount].getMoney;
+                string st = "your number of money is"+Players[truncount].getMoney;
                 displaymoney.Text = st;
                 while (card[ii] != null)
                 {

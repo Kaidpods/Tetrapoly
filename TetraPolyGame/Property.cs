@@ -67,7 +67,7 @@ namespace TetraPolyGame
             sb.Append(houseRent[4] + ", ");
             sb.Append(houseRent[5] + "]");
             sb.Append(", " + colour);
-            sb.Append(", " + position);
+            sb.Append(", " + GetPosition());
 
             return sb.ToString();
         }

@@ -63,5 +63,37 @@ namespace TetraPolyGame
             }
             return properties;
         }
+
+        public List<ChanceCommunity> GetCommunityChance()
+        {
+            List<ChanceCommunity> chanceCommunities = [];
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_SQLconnectionStrng))
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand("SELECT * FROM dbo.ChanceCommunity", conn);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string desc = reader.GetString(0);
+                            CardType type = Enum.Parse<CardType>(reader.GetString(1));
+                            String effectDesc = reader.GetString(2);
+
+                            //Create the community card
+                            ChanceCommunity chanceCommunity = new ChanceCommunity(desc, type, effectDesc);
+                            chanceCommunities.Add(chanceCommunity);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw new Exception("Unable to retrieve property cards!");
+            }
+            return chanceCommunities;
+        }
     }
 }

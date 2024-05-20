@@ -17,7 +17,7 @@ namespace TetraPolyGame
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
         //this is the constroctor for the Player
-        public Player(string name, int money, Card cardowend, bool isailve, bool injail,ChanceCommunity chanceCommunityOwend)
+        public Player(string name, int money, Card cardowend, bool isailve, bool injail, List<ChanceCommunity> chanceCommunityOwend)
         {
             _Name = name;
             _Money = money;
@@ -247,21 +247,20 @@ namespace TetraPolyGame
             return _CardsOwend;
         }
         // get a Chance Communities card
-        public List<chanceCommunities> GetchanceCommunitiesOwend()
+        public List<ChanceCommunity> GetchanceCommunitiesOwend()
         {
             return _chanceCommunitiesOwend;
         }
         // add a Chance Communities card
-        public void AddchanceCommunitiesOwend(chanceCommunities chance)
+        public void AddchanceCommunitiesOwend(ChanceCommunity chance)
         {
             _chanceCommunitiesOwend.Add(chance);
         }
         // remove a Chance Communities card
-        public List<chanceCommunities> removechanceCommunitiesOwend(int i)
+        public void removechanceCommunitiesOwend(int i)
         {
-            chanceCommunities chance=_chanceCommunitiesOwend[i];
+            ChanceCommunity chance=_chanceCommunitiesOwend[i];
             _chanceCommunitiesOwend.Remove(chance);
-            return chance;
         }
     }
 }
