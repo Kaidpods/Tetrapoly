@@ -196,7 +196,11 @@ namespace TetraPolyGame
         }
 
         
-
+        /// <summary>
+        /// Moves the visual elements on the board
+        /// </summary>
+        /// <param name="e">The player eclipse icons (Or anything that can be used to feature a player)</param>
+        /// <param name="Position"></param>
         public void MovePlayer(UIElement e, int Position)
         {
             foreach (UIElement element in gameBoardGrid.Children)
