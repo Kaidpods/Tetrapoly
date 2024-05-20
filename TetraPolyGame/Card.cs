@@ -71,6 +71,11 @@ namespace TetraPolyGame
             return owned;
         }
 
+        public void SetOwner(Player player)
+        {
+            owned = player;
+        }
+
         public bool IsMortgaged()
         {
             return mortgaged;
@@ -83,6 +88,10 @@ namespace TetraPolyGame
         public int GetPosition()
         {
             return position;
+        }
+        public string GetName()
+        {
+            return name;
         }
 
         public virtual string ToString()

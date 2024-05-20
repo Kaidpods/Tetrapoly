@@ -64,15 +64,19 @@ namespace TetraPolyGame
             bool t = true;
             while (t == true)
             {
-                if (Players[truncount] == null)
-                {
-                    truncount = 0;
-                }
                 Players[truncount].MovePlayer();
                 MovePlayer(players[truncount], Players[truncount].GetPosition());
                 checkposition(truncount);
                 t = Onlyoneleft();
-                truncount = truncount + 1;
+                if (truncount != 3)
+                {
+                    truncount = truncount + 1;
+                }
+                else
+                {
+                    truncount = 0;
+                }
+
             }
         }
         // Onlyone left
@@ -104,50 +108,25 @@ namespace TetraPolyGame
             bool t = true;
             int count = 0;
             int pos = Players[turn].GetPosition();
-            foreach(Card card in Cards)
+            foreach (Card card in Cards)
             {
                 if (pos == card.GetPosition())
                 {
-                    foreach (Player player in Players)
+
+                    if (card.IsOwned() != null)
                     {
-
-                        if (card.IsOwned() != null)
+                        if (card.IsOwned() != Players[turn])
                         {
-                            if (card.IsOwned() != Players[turn])
+                            int r = card.GetRent();
+                            Players[turn].addMoney(r);
+                            Players[turn].LoseMoney(r);
+                        }
+                        else if ((card.IsOwned() == Players[turn]) && (card is Property) && (Players[turn] is not algorithm))
+                        {
+                            Property tempProp = (Property)card;
+                            MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
+                            if (result == MessageBoxResult.Yes)
                             {
-                                int r = card.GetRent();
-                                player.addMoney(r);
-                                Players[turn].LoseMoney(r);
-                            }
-                            else if ((card.IsOwned() == Players[turn]) && (card is Property) && (player is not algorithm))
-                            {
-                                Property tempProp = (Property)card ;
-                                MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
-                                if (result == MessageBoxResult.Yes)
-                                {
-                                    int cost = 0;
-                                    switch (tempProp.GetColour())
-                                    {
-                                        case "BROWN": { cost = 50; break; }
-                                        case "LBLUE": { cost = 50; break; }
-                                        case "PINK": { cost = 50; break; }
-
-                                        case "ORANGE": { cost = 100; break; }
-                                        case "RED": { cost = 100; break; }
-
-                                        case "YELLOW": { cost = 150; break; }
-                                        case "GREEN": { cost = 150; break; }
-
-                                        case "DBLUE": { cost = 200; break; }
-
-                                    }
-                                    player.LoseMoney(cost);
-                                    player.AddHouse(tempProp);
-                                }
-                            }
-                            else if ((player == Players[turn]) && (card is Property) && player is algorithm)
-                            {
-                                Property tempProp = (Property)card;
                                 int cost = 0;
                                 switch (tempProp.GetColour())
                                 {
@@ -164,13 +143,36 @@ namespace TetraPolyGame
                                     case "DBLUE": { cost = 200; break; }
 
                                 }
-                                player.LoseMoney(cost);
-                                Property pro = (Property)card;
-                                player.AddHouse(pro);
+                                Players[turn].LoseMoney(cost);
+                                Players[turn].AddHouse(tempProp);
                             }
+                        }
+                        else if ((card.IsOwned() == Players[turn]) && (card is Property) && Players[turn] is algorithm)
+                        {
+                            Property tempProp = (Property)card;
+                            int cost = 0;
+                            switch (tempProp.GetColour())
+                            {
+                                case "BROWN": { cost = 50; break; }
+                                case "LBLUE": { cost = 50; break; }
+                                case "PINK": { cost = 50; break; }
+
+                                case "ORANGE": { cost = 100; break; }
+                                case "RED": { cost = 100; break; }
+
+                                case "YELLOW": { cost = 150; break; }
+                                case "GREEN": { cost = 150; break; }
+
+                                case "DBLUE": { cost = 200; break; }
+
+                            }
+                            Players[turn].LoseMoney(cost);
+                            Property pro = (Property)card;
+                            Players[turn].AddHouse(pro);
+                        }
                     }
 
-                    else if (null == card.IsOwned)
+                    else if (card.IsOwned() == null)
                     {
                         if ((card is Property) || (card is Transport) || (card is Utility) && (Players[turn] is not algorithm))
                         {
@@ -203,6 +205,7 @@ namespace TetraPolyGame
                         }
                     }
                     t = false;
+
                 }
             }
         }
@@ -212,7 +215,7 @@ namespace TetraPolyGame
             temp.SetEffect();
             temp.Execute(player);
         }
-        
+
         /// <summary>
         /// Moves the visual elements on the board
         /// </summary>
@@ -260,7 +263,7 @@ namespace TetraPolyGame
                 string b6;
                 unmoragagepickacard.SelectedIndex = 0;
                 moragagepickacard.SelectedIndex = 0;
-                string st = "your number of money is"+Players[truncount].getMoney;
+                string st = "your number of money is: " + Players[truncount].getMoney();
                 displaymoney.Content = st;
                 while (card != null)
                 {
@@ -275,7 +278,7 @@ namespace TetraPolyGame
                         b6 = null;
                     }
                     bool b1 = card[ii].IsMortgaged();
-                    string s = b5+","+b6+","+ii;
+                    string s = b5 + "," + b6 + "," + ii;
                     if (b1 == false)
                     {
                         unmoragagepickacard.Items.Add(s);
@@ -297,7 +300,7 @@ namespace TetraPolyGame
         {
             List<Card> card = Players[truncount].GetCards();
             string st = (string)unmoragagepickacard.SelectedValue;
-            int check=int.Parse(st.Split(",")[2]);
+            int check = int.Parse(st.Split(",")[2]);
             Players[truncount].OnMortgageCard(card[check]);
             changebox();
         }

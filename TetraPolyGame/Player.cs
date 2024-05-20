@@ -22,6 +22,8 @@ namespace TetraPolyGame
             _Name = name;
             _Money = money;
             _Position = 0;
+            _CardsOwend = new List<Card>();
+            _chanceCommunitiesOwend = new List<ChanceCommunity>();
             _IsAilve = true;
             _InJail = false;
         }
@@ -70,6 +72,8 @@ namespace TetraPolyGame
         public void byCard(Card CARD)
         {
             _CardsOwend.Add(CARD);
+            CARD.SetOwner(this);
+            MessageBox.Show("You now own: " + CARD.GetName());
         }
         // it sell a card
         public void SellCard(Card CARD)
@@ -111,6 +115,11 @@ namespace TetraPolyGame
                         int move = RollDice();
                         int move2 = RollDice();
                         _Position = _Position + move + move2;
+                        if (_Position > 39)
+                        {
+                            addMoney(200);
+                            setPosition(_Position - 40);
+                        }
                         if (move2 == move)
                         {
                             count = count + 1;
@@ -158,7 +167,7 @@ namespace TetraPolyGame
         virtual public void LoseMoney(int money)
         {
             _Money = _Money - money;
-            if (_Money > 0)
+            if (_Money < 0)
             {
                 bool b = checktotalmorgag();
                 if (b == true)
