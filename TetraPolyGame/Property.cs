@@ -23,40 +23,62 @@ namespace TetraPolyGame
             this.houseRent = houseRent;
         }
 
+        /// <summary>
+        /// Get the count of houses.
+        /// </summary>
+        /// <returns>The number of houses.</returns>
         public int GetHouseCount()
         {
             return numberOfHouses;
         }
 
+        /// <summary>Adds a house to the count of houses.</summary>
         public void AddHouse()
         {
             numberOfHouses++;
         }
 
+        /// <summary>Removes a specified number of houses from the total count.</summary>
+        /// <param name="HouseAmount">The number of houses to remove.</param>
         public void RemoveHouse(int HouseAmount)
         {
 
             numberOfHouses--;
         }
 
+        /// <summary>
+        /// Gets the color of the object.
+        /// </summary>
+        /// <returns>The color of the object as a string.</returns>
         public string GetColour()
         {
             return colour;
         }
 
+        /// <summary>
+        /// Gets the rent value for a specific property.
+        /// </summary>
+        /// <returns>The rent value for the property.</returns>
         public override int GetRent()
         {
-            // Implement logic to calculate and set the rent based on house count and other factors
-            // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
             return base.GetRent();
         }
        
 
+        /// <summary>
+        /// Updates the rent for a specific house based on the number of houses owned.
+        /// </summary>
+        /// <remarks>
+        /// This method sets the rent for a house based on the number of houses owned by a player.
+        /// It retrieves the rent value from the houseRent array using the numberOfHouses as an index.
+        /// </remarks>
         public override void UpdateRent()
         {
             SetRent(houseRent[numberOfHouses]);
         }
 
+        /// <summary>Returns a string representation of the object.</summary>
+        /// <returns>A string containing the base object's string representation, house rent values, color, and position.</returns>
         public override string ToString()
         {
             StringBuilder sb = new();

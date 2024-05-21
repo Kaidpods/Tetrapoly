@@ -18,26 +18,16 @@ namespace TetraPolyGame
     {
         public string Description { get; }
         public CardType Type { get; }
-        private string effectDescription;
-        private Action<Player> effect; // Delegate to hold the card's effect
 
-        public ChanceCommunity(string description, CardType type, string effectDesc)
+        public ChanceCommunity(string description, CardType type)
         {
             Description = description;
             Type = type;
-            effectDescription = effectDesc; 
         }
 
-        
-        public void SetEffect()
+        public string GetDesc()
         {
-            effect = EffectParser.ParseEffect(effectDescription);
-        }
-
-        public void Execute(Player p)
-        {
-            // Execute the card's effect
-            effect(p);
+            return Description;
         }
     }
 

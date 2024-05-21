@@ -55,12 +55,17 @@ namespace TetraPolyGame
             }
 
         }
-        // it add a hous
+        /// <summary>
+        /// Adds a house to the specified property.
+        /// </summary>
+        /// <param name="pro">The property to which the house will be added.</param>
         public void AddHouse(Property pro)
         {
             pro.AddHouse();
         }
-        // it remove a hous
+        /// <summary>Removes a specified number of houses from a property.</summary>
+        /// <param name="pro">The property from which houses will be removed.</param>
+        /// <param name="mnyhosetoremove">The number of houses to remove.</param>
         public void removeHouse(Property pro, int mnyhosetoremove)
         {
             for (int x = 0; x != mnyhosetoremove; x++)
@@ -68,40 +73,60 @@ namespace TetraPolyGame
                 pro.RemoveHouse(mnyhosetoremove);
             }
         }
-        // it buy a card
+
+        /// <summary>Adds a card to the player's owned cards list, sets the owner of the card to the player, and displays a message box.</summary>
+        /// <param name="CARD">The card to be added.</param>
         public void byCard(Card CARD)
         {
             _CardsOwend.Add(CARD);
             CARD.SetOwner(this);
             MessageBox.Show("You now own: " + CARD.GetName());
         }
-        // it sell a card
+
+        /// <summary>Sells a card by removing it from the player's owned cards.</summary>
+        /// <param name="CARD">The card to be sold.</param>
         public void SellCard(Card CARD)
         {
             _CardsOwend.Remove(CARD);
         }
-        // it mortgage a card
+
+        /// <summary>Mortgages a card and adds the mortgage price to the player's money.</summary>
+        /// <param name="card">The card to be mortgaged.</param>
         public void MortgageCard(Card card)
         {
             card.SetMorgaged(true);
             int mor = card.GetMortgagePrice();
             addMoney(mor);
         }
-        // it onmortgage a card
+        /// <summary>Handles the mortgage action for a card.</summary>
+        /// <param name="card">The card to be mortgaged.</param>
+        /// <remarks>This method calculates the mortgage price of the card, deducts the amount from the player's funds, and sets the card as not mortgaged.</remarks>
         public void OnMortgageCard(Card card)
         {
             int mor = card.GetMortgagePrice();
             LoseMoney(mor);
             card.SetMorgaged(false);
         }
-        // get a random nummber between 1 and 6
+
+        /// <summary>
+        /// Simulates rolling a six-sided dice and returns the result.
+        /// </summary>
+        /// <returns>An integer representing the result of the dice roll (between 1 and 6).</returns>
         public int RollDice()
         {
             Random d = new Random();
             int dn = d.Next(1, 6);
             return dn;
         }
-        //it move the player
+
+        /// <summary>
+        /// Moves the player on the game board based on dice rolls.
+        /// </summary>
+        /// <remarks>
+        /// The player can only move if they are alive and not in jail.
+        /// If the player rolls doubles three times in a row, they go to jail.
+        /// If the player is in jail, they must roll doubles to get out.
+        /// </remarks>
         virtual public void MovePlayer()
         {
             if (_IsAilve == true)
@@ -152,7 +177,16 @@ namespace TetraPolyGame
                 }
             }
         }
-        // buy a card
+
+        /// <summary>
+        /// Initiates a purchase using a card.
+        /// </summary>
+        /// <param name="chois">A boolean indicating whether the purchase is confirmed.</param>
+        /// <param name="gc">The card used for the purchase.</param>
+        /// <remarks>
+        /// If the purchase is confirmed, the method deducts the price from the account balance
+        /// based on the card's price and processes the purchase using the provided card.
+        /// </remarks>
         public virtual void buy(bool chois, Card gc)
         {
             if (chois == true)
@@ -163,7 +197,14 @@ namespace TetraPolyGame
             }
 
         }
-        //player the lose money
+        /// <summary>
+        /// Simulates losing money from the player's balance.
+        /// </summary>
+        /// <param name="money">The amount of money to deduct from the player's balance.</param>
+        /// <remarks>
+        /// If the deduction results in a negative balance, it checks if the player can mortgage properties to cover the debt.
+        /// If mortgaging is not possible, the player is marked as not alive.
+        /// </remarks>
         virtual public void LoseMoney(int money)
         {
             _Money = _Money - money;
@@ -180,7 +221,8 @@ namespace TetraPolyGame
                 }
             }
         }
-        //can the player be save if the player morgage a property
+        /// <summary>Checks if the total mortgage value of owned cards is greater than or equal to the negative money balance.</summary>
+        /// <returns>True if the total mortgage value is greater than or equal to the negative money balance, false otherwise.</returns>
         public bool checktotalmorgag()
         {
             int count = 0;
@@ -203,23 +245,37 @@ namespace TetraPolyGame
                 return false;
             }
         }
-        // ask to margage
+        /// <summary>
+        /// Displays a message box informing the user to mortgage some of their properties.
+        /// </summary>
+        /// <remarks>
+        /// This method prompts the user with a message indicating the need to mortgage certain properties.
+        /// </remarks>
         public void asktomortgage()
         {
             string s = "you need to morgae some of your a cards";
             MessageBoxResult w = MessageBox.Show(s);
         }
-        //get mony
+
+        /// <summary>
+        /// Gets the amount of money the player has.
+        /// </summary>
+        /// <returns>The amount of money.</returns>
         public int getMoney()
         {
             return _Money;
         }
-        //add money
+
+        /// <summary>Adds the specified amount of money to the current balance.</summary>
+        /// <param name="money">The amount of money to add.</param>
         public void addMoney(int money)
         {
             _Money += money;
         }
-        //when you go pass go
+
+        /// <summary>Handles the action when a player passes the "Go" position on the board.</summary>
+        /// <remarks>If the player's position is at or beyond the "Go" position (0), the player's position is adjusted
+        /// to the appropriate position after passing "Go" and the player receives $200.</remarks>
         public void PassedGo()
         {
             if (_Position <= 40)
@@ -228,62 +284,98 @@ namespace TetraPolyGame
                 addMoney(200);
             }
         }
-        // get a Position
+
+        /// <summary>
+        /// Gets the current position.
+        /// </summary>
+        /// <returns>The current position.</returns>
         public int GetPosition()
         {
             return _Position;
         }
-        //set the position
+
+        /// <summary>Sets the position value.</summary>
+        /// <param name="position">The new position value to set.</param>
         public void setPosition(int position)
         {
             _Position = position;
         }
-        // get a Ailve
+
+        /// <summary>
+        /// Gets the current status of the object's "alive" state.
+        /// </summary>
+        /// <returns>True if the object is alive, false otherwise.</returns>
         public bool GetAilve()
         {
             return _IsAilve;
         }
-        // set Ailve
+
+        /// <summary>Sets the status of the object to alive or not alive.</summary>
+        /// <param name="B">A boolean value indicating whether the object is alive (true) or not alive (false).</param>
         public void SetAilve(bool B)
         {
             _IsAilve = B;
         }
-        // get is in Jail
+
+        /// <summary>
+        /// Gets the current status of whether the player is in jail.
+        /// </summary>
+        /// <returns>True if the player is in jail, false otherwise.</returns>
         public bool GetInJail()
         {
             return _InJail;
         }
-        // set a  in jail
+
+        /// <summary>Sets the status of whether an object is in jail or not.</summary>
+        /// <param name="b">A boolean value indicating if the object is in jail.</param>
         public void SetInJaile(bool b)
         {
             _InJail = b;
         }
-        // get a money
+
+        /// <summary>
+        /// Gets the amount of money.
+        /// </summary>
+        /// <returns>The amount of money.</returns>
         public int Getmoney()
         {
             return _Money;
         }
-        // get a Cards
+
+        /// <summary>
+        /// Retrieves a list of cards owned by the player.
+        /// </summary>
+        /// <returns>A list of Card objects representing the cards owned by the player.</returns>
         public List<Card> GetCards()
         {
             return _CardsOwend;
         }
-        // get a Chance Communities card
+
+        /// <summary>
+        /// Retrieves a list of ChanceCommunity objects owned by the player.
+        /// </summary>
+        /// <returns>A list of ChanceCommunity objects owned by the player.</returns>
         public List<ChanceCommunity> GetchanceCommunitiesOwend()
         {
             return _chanceCommunitiesOwend;
         }
-        // add a Chance Communities card
+
+        /// <summary>Adds a ChanceCommunity to the list of owned ChanceCommunities.</summary>
+        /// <param name="chance">The ChanceCommunity to be added.</param>
         public void AddchanceCommunitiesOwend(ChanceCommunity chance)
         {
             _chanceCommunitiesOwend.Add(chance);
         }
-        // remove a Chance Communities card
+
+        /// <summary>Removes a ChanceCommunity object from the list of owned ChanceCommunity objects.</summary>
+        /// <param name="i">The index of the ChanceCommunity object to be removed.</param>
         public void removechanceCommunitiesOwend(int i)
         {
             ChanceCommunity chance = _chanceCommunitiesOwend[i];
             _chanceCommunitiesOwend.Remove(chance);
         }
+        /// <summary>Sets the position based on the provided number.</summary>
+        /// <param name="number">The number to set the position to.</param>
         public void SetPos(int number)
         {
             setPosition(number);

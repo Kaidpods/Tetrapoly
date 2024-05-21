@@ -50,6 +50,8 @@ namespace TetraPolyGame
             Shuffle.Shuffle.ShuffleList(ComChaCards);
             var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
             ChanceCommunities = chanceCommunities;
+
+
             //MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
 
         }
@@ -59,6 +61,13 @@ namespace TetraPolyGame
             Players.Add(p);
         }
         // next turn 
+        /// <summary>
+        /// Manages the turn order of players in a game.
+        /// </summary>
+        /// <remarks>
+        /// This method iterates through the players in a rounds, allowing each player to make a move.
+        /// After each player's turn, it checks if there is only one player left in the game.
+        /// </remarks>
         public void turnorder()
         {
             bool t = true;
@@ -80,6 +89,8 @@ namespace TetraPolyGame
             }
         }
         // Onlyone left
+        /// <summary>Determines if there is only one player left alive.</summary>
+        /// <returns>True if there is only one player alive, false otherwise.</returns>
         public bool Onlyoneleft()
         {
             bool b = true;
@@ -103,6 +114,12 @@ namespace TetraPolyGame
             return b;
         }
 
+        /// <summary>
+        /// Checks the position of a player and performs corresponding actions based on the game rules.
+        /// </summary>
+        /// <param name="turn">The turn of the player to check.</param>
+        /// <remarks>
+        /// This method checks if the player lands on a card's position, and then executes actions based on the card type and ownership.
         public void checkposition(int turn)
         {
             bool t = true;
@@ -209,11 +226,62 @@ namespace TetraPolyGame
                 }
             }
         }
-        public void getComCha(Player player)
+        /// <summary>
+        /// Retrieves a Chance or Community Chest card, sets its effect, and executes it on the player.
+        /// </summary>
+        /// <param name="player">The player to execute the card's effect on.</param>
+        public void getComCha(Player p)
         {
             ChanceCommunity temp = ChanceCommunities.Pop();
-            temp.SetEffect();
-            temp.Execute(player);
+            
+            switch (temp.GetDesc())
+            {
+                case "Advance To Boardwalk":
+                    p.MoveToPosition(39);
+                    break;
+
+                case "Advance To Go":
+                    p.addMoney(200); p.SetPos(0);
+                    break;
+
+                case "Go back 3 spaces":
+                    p.SetPos(p.GetPosition() - 3);
+                    break;
+
+                case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
+                    p.SetPos(-1);
+                    break;
+
+                case "Fined for a LEZ (Light Emmision Zone) Charge":
+                    p.LoseMoney(60);
+
+                    break;
+
+                case "Your building loan matures. Collect $150":
+                    p.addMoney(150);
+
+                    break;
+
+                case "Get Out of Jail Free":
+                    p.SetPos(10); p.SetInJaile(false);
+
+                    break;
+
+                case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
+                    p.addMoney(100);
+
+                    break;
+
+                case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
+                    p.addMoney(200);
+
+                    break;
+
+                case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
+                    p.SetPos(p.GetPosition() + 2);
+
+                    break;
+            }
         }
 
         /// <summary>
@@ -237,6 +305,16 @@ namespace TetraPolyGame
             }
 
         }
+        /// <summary>
+        /// Handles the click event when the "rolldice" button is clicked.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <remarks>
+        /// This method checks the current player's money status. If the player has money,
+        /// it proceeds with the turn order. If the player has no money, it prompts the player
+        /// to mortgage properties. Finally, it updates the user interface.
+        /// </remarks>
         private void rolldice_Click(object sender, RoutedEventArgs e)
         {
             int i = Players[truncount].getMoney();
@@ -250,6 +328,14 @@ namespace TetraPolyGame
             }
             changebox();
         }
+        /// <summary>
+        /// Clears and updates the items in the unmortgaged and mortgaged card pickers based on the player's cards.
+        /// Also displays the player's current money.
+        /// </summary>
+        /// <remarks>
+        /// This method populates the unmortgaged and mortgaged card pickers with the player's cards.
+        /// It also displays the player's current money on the UI.
+        /// </remarks>
         public void changebox()
         {
             try
@@ -296,6 +382,13 @@ namespace TetraPolyGame
             }
         }
 
+        /// <summary>
+        /// Handles the click event when the "unmortgage" button is clicked.
+        /// Retrieves the list of cards owned by the current player, selects a card based on user input,
+        /// unmortgages the selected card, and updates the UI accordingly.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void unmorgage_Click(object sender, RoutedEventArgs e)
         {
             List<Card> card = Players[truncount].GetCards();
@@ -305,6 +398,16 @@ namespace TetraPolyGame
             changebox();
         }
 
+        /// <summary>
+        /// Handles the click event when the mortgage button is clicked.
+        /// Mortgages a selected card from the player's cards list.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <remarks>
+        /// This method retrieves the selected card from the player's cards list,
+        /// parses the selected card information, mortgages the card, and updates the UI.
+        /// </remarks>
         private void morgage_Click(object sender, RoutedEventArgs e)
         {
             List<Card> card = Players[truncount].GetCards();
