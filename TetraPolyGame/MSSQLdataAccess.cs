@@ -80,10 +80,9 @@ namespace TetraPolyGame
                         {
                             string desc = reader.GetString(0);
                             CardType type = Enum.Parse<CardType>(reader.GetString(1));
-                            String effectDesc = reader.GetString(2);
 
                             //Create the community card
-                            ChanceCommunity chanceCommunity = new ChanceCommunity(desc, type, effectDesc);
+                            ChanceCommunity chanceCommunity = new ChanceCommunity(desc, type);
                             chanceCommunities.Add(chanceCommunity);
                         }
                     }

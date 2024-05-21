@@ -60,6 +60,11 @@ namespace TetraPolyGame
         {
             Players.Add(p);
         }
+
+        public void SetImageRes()
+        {
+
+        }
         // next turn 
         /// <summary>
         /// Manages the turn order of players in a game.
@@ -135,7 +140,6 @@ namespace TetraPolyGame
                         if (card.IsOwned() != Players[turn])
                         {
                             int r = card.GetRent();
-                            Players[turn].addMoney(r);
                             Players[turn].LoseMoney(r);
                         }
                         else if ((card.IsOwned() == Players[turn]) && (card is Property) && (Players[turn] is not algorithm))
@@ -207,15 +211,15 @@ namespace TetraPolyGame
                         {
                             Players[turn].buy(true, card);
                         }
-                        if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                        else if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
                         {
                             getComCha(Players[turn]);
                         }
-                        if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
+                        else if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
                         {
                             getComCha(Players[turn]);
                         }
-                        if (Players[turn].GetPosition() == 30)
+                        else if (Players[turn].GetPosition() == 30)
                         {
                             Players[turn].SetInJaile(true);
                             Players[turn].setPosition(-1);
