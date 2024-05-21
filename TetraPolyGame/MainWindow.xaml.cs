@@ -56,7 +56,7 @@ namespace TetraPolyGame
 
         }
         //set the players
-        public void setPlayers(Player p)
+        public void AddPlayer(Player p)
         {
             Players.Add(p);
         }
@@ -77,7 +77,7 @@ namespace TetraPolyGame
                 MovePlayer(players[truncount], Players[truncount].GetPosition());
                 checkposition(truncount);
                 t = Onlyoneleft();
-                if (truncount != 3)
+                if (truncount != players.Count - 1)
                 {
                     truncount = truncount + 1;
                 }
