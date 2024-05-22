@@ -17,7 +17,7 @@ namespace TetraPolyGame
         {
             int se = gc.GetPrice();
             CheckMoney(se);
-            byCard(gc);
+            buyCard(gc);
         }
         //this make the algorithm Lose Money
         public override void CheckMoney(int money)

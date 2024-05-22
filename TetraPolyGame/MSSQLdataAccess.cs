@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 
@@ -13,9 +14,9 @@ namespace TetraPolyGame
             _SQLconnectionStrng = "Data Source=kaidenserver.database.windows.net;Initial Catalog=PublicQuestions;User ID=ReadOnly;Password=Reading123;Connect Timeout=60;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
-        public List<Card> GetProperties()
+        public ObservableCollection<Card> GetProperties()
         {
-            List<Card> properties = [];
+            ObservableCollection<Card> properties = [];
             try
             {
                 using (SqlConnection conn = new SqlConnection(_SQLconnectionStrng))
@@ -27,10 +28,6 @@ namespace TetraPolyGame
                     {
                         while (reader.Read())
                         {
-                            if (properties.Count == 9)
-                            {
-                                MessageBox.Show("Wait");
-                            }
                             int[] houseRents = new int[6];
                             // Read data from each row and create card objects
                             string name = reader.GetString(0);

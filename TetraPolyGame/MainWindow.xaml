@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="795" Width="1340" ResizeMode="NoResize">
+        Title="MainWindow" Height="880" Width="1340" ResizeMode="NoResize">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
@@ -22,7 +22,8 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
-
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
@@ -139,11 +140,11 @@
         <Ellipse Name ="TestPlayer2" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="40,0,0,40"/>
         <Ellipse Name ="TestPlayer3" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="40,40,0,0"/>
         <Ellipse Name ="TestPlayer4" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,40,40,0"/>
-        <Button x:Name="rolldice" Content="roll the dice " HorizontalAlignment="Center" Height="60" Grid.Row="3" VerticalAlignment="Center" Width="119" Grid.Column="5" Grid.ColumnSpan="2" Click="rolldice_Click"/>
-        <Button x:Name="morgage" Content="morgage the card" HorizontalAlignment="Center" Height="60" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="morgage_Click"/>
-        <Button x:Name="unmorgage" Content="unmorgage a card" HorizontalAlignment="Left" Height="60" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="unmorgage_Click"/>
-        <ComboBox x:Name="unmoragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="5" SelectionChanged="unmoragagepickacard_SelectionChanged" />
-        <ComboBox x:Name="moragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="5" SelectionChanged="moragagepickacard_SelectionChanged" />
+        <Button x:Name="rolldice" Content="roll the dice " HorizontalAlignment="Center" Height="60" Grid.Row="2" VerticalAlignment="Center" Width="119" Grid.Column="5" Grid.ColumnSpan="2" Click="rolldice_Click"/>
+        <Button x:Name="morgage" Content="morgage the card" HorizontalAlignment="Center" Height="60" Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="morgage_Click"/>
+        <Button x:Name="unmorgage" Content="unmorgage a card" HorizontalAlignment="Left" Height="60" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="unmorgage_Click"/>
+        <ComboBox x:Name="unmoragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="6" Grid.Column="5" SelectionChanged="unmoragagepickacard_SelectionChanged" />
+        <ComboBox x:Name="moragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="5" SelectionChanged="moragagepickacard_SelectionChanged" />
         <Grid Name ="PlayerContainer1" Grid.Column="14" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -166,7 +167,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
-                
+
 
             </Border>
         </Grid>
@@ -229,5 +230,6 @@
             <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerHat.png"/>
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60"/>
         </Grid>
+        <Button Grid.Column="5" Grid.ColumnSpan="2" Content="End turn" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="60" Width="120"/>
     </Grid>
 </Window>

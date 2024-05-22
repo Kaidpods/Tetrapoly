@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
 using System.Printing;
 using System.Text;
@@ -22,7 +23,7 @@ namespace TetraPolyGame
     {
         public static AllCards cards = AllCards.Instance;
         private MSSQLdataAccess database = new();
-        private List<Card> Cards = new();
+        private ObservableCollection<Card> Cards = new();
         private Stack<ChanceCommunity> ChanceCommunities = new();
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
@@ -150,6 +151,7 @@ namespace TetraPolyGame
                         if (card.IsOwned() != ViewModel.Players[turn])
                         {
                             int r = card.GetRent();
+                            ViewModel.Players[turn].Money -= r;
                             ViewModel.Players[turn].CheckMoney(r);
                         }
                         else if ((card.IsOwned() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
@@ -221,9 +223,9 @@ namespace TetraPolyGame
                         {
                             ViewModel.Players[turn].buy(true, card);
                         }
-                        
+
                     }
-                    
+
                     t = false;
 
                 }
@@ -249,7 +251,7 @@ namespace TetraPolyGame
         public void getComCha(Player p)
         {
             ChanceCommunity temp = ChanceCommunities.Pop();
-            
+
             switch (temp.GetDesc())
             {
                 case "Advance To Boardwalk":
@@ -257,7 +259,7 @@ namespace TetraPolyGame
                     break;
 
                 case "Advance To Go":
-                    p.Money+=(200); p.SetPos(0);
+                    p.Money += (200); p.SetPos(0);
                     break;
 
                 case "Go back 3 spaces":
@@ -274,7 +276,7 @@ namespace TetraPolyGame
                     break;
 
                 case "Your building loan matures. Collect $150":
-                    p.Money+=(150);
+                    p.Money += (150);
 
                     break;
 
@@ -284,12 +286,12 @@ namespace TetraPolyGame
                     break;
 
                 case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
-                    p.Money+=(100);
+                    p.Money += (100);
 
                     break;
 
                 case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
-                    p.Money+=(200);
+                    p.Money += (200);
 
                     break;
 
@@ -354,49 +356,41 @@ namespace TetraPolyGame
         /// </remarks>
         public void changebox()
         {
-            try
+            unmoragagepickacard.Items.Clear();
+            moragagepickacard.Items.Clear();
+            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+            string str;
+            string b5;
+            unmoragagepickacard.SelectedIndex = 0;
+            moragagepickacard.SelectedIndex = 0;
+            if (cards == null)
             {
-                unmoragagepickacard.Items.Clear();
-                moragagepickacard.Items.Clear();
-                List<Card> card = ViewModel.Players[truncount].GetCards();
-                int ii = 0;
-                string str;
-                string b5;
-                string b6;
-                unmoragagepickacard.SelectedIndex = 0;
-                moragagepickacard.SelectedIndex = 0;
-                //string st = "your number of money is: " + ViewModel.Players[truncount].getMoney();
-                //displaymoney.Content = st;
-                while (card != null)
+                b5 = "there are no cards";
+
+                unmoragagepickacard.Items.Add(b5);
+                moragagepickacard.Items.Add(b5);
+                moragagepickacard.IsEnabled = false;
+                unmoragagepickacard.IsEnabled = false;
+            }
+            else
+            {
+                foreach (Card card in cards)
                 {
-                    try
+                    str = card.ToString();
+                    bool b1 = card.IsMortgaged();
+
+                    if (b1 == true)
                     {
-                        b5 = card.ToString().Split(", ")[0];
-                        b6 = card.ToString().Split(", ")[3];
-                    }
-                    catch (Exception ae)
-                    {
-                        b5 = "there are no cards";
-                        b6 = null;
-                    }
-                    bool b1 = card[ii].IsMortgaged();
-                    string s = b5 + "," + b6 + "," + ii;
-                    if (b1 == false)
-                    {
-                        unmoragagepickacard.Items.Add(s);
+                        unmoragagepickacard.Items.Add(str);
                     }
                     else
                     {
-                        moragagepickacard.Items.Add(s);
+                        moragagepickacard.Items.Add(str);
                     }
-                    ii = ii + 1;
-
                 }
             }
-            catch (Exception ee)
-            {
-            }
         }
+
 
         /// <summary>
         /// Handles the click event when the "unmortgage" button is clicked.
@@ -407,7 +401,7 @@ namespace TetraPolyGame
         /// <param name="e">The event arguments.</param>
         private void unmorgage_Click(object sender, RoutedEventArgs e)
         {
-            List<Card> card = ViewModel.Players[truncount].GetCards();
+            ObservableCollection<Card> card = ViewModel.Players[truncount].CardsOwned;
             string st = (string)unmoragagepickacard.SelectedValue;
             int check = int.Parse(st.Split(",")[2]);
             ViewModel.Players[truncount].OnMortgageCard(card[check]);
@@ -426,11 +420,17 @@ namespace TetraPolyGame
         /// </remarks>
         private void morgage_Click(object sender, RoutedEventArgs e)
         {
-            List<Card> card = ViewModel.Players[truncount].GetCards();
-            string st = (string)unmoragagepickacard.SelectedValue;
-            int check = int.Parse(st.Split(",")[2]);
-            ViewModel.Players[truncount].MortgageCard(card[check]);
-            changebox();
+            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+            string st = (string)moragagepickacard.SelectedValue;
+            foreach (Card card in cards)
+            {
+                if (card.ToString() == st)
+                {
+                    ViewModel.Players[truncount].MortgageCard(card);
+                    changebox();
+                }
+            }
+            
         }
 
         private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)

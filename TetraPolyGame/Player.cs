@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
@@ -17,7 +18,7 @@ namespace TetraPolyGame
         protected string _Name;
         protected int _Money;
         private int _Position;
-        protected List<Card> _CardsOwend;
+        protected ObservableCollection<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,7 +28,7 @@ namespace TetraPolyGame
             _Name = name;
             _Money = money;
             _Position = 0;
-            _CardsOwend = new List<Card>();
+            _CardsOwend = new ObservableCollection<Card>();
             _chanceCommunitiesOwend = new List<ChanceCommunity>();
             _IsAilve = true;
             _InJail = false;
@@ -81,18 +82,11 @@ namespace TetraPolyGame
 
         /// <summary>Adds a card to the player's owned cards list, sets the owner of the card to the player, and displays a message box.</summary>
         /// <param name="CARD">The card to be added.</param>
-        public void byCard(Card CARD)
+        public void buyCard(Card CARD)
         {
             _CardsOwend.Add(CARD);
             CARD.SetOwner(this);
             MessageBox.Show("You now own: " + CARD.GetName());
-        }
-
-        /// <summary>Sells a card by removing it from the player's owned cards.</summary>
-        /// <param name="CARD">The card to be sold.</param>
-        public void SellCard(Card CARD)
-        {
-            _CardsOwend.Remove(CARD);
         }
 
         /// <summary>Mortgages a card and adds the mortgage price to the player's money.</summary>
@@ -199,7 +193,7 @@ namespace TetraPolyGame
                 int se = gc.GetPrice();
                 Money -= se;
                 CheckMoney(se);
-                byCard(gc);
+                buyCard(gc);
             }
 
         }
@@ -345,9 +339,14 @@ namespace TetraPolyGame
         /// Retrieves a list of cards owned by the player.
         /// </summary>
         /// <returns>A list of Card objects representing the cards owned by the player.</returns>
-        public List<Card> GetCards()
+        public ObservableCollection<Card> CardsOwned
         {
-            return _CardsOwend;
+            get => _CardsOwend;
+            set
+            {
+                _CardsOwend = value;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
