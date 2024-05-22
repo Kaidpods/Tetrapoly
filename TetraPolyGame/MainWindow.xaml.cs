@@ -28,11 +28,13 @@ namespace TetraPolyGame
         private List<Ellipse> players = [];
         private Random rng = new Random();
         private int truncount = 0;
+        public MainViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            //If you want to add player via the eclipse icons
 
+            ViewModel = (MainViewModel)DataContext;
             //For Testing purposes
             players.Add(TestPlayer);
             players.Add(TestPlayer2);
@@ -43,6 +45,7 @@ namespace TetraPolyGame
             Players.Add(new Player("David", 1000));
             Players.Add(new Player("Kyle", 1000));
             Players.Add(new Player("Daniel", 1000));
+
 
 
             Cards = database.GetProperties();
@@ -211,22 +214,24 @@ namespace TetraPolyGame
                         {
                             Players[turn].buy(true, card);
                         }
-                        else if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
-                        {
-                            getComCha(Players[turn]);
-                        }
-                        else if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
-                        {
-                            getComCha(Players[turn]);
-                        }
-                        else if (Players[turn].GetPosition() == 30)
-                        {
-                            Players[turn].SetInJaile(true);
-                            Players[turn].setPosition(-1);
-                        }
+                        
                     }
+                    
                     t = false;
 
+                }
+                else if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                {
+                    getComCha(Players[turn]);
+                }
+                else if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
+                {
+                    getComCha(Players[turn]);
+                }
+                else if (Players[turn].GetPosition() == 30)
+                {
+                    Players[turn].SetInJaile(true);
+                    Players[turn].setPosition(-1);
                 }
             }
         }
@@ -353,8 +358,8 @@ namespace TetraPolyGame
                 string b6;
                 unmoragagepickacard.SelectedIndex = 0;
                 moragagepickacard.SelectedIndex = 0;
-                string st = "your number of money is: " + Players[truncount].getMoney();
-                displaymoney.Content = st;
+                //string st = "your number of money is: " + Players[truncount].getMoney();
+                //displaymoney.Content = st;
                 while (card != null)
                 {
                     try

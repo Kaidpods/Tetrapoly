@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -16,6 +18,8 @@ namespace TetraPolyGame
         private int _Position;
         protected List<Card> _CardsOwend;
         protected List<ChanceCommunity> _chanceCommunitiesOwend;
+
+        public event PropertyChangedEventHandler PropertyChanged;
         //this is the constroctor for the Player
         public Player(string name, int money)
         {
@@ -264,6 +268,7 @@ namespace TetraPolyGame
         public int getMoney()
         {
             return _Money;
+
         }
 
         /// <summary>Adds the specified amount of money to the current balance.</summary>
@@ -271,6 +276,7 @@ namespace TetraPolyGame
         public void addMoney(int money)
         {
             _Money += money;
+            OnPropertyChanged();
         }
 
         /// <summary>Handles the action when a player passes the "Go" position on the board.</summary>
@@ -315,6 +321,7 @@ namespace TetraPolyGame
         public void SetAilve(bool B)
         {
             _IsAilve = B;
+            OnPropertyChanged();
         }
 
         /// <summary>
@@ -331,6 +338,7 @@ namespace TetraPolyGame
         public void SetInJaile(bool b)
         {
             _InJail = b;
+            OnPropertyChanged();
         }
 
         /// <summary>
@@ -340,6 +348,16 @@ namespace TetraPolyGame
         public int Getmoney()
         {
             return _Money;
+        }
+
+        public int Money
+        {
+            get => _Money;
+            set
+            {
+                _Money = value;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -365,6 +383,7 @@ namespace TetraPolyGame
         public void AddchanceCommunitiesOwend(ChanceCommunity chance)
         {
             _chanceCommunitiesOwend.Add(chance);
+            OnPropertyChanged();
         }
 
         /// <summary>Removes a ChanceCommunity object from the list of owned ChanceCommunity objects.</summary>
@@ -373,16 +392,23 @@ namespace TetraPolyGame
         {
             ChanceCommunity chance = _chanceCommunitiesOwend[i];
             _chanceCommunitiesOwend.Remove(chance);
+            OnPropertyChanged();
         }
         /// <summary>Sets the position based on the provided number.</summary>
         /// <param name="number">The number to set the position to.</param>
         public void SetPos(int number)
         {
             setPosition(number);
+
         }
         public void MoveToPosition(int newPosition)
         {
             SetPos(newPosition);
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

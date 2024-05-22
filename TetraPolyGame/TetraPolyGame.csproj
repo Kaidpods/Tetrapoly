@@ -13,6 +13,11 @@
     <None Remove="Resources\Group 1.png" />
     <None Remove="Resources\Group1.png" />
     <None Remove="Resources\jailman.png" />
+    <None Remove="Resources\PlayerCamera.png" />
+    <None Remove="Resources\PlayerCar.png" />
+    <None Remove="Resources\PlayerCat.png" />
+    <None Remove="Resources\PlayerHat.png" />
+    <None Remove="Resources\PlayerShip.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +31,11 @@
   <ItemGroup>
     <Resource Include="Resources\Group1.png" />
     <Resource Include="Resources\jailman.png" />
+    <Resource Include="Resources\PlayerCamera.png" />
+    <Resource Include="Resources\PlayerCar.png" />
+    <Resource Include="Resources\PlayerCat.png" />
+    <Resource Include="Resources\PlayerHat.png" />
+    <Resource Include="Resources\PlayerShip.png" />
   </ItemGroup>
 
   <ItemGroup>
