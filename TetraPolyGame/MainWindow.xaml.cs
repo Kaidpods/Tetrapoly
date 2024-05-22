@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
+using System.Drawing;
 using System.Printing;
 using System.Text;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -44,7 +46,6 @@ namespace TetraPolyGame
             players.Add(TestPlayer3);
             players.Add(TestPlayer4);
 
-
             Cards = database.GetProperties();
             List<ChanceCommunity> ComChaCards = database.GetCommunityChance();
             Shuffle.Shuffle.ShuffleList(ComChaCards);
@@ -53,7 +54,6 @@ namespace TetraPolyGame
 
 
             //MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
-
         }
         //set the players
         public void AddPlayer(Player p)
@@ -61,10 +61,58 @@ namespace TetraPolyGame
             Players.Add(p);
         }
 
-        public void SetImageRes()
+        private void MoveClockwise(int endRow, int endColumn)
         {
+            // Determine the next position (clockwise)
+            int gridSize = 11;
+            int newRow = 0, newColumn = 0;
+            if (players[0] != null)
+            {
+                var currentRow = Grid.GetRow(players[0]);
+                var currentColumn = Grid.GetColumn(players[0]);
 
+                if (currentRow == 0 && currentColumn < gridSize - 1)
+                {
+                    newRow = currentRow;
+                    newColumn = currentColumn + 1;
+                }
+                else if (currentColumn == gridSize - 1 && currentRow < gridSize - 1)
+                {
+                    newRow = currentRow + 1;
+                    newColumn = currentColumn;
+                }
+                else if (currentRow == gridSize - 1 && currentColumn > 0)
+                {
+                    newRow = currentRow;
+                    newColumn = currentColumn - 1;
+                }
+                else if (currentRow > 0 && currentColumn == 0)
+                {
+                    newRow = currentRow - 1;
+                    newColumn = currentColumn;
+                }
+                // Stop the movement when reaching (10, 3)
+                if (currentRow == endRow && currentColumn == endColumn)
+                {
+                    return;
+                }
+
+                // Create an animation to move the player to the next position
+                var rowAnimation = new Int32Animation(currentRow, newRow, TimeSpan.FromMilliseconds(100));
+                var columnAnimation = new Int32Animation(currentColumn, newColumn, TimeSpan.FromMilliseconds(100));
+
+                rowAnimation.Completed += (sender, e) =>
+                {
+                    Grid.SetRow(players[0], newRow);
+                    Grid.SetColumn(players[0], newColumn);
+                    MoveClockwise(endRow, endColumn); // Repeat the clockwise movement
+                };
+
+                players[0].BeginAnimation(Grid.RowProperty, rowAnimation);
+                players[0].BeginAnimation(Grid.ColumnProperty, columnAnimation);
+            }
         }
+
         // next turn 
         /// <summary>
         /// Manages the turn order of players in a game.
@@ -303,12 +351,11 @@ namespace TetraPolyGame
         {
             foreach (UIElement element in gameBoardGrid.Children)
             {
-                if (element is Rectangle rectangle)
+                if (element is System.Windows.Shapes.Rectangle rectangle)
                 {
                     if (rectangle.Name == ("pos") + Position.ToString())
                     {
-                        Grid.SetColumn(e, Grid.GetColumn(rectangle));
-                        Grid.SetRow(e, Grid.GetRow(rectangle));
+                        MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle));
                         break;
                     }
                 }
