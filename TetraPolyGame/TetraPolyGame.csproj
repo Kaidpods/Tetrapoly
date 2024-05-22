@@ -18,6 +18,7 @@
     <None Remove="Resources\PlayerCat.png" />
     <None Remove="Resources\PlayerHat.png" />
     <None Remove="Resources\PlayerShip.png" />
+    <None Remove="Resources\TestBackground.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +37,7 @@
     <Resource Include="Resources\PlayerCat.png" />
     <Resource Include="Resources\PlayerHat.png" />
     <Resource Include="Resources\PlayerShip.png" />
+    <Resource Include="Resources\TestBackground.jpg" />
   </ItemGroup>
 
   <ItemGroup>

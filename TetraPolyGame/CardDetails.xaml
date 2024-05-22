@@ -1,0 +1,32 @@
+﻿<Window x:Class="TetraPolyGame.CardDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TetraPolyGame"
+        mc:Ignorable="d"
+        Title="CardDetails" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFC5C5C5">
+    <Grid>
+        <ComboBox Name ="PlayerCards" HorizontalAlignment="Left" Margin="40,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerCards_SelectionChanged"/>
+        <Rectangle HorizontalAlignment="Left" Height="414" Margin="235,0,0,0" VerticalAlignment="Center" Width="2" Fill="Black"/>
+        <TextBox Name="Name"  HorizontalAlignment="Left" Margin="280,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox Name="Price" HorizontalAlignment="Left" Margin="280,131,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox Name="House1" HorizontalAlignment="Left" Margin="630,177,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="319,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="322,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Rent" HorizontalAlignment="Left" Margin="675,105,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="House2" HorizontalAlignment="Left" Margin="630,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" IsEnabled="False"/>
+        <TextBox Name="House3" HorizontalAlignment="Left" Margin="630,239,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox Name="House4" HorizontalAlignment="Left" Margin="630,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox Name="House5" HorizontalAlignment="Left" Margin="630,372,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox Name="Colour" HorizontalAlignment="Left" Margin="630,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Label Content="Colour" HorizontalAlignment="Left" Margin="669,31,0,0" VerticalAlignment="Top"/>
+        <Label Content="1 House" HorizontalAlignment="Left" Margin="577,173,0,0" VerticalAlignment="Top"/>
+        <Label Content="2 House" HorizontalAlignment="Left" Margin="577,0,0,0" VerticalAlignment="Center"/>
+        <Label Content="3 House" HorizontalAlignment="Left" Margin="577,235,0,0" VerticalAlignment="Top"/>
+        <Label Content="4 House" HorizontalAlignment="Left" Margin="577,266,0,0" VerticalAlignment="Top"/>
+        <Label Content="5 House" HorizontalAlignment="Left" Margin="577,368,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="Rent" HorizontalAlignment="Left" Margin="632,131,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+
+    </Grid>
+</Window>

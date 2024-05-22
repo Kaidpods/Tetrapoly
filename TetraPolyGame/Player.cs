@@ -349,6 +349,19 @@ namespace TetraPolyGame
             }
         }
 
+        public ObservableCollection<string> CardsNames
+        {
+            get
+            {
+                ObservableCollection<string> cardNames = [];
+                foreach (var card in _CardsOwend)
+                {
+                    cardNames.Add(card.GetName());
+                }
+                return cardNames;
+            }
+        }
+
         /// <summary>
         /// Retrieves a list of ChanceCommunity objects owned by the player.
         /// </summary>

@@ -27,7 +27,6 @@ namespace TetraPolyGame
         private Stack<ChanceCommunity> ChanceCommunities = new();
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
-        private List<Grid> grids = [];
         private Random rng = new Random();
         private int truncount = 0;
         public MainViewModel ViewModel { get; set; }
@@ -35,6 +34,8 @@ namespace TetraPolyGame
         public MainWindow()
         {
             InitializeComponent();
+            EndTurnBtn.IsEnabled = false;
+
 
             ViewModel = (MainViewModel)DataContext;
             //For Testing purposes
@@ -42,17 +43,6 @@ namespace TetraPolyGame
             players.Add(TestPlayer2);
             players.Add(TestPlayer3);
             players.Add(TestPlayer4);
-
-            grids.Add(PlayerContainer1);
-            grids.Add(PlayerContainer2);
-            grids.Add(PlayerContainer3);
-            grids.Add(PlayerContainer4);
-
-            //Players.Add(new Player("Kaiden", 1000));
-            //Players.Add(new Player("David", 1000));
-            //Players.Add(new Player("Kyle", 1000));
-            //Players.Add(new Player("Daniel", 1000));
-
 
 
             Cards = database.GetProperties();
@@ -85,22 +75,14 @@ namespace TetraPolyGame
         /// </remarks>
         public void turnorder()
         {
-            bool t = true;
-            while (t == true)
+            if (!Onlyoneleft())
             {
-
                 ViewModel.Players[truncount].MovePlayer();
                 MovePlayer(players[truncount], ViewModel.Players[truncount].GetPosition());
                 checkposition(truncount);
-                t = Onlyoneleft();
-                if (truncount != players.Count - 1)
-                {
-                    truncount = truncount + 1;
-                }
-                else
-                {
-                    truncount = 0;
-                }
+            }
+            else
+            {
 
             }
         }
@@ -129,6 +111,8 @@ namespace TetraPolyGame
             }
             return b;
         }
+
+
 
         /// <summary>
         /// Checks the position of a player and performs corresponding actions based on the game rules.
@@ -241,6 +225,7 @@ namespace TetraPolyGame
                 {
                     ViewModel.Players[turn].SetInJaile(true);
                     ViewModel.Players[turn].setPosition(-1);
+
                 }
             }
         }
@@ -256,18 +241,24 @@ namespace TetraPolyGame
             {
                 case "Advance To Boardwalk":
                     p.MoveToPosition(39);
+                    MovePlayer(players[truncount], 39);
                     break;
 
                 case "Advance To Go":
                     p.Money += (200); p.SetPos(0);
+                    MovePlayer(players[truncount], 0);
                     break;
 
                 case "Go back 3 spaces":
                     p.SetPos(p.GetPosition() - 3);
+                    MovePlayer(players[truncount], p.GetPosition());
                     break;
 
                 case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
                     p.SetPos(-1);
+                    p.SetInJaile(true);
+                    Grid.SetColumn(players[truncount], Grid.GetColumn(posJail));
+                    Grid.SetRow(players[truncount], Grid.GetRow(posJail));
                     break;
 
                 case "Fined for a LEZ (Light Emmision Zone) Charge":
@@ -282,7 +273,7 @@ namespace TetraPolyGame
 
                 case "Get Out of Jail Free":
                     p.SetPos(10); p.SetInJaile(false);
-
+                    MovePlayer(players[truncount], 10);
                     break;
 
                 case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
@@ -297,6 +288,7 @@ namespace TetraPolyGame
 
                 case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
                     p.SetPos(p.GetPosition() + 2);
+                    MovePlayer(players[truncount], p.GetPosition());
 
                     break;
             }
@@ -339,6 +331,8 @@ namespace TetraPolyGame
             if (i > 0)
             {
                 turnorder();
+                rolldice.IsEnabled = false;
+                EndTurnBtn.IsEnabled = true;
             }
             else
             {
@@ -392,55 +386,105 @@ namespace TetraPolyGame
         }
 
 
-        /// <summary>
-        /// Handles the click event when the "unmortgage" button is clicked.
-        /// Retrieves the list of cards owned by the current player, selects a card based on user input,
-        /// unmortgages the selected card, and updates the UI accordingly.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
-        private void unmorgage_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Handles the click event when the "unmortgage" button is clicked.
+    /// Retrieves the list of cards owned by the current player, selects a card based on user input,
+    /// unmortgages the selected card, and updates the UI accordingly.
+    /// </summary>
+    /// <param name="sender">The object that raised the event.</param>
+    /// <param name="e">The event arguments.</param>
+    private void unmorgage_Click(object sender, RoutedEventArgs e)
+    {
+        ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+        string st = (string)moragagepickacard.SelectedValue;
+        foreach (Card card in cards)
         {
-            ObservableCollection<Card> card = ViewModel.Players[truncount].CardsOwned;
-            string st = (string)unmoragagepickacard.SelectedValue;
-            int check = int.Parse(st.Split(",")[2]);
-            ViewModel.Players[truncount].OnMortgageCard(card[check]);
-            changebox();
-        }
-
-        /// <summary>
-        /// Handles the click event when the mortgage button is clicked.
-        /// Mortgages a selected card from the player's cards list.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
-        /// <remarks>
-        /// This method retrieves the selected card from the player's cards list,
-        /// parses the selected card information, mortgages the card, and updates the UI.
-        /// </remarks>
-        private void morgage_Click(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-            string st = (string)moragagepickacard.SelectedValue;
-            foreach (Card card in cards)
+            if (card.ToString() == st)
             {
-                if (card.ToString() == st)
-                {
-                    ViewModel.Players[truncount].MortgageCard(card);
-                    changebox();
-                }
+                ViewModel.Players[truncount].MortgageCard(card);
+                changebox();
             }
-            
-        }
-
-        private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
+
+    /// <summary>
+    /// Handles the click event when the mortgage button is clicked.
+    /// Mortgages a selected card from the player's cards list.
+    /// </summary>
+    /// <param name="sender">The object that raised the event.</param>
+    /// <param name="e">The event arguments.</param>
+    /// <remarks>
+    /// This method retrieves the selected card from the player's cards list,
+    /// parses the selected card information, mortgages the card, and updates the UI.
+    /// </remarks>
+    private void morgage_Click(object sender, RoutedEventArgs e)
+    {
+        ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+        string st = (string)moragagepickacard.SelectedValue;
+        foreach (Card card in cards)
+        {
+            if (card.ToString() == st)
+            {
+                ViewModel.Players[truncount].MortgageCard(card);
+                changebox();
+            }
+        }
+
+    }
+
+    private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void EndTurnButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (truncount != players.Count - 1)
+        {
+            truncount = truncount + 1;
+        }
+        else
+        {
+            truncount = 0;
+        }
+        rolldice.IsEnabled = true;
+        EndTurnBtn.IsEnabled = false;
+        changebox();
+    }
+
+    private void CardsButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var parent = button.Parent as FrameworkElement;
+        var popup = new CardDetails();
+        popup.Owner = this; // Set the owner to the main window
+
+        if (parent.Name == PlayerContainer1.Name)
+        {
+            popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
+            popup.Show();
+            popup.GetPlayer(ViewModel.Players[0]);
+        }
+        else if (parent.Name == PlayerContainer2.Name)
+        {
+            popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsOwned;
+            popup.ShowDialog();
+        }
+        else if (parent.Name == PlayerContainer3.Name)
+        {
+            popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
+            popup.ShowDialog();
+        }
+        else if (parent.Name == PlayerContainer4.Name)
+        {
+            popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsOwned;
+            popup.ShowDialog();
+        }
+    }
+}
 }

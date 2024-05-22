@@ -63,6 +63,11 @@ namespace TetraPolyGame
         {
             return base.GetRent();
         }
+
+        public int[] GetHouseRents()
+        {
+            return houseRent;
+        }
        
 
         /// <summary>
