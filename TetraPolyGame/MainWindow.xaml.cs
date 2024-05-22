@@ -26,6 +26,7 @@ namespace TetraPolyGame
         private Stack<ChanceCommunity> ChanceCommunities = new();
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
+        private List<Grid> grids = [];
         private Random rng = new Random();
         private int truncount = 0;
         public MainViewModel ViewModel { get; set; }
@@ -41,10 +42,15 @@ namespace TetraPolyGame
             players.Add(TestPlayer3);
             players.Add(TestPlayer4);
 
-            Players.Add(new Player("Kaiden", 1000));
-            Players.Add(new Player("David", 1000));
-            Players.Add(new Player("Kyle", 1000));
-            Players.Add(new Player("Daniel", 1000));
+            grids.Add(PlayerContainer1);
+            grids.Add(PlayerContainer2);
+            grids.Add(PlayerContainer3);
+            grids.Add(PlayerContainer4);
+
+            //Players.Add(new Player("Kaiden", 1000));
+            //Players.Add(new Player("David", 1000));
+            //Players.Add(new Player("Kyle", 1000));
+            //Players.Add(new Player("Daniel", 1000));
 
 
 
@@ -81,8 +87,9 @@ namespace TetraPolyGame
             bool t = true;
             while (t == true)
             {
-                Players[truncount].MovePlayer();
-                MovePlayer(players[truncount], Players[truncount].GetPosition());
+
+                ViewModel.Players[truncount].MovePlayer();
+                MovePlayer(players[truncount], ViewModel.Players[truncount].GetPosition());
                 checkposition(truncount);
                 t = Onlyoneleft();
                 if (truncount != players.Count - 1)
@@ -104,9 +111,9 @@ namespace TetraPolyGame
             bool b = true;
             int c = 0;
             int count = 0;
-            while (Players[c] == null)
+            while (ViewModel.Players[c] == null)
             {
-                if (Players[c].GetAilve() == true)
+                if (ViewModel.Players[c].GetAilve() == true)
                 {
                     count = count + 1;
                 }
@@ -132,7 +139,7 @@ namespace TetraPolyGame
         {
             bool t = true;
             int count = 0;
-            int pos = Players[turn].GetPosition();
+            int pos = ViewModel.Players[turn].GetPosition();
             foreach (Card card in Cards)
             {
                 if (pos == card.GetPosition())
@@ -140,12 +147,12 @@ namespace TetraPolyGame
 
                     if (card.IsOwned() != null)
                     {
-                        if (card.IsOwned() != Players[turn])
+                        if (card.IsOwned() != ViewModel.Players[turn])
                         {
                             int r = card.GetRent();
-                            Players[turn].LoseMoney(r);
+                            ViewModel.Players[turn].CheckMoney(r);
                         }
-                        else if ((card.IsOwned() == Players[turn]) && (card is Property) && (Players[turn] is not algorithm))
+                        else if ((card.IsOwned() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
                         {
                             Property tempProp = (Property)card;
                             MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
@@ -167,11 +174,11 @@ namespace TetraPolyGame
                                     case "DBLUE": { cost = 200; break; }
 
                                 }
-                                Players[turn].LoseMoney(cost);
-                                Players[turn].AddHouse(tempProp);
+                                ViewModel.Players[turn].CheckMoney(cost);
+                                ViewModel.Players[turn].AddHouse(tempProp);
                             }
                         }
-                        else if ((card.IsOwned() == Players[turn]) && (card is Property) && Players[turn] is algorithm)
+                        else if ((card.IsOwned() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
                         {
                             Property tempProp = (Property)card;
                             int cost = 0;
@@ -190,29 +197,29 @@ namespace TetraPolyGame
                                 case "DBLUE": { cost = 200; break; }
 
                             }
-                            Players[turn].LoseMoney(cost);
+                            ViewModel.Players[turn].CheckMoney(cost);
                             Property pro = (Property)card;
-                            Players[turn].AddHouse(pro);
+                            ViewModel.Players[turn].AddHouse(pro);
                         }
                     }
 
                     else if (card.IsOwned() == null)
                     {
-                        if ((card is Property) || (card is Transport) || (card is Utility) && (Players[turn] is not algorithm))
+                        if ((card is Property) || (card is Transport) || (card is Utility) && (ViewModel.Players[turn] is not algorithm))
                         {
                             MessageBoxResult result = MessageBox.Show("Do you want to buy?", "Buying", MessageBoxButton.YesNo);
                             if (result == MessageBoxResult.Yes)
                             {
-                                Players[turn].buy(true, card);
+                                ViewModel.Players[turn].buy(true, card);
                             }
                             else
                             {
-                                Players[turn].buy(false, card);
+                                ViewModel.Players[turn].buy(false, card);
                             }
                         }
                         else if ((card is Property) || (card is Transport) || (card is Utility))
                         {
-                            Players[turn].buy(true, card);
+                            ViewModel.Players[turn].buy(true, card);
                         }
                         
                     }
@@ -220,18 +227,18 @@ namespace TetraPolyGame
                     t = false;
 
                 }
-                else if ((Players[turn].GetPosition() == 2) || (Players[turn].GetPosition() == 33) || (Players[turn].GetPosition() == 28))
+                else if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 28))
                 {
-                    getComCha(Players[turn]);
+                    getComCha(ViewModel.Players[turn]);
                 }
-                else if ((Players[turn].GetPosition() == 7) || (Players[turn].GetPosition() == 22) || (Players[turn].GetPosition() == 36))
+                else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
                 {
-                    getComCha(Players[turn]);
+                    getComCha(ViewModel.Players[turn]);
                 }
-                else if (Players[turn].GetPosition() == 30)
+                else if (ViewModel.Players[turn].GetPosition() == 30)
                 {
-                    Players[turn].SetInJaile(true);
-                    Players[turn].setPosition(-1);
+                    ViewModel.Players[turn].SetInJaile(true);
+                    ViewModel.Players[turn].setPosition(-1);
                 }
             }
         }
@@ -250,7 +257,7 @@ namespace TetraPolyGame
                     break;
 
                 case "Advance To Go":
-                    p.addMoney(200); p.SetPos(0);
+                    p.Money+=(200); p.SetPos(0);
                     break;
 
                 case "Go back 3 spaces":
@@ -262,12 +269,12 @@ namespace TetraPolyGame
                     break;
 
                 case "Fined for a LEZ (Light Emmision Zone) Charge":
-                    p.LoseMoney(60);
+                    p.CheckMoney(60);
 
                     break;
 
                 case "Your building loan matures. Collect $150":
-                    p.addMoney(150);
+                    p.Money+=(150);
 
                     break;
 
@@ -277,12 +284,12 @@ namespace TetraPolyGame
                     break;
 
                 case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
-                    p.addMoney(100);
+                    p.Money+=(100);
 
                     break;
 
                 case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
-                    p.addMoney(200);
+                    p.Money+=(200);
 
                     break;
 
@@ -326,14 +333,14 @@ namespace TetraPolyGame
         /// </remarks>
         private void rolldice_Click(object sender, RoutedEventArgs e)
         {
-            int i = Players[truncount].getMoney();
+            int i = ViewModel.Players[truncount].Money;
             if (i > 0)
             {
                 turnorder();
             }
             else
             {
-                Players[truncount].asktomortgage();
+                ViewModel.Players[truncount].asktomortgage();
             }
             changebox();
         }
@@ -351,14 +358,14 @@ namespace TetraPolyGame
             {
                 unmoragagepickacard.Items.Clear();
                 moragagepickacard.Items.Clear();
-                List<Card> card = Players[truncount].GetCards();
+                List<Card> card = ViewModel.Players[truncount].GetCards();
                 int ii = 0;
                 string str;
                 string b5;
                 string b6;
                 unmoragagepickacard.SelectedIndex = 0;
                 moragagepickacard.SelectedIndex = 0;
-                //string st = "your number of money is: " + Players[truncount].getMoney();
+                //string st = "your number of money is: " + ViewModel.Players[truncount].getMoney();
                 //displaymoney.Content = st;
                 while (card != null)
                 {
@@ -400,10 +407,10 @@ namespace TetraPolyGame
         /// <param name="e">The event arguments.</param>
         private void unmorgage_Click(object sender, RoutedEventArgs e)
         {
-            List<Card> card = Players[truncount].GetCards();
+            List<Card> card = ViewModel.Players[truncount].GetCards();
             string st = (string)unmoragagepickacard.SelectedValue;
             int check = int.Parse(st.Split(",")[2]);
-            Players[truncount].OnMortgageCard(card[check]);
+            ViewModel.Players[truncount].OnMortgageCard(card[check]);
             changebox();
         }
 
@@ -419,10 +426,10 @@ namespace TetraPolyGame
         /// </remarks>
         private void morgage_Click(object sender, RoutedEventArgs e)
         {
-            List<Card> card = Players[truncount].GetCards();
+            List<Card> card = ViewModel.Players[truncount].GetCards();
             string st = (string)unmoragagepickacard.SelectedValue;
             int check = int.Parse(st.Split(",")[2]);
-            Players[truncount].MortgageCard(card[check]);
+            ViewModel.Players[truncount].MortgageCard(card[check]);
             changebox();
         }
 

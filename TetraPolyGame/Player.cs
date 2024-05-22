@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Automation.Peers;
 namespace TetraPolyGame
 {
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
 
 
@@ -100,7 +101,7 @@ namespace TetraPolyGame
         {
             card.SetMorgaged(true);
             int mor = card.GetMortgagePrice();
-            addMoney(mor);
+            Money +=(mor);
         }
         /// <summary>Handles the mortgage action for a card.</summary>
         /// <param name="card">The card to be mortgaged.</param>
@@ -108,7 +109,7 @@ namespace TetraPolyGame
         public void OnMortgageCard(Card card)
         {
             int mor = card.GetMortgagePrice();
-            LoseMoney(mor);
+            CheckMoney(mor);
             card.SetMorgaged(false);
         }
 
@@ -146,7 +147,7 @@ namespace TetraPolyGame
                         _Position = _Position + move + move2;
                         if (_Position > 39)
                         {
-                            addMoney(200);
+                            Money +=(200);
                             setPosition(_Position - 40);
                         }
                         if (move2 == move)
@@ -196,7 +197,8 @@ namespace TetraPolyGame
             if (chois == true)
             {
                 int se = gc.GetPrice();
-                LoseMoney(se);
+                Money -= se;
+                CheckMoney(se);
                 byCard(gc);
             }
 
@@ -209,10 +211,9 @@ namespace TetraPolyGame
         /// If the deduction results in a negative balance, it checks if the player can mortgage properties to cover the debt.
         /// If mortgaging is not possible, the player is marked as not alive.
         /// </remarks>
-        virtual public void LoseMoney(int money)
+        virtual public void CheckMoney(int money)
         {
-            _Money = _Money - money;
-            if (_Money < 0)
+            if (Money < 0)
             {
                 bool b = checktotalmorgag();
                 if (b == true)
@@ -261,23 +262,8 @@ namespace TetraPolyGame
             MessageBoxResult w = MessageBox.Show(s);
         }
 
-        /// <summary>
-        /// Gets the amount of money the player has.
-        /// </summary>
-        /// <returns>The amount of money.</returns>
-        public int getMoney()
-        {
-            return _Money;
-
-        }
-
         /// <summary>Adds the specified amount of money to the current balance.</summary>
         /// <param name="money">The amount of money to add.</param>
-        public void addMoney(int money)
-        {
-            _Money += money;
-            OnPropertyChanged();
-        }
 
         /// <summary>Handles the action when a player passes the "Go" position on the board.</summary>
         /// <remarks>If the player's position is at or beyond the "Go" position (0), the player's position is adjusted
@@ -287,7 +273,7 @@ namespace TetraPolyGame
             if (_Position <= 40)
             {
                 _Position = _Position - 40;
-                addMoney(200);
+                Money += (200);
             }
         }
 
@@ -345,11 +331,6 @@ namespace TetraPolyGame
         /// Gets the amount of money.
         /// </summary>
         /// <returns>The amount of money.</returns>
-        public int Getmoney()
-        {
-            return _Money;
-        }
-
         public int Money
         {
             get => _Money;
