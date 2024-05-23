@@ -30,6 +30,7 @@ namespace TetraPolyGame
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
         private Random rng = new Random();
+        private List<ChanceCommunity> ComChaCards = [];
         private int truncount = 0;
         public MainViewModel ViewModel { get; set; }
 
@@ -47,7 +48,7 @@ namespace TetraPolyGame
             players.Add(TestPlayer4);
 
             Cards = database.GetProperties();
-            List<ChanceCommunity> ComChaCards = database.GetCommunityChance();
+            ComChaCards = database.GetCommunityChance();
             Shuffle.Shuffle.ShuffleList(ComChaCards);
             var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
             ChanceCommunities = chanceCommunities;
@@ -142,20 +143,20 @@ namespace TetraPolyGame
             bool b = true;
             int c = 0;
             int count = 0;
-            while (ViewModel.Players[c] == null)
+            foreach (var player in ViewModel.Players)
             {
-                if (ViewModel.Players[c].GetAilve() == true)
+                if (player.GetAilve() == true)
                 {
-                    count = count + 1;
+                    count++;
                 }
             }
-            if (count < 2)
+            if (count == 1)
             {
-                b = false;
+                b = true;
             }
             else if (count > 1)
             {
-                b = true;
+                b = false;
             }
             return b;
         }
@@ -180,7 +181,7 @@ namespace TetraPolyGame
 
                     if (card.IsOwned() != null)
                     {
-                        if (card.IsOwned() != ViewModel.Players[turn])
+                        if (card.IsOwned() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
                             ViewModel.Players[turn].Money -= r;
@@ -261,20 +262,22 @@ namespace TetraPolyGame
                     t = false;
 
                 }
-                else if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 28))
-                {
-                    getComCha(ViewModel.Players[turn]);
-                }
-                else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
-                {
-                    getComCha(ViewModel.Players[turn]);
-                }
-                else if (ViewModel.Players[turn].GetPosition() == 30)
-                {
-                    ViewModel.Players[turn].SetInJaile(true);
-                    ViewModel.Players[turn].setPosition(-1);
+            }
+            if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 28))
+            {
+                getComCha(ViewModel.Players[turn]);
+            }
+            else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
+            {
+                getComCha(ViewModel.Players[turn]);
+            }
+            if (ViewModel.Players[turn].GetPosition() == 30)
+            {
+                ViewModel.Players[turn].SetInJaile(true);
+                ViewModel.Players[turn].setPosition(-1);
+                MovePlayer(players[turn], -1);
 
-                }
+
             }
         }
         /// <summary>
@@ -283,63 +286,77 @@ namespace TetraPolyGame
         /// <param name="player">The player to execute the card's effect on.</param>
         public void getComCha(Player p)
         {
-            ChanceCommunity temp = ChanceCommunities.Pop();
-
-            switch (temp.GetDesc())
+            ChanceCommunity temp;
+            try
             {
-                case "Advance To Boardwalk":
-                    p.MoveToPosition(39);
-                    MovePlayer(players[truncount], 39);
-                    break;
+                temp = ChanceCommunities.Pop();
 
-                case "Advance To Go":
-                    p.Money += (200); p.SetPos(0);
-                    MovePlayer(players[truncount], 0);
-                    break;
+                switch (temp.GetDesc())
+                {
+                    case "Advance To Boardwalk":
+                        p.MoveToPosition(39);
+                        MovePlayer(players[truncount], 39);
+                        break;
 
-                case "Go back 3 spaces":
-                    p.SetPos(p.GetPosition() - 3);
-                    MovePlayer(players[truncount], p.GetPosition());
-                    break;
+                    case "Advance To Go":
+                        p.Money += (200); p.SetPos(0);
+                        MovePlayer(players[truncount], 0);
+                        break;
 
-                case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
-                    p.SetPos(-1);
-                    p.SetInJaile(true);
-                    Grid.SetColumn(players[truncount], Grid.GetColumn(posJail));
-                    Grid.SetRow(players[truncount], Grid.GetRow(posJail));
-                    break;
+                    case "Go back 3 spaces":
+                        p.SetPos(p.GetPosition() - 3);
+                        MovePlayer(players[truncount], p.GetPosition());
+                        break;
 
-                case "Fined for a LEZ (Light Emmision Zone) Charge":
-                    p.CheckMoney(60);
+                    case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
+                        p.SetPos(-1);
+                        p.SetInJaile(true);
+                        MovePlayer(players[truncount], p.GetPosition());
+                        break;
 
-                    break;
+                    case "Fined for a LEZ (Light Emmision Zone) Charge":
+                        p.CheckMoney(60);
 
-                case "Your building loan matures. Collect $150":
-                    p.Money += (150);
+                        break;
 
-                    break;
+                    case "Your building loan matures. Collect $150":
+                        p.Money += (150);
 
-                case "Get Out of Jail Free":
-                    p.SetPos(10); p.SetInJaile(false);
-                    MovePlayer(players[truncount], 10);
-                    break;
+                        break;
 
-                case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
-                    p.Money += (100);
+                    case "Get Out of Jail Free":
+                        p.SetPos(10); p.SetInJaile(false);
+                        MovePlayer(players[truncount], 10);
+                        break;
 
-                    break;
+                    case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
+                        p.Money += (100);
 
-                case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
-                    p.Money += (200);
+                        break;
 
-                    break;
+                    case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
+                        p.Money += (200);
 
-                case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
-                    p.SetPos(p.GetPosition() + 2);
-                    MovePlayer(players[truncount], p.GetPosition());
+                        break;
 
-                    break;
+                    case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
+                        p.SetPos(p.GetPosition() + 2);
+                        MovePlayer(players[truncount], p.GetPosition());
+
+                        break;
+                }
+                MessageBox.Show(temp.GetDesc());
             }
+            catch (Exception e)
+            {
+                Shuffle.Shuffle.ShuffleList(ComChaCards);
+                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+                ChanceCommunities = chanceCommunities;
+
+                getComCha(p);
+            }
+
+
         }
 
         /// <summary>
@@ -353,10 +370,14 @@ namespace TetraPolyGame
             {
                 if (element is System.Windows.Shapes.Rectangle rectangle)
                 {
-                    if (rectangle.Name == ("pos") + Position.ToString())
+                    if (rectangle.Name == ("pos") + Position.ToString() && Position != -1)
                     {
                         MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle));
                         break;
+                    }
+                    else if (Position == -1)
+                    {
+                        Grid.SetRow(e, 0); Grid.SetColumn(e, 11);
                     }
                 }
             }
@@ -443,12 +464,12 @@ namespace TetraPolyGame
         private void unmorgage_Click(object sender, RoutedEventArgs e)
         {
             ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-            string st = (string)moragagepickacard.SelectedValue;
+            string st = (string)unmoragagepickacard.SelectedValue;
             foreach (Card card in cards)
             {
                 if (card.ToString() == st)
                 {
-                    ViewModel.Players[truncount].MortgageCard(card);
+                    ViewModel.Players[truncount].UnMortgageCard(card);
                     changebox();
                 }
             }
@@ -519,20 +540,20 @@ namespace TetraPolyGame
             }
             else if (parent.Name == PlayerContainer2.Name)
             {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsOwned;
-                popup.ShowDialog();
+                popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsNames;
+                popup.Show();
                 popup.GetPlayer(ViewModel.Players[1]);
             }
             else if (parent.Name == PlayerContainer3.Name)
             {
                 popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
-                popup.ShowDialog();
+                popup.Show();
                 popup.GetPlayer(ViewModel.Players[2]);
             }
             else if (parent.Name == PlayerContainer4.Name)
             {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsOwned;
-                popup.ShowDialog();
+                popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsNames;
+                popup.Show();
                 popup.GetPlayer(ViewModel.Players[3]);
             }
         }

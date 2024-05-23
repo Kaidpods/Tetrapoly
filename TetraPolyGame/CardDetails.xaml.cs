@@ -41,11 +41,11 @@ namespace TetraPolyGame
                     Rent.Text = property.GetRent().ToString();
                     Price.Text = property.GetPrice().ToString();
                     Colour.Text = property.GetColour();
-                    House1.Text = houseValues[0].ToString();
-                    House2.Text = houseValues[1].ToString();
-                    House3.Text = houseValues[2].ToString();
-                    House4.Text = houseValues[3].ToString();
-                    House5.Text = houseValues[4].ToString();
+                    House1.Text = houseValues[1].ToString();
+                    House2.Text = houseValues[2].ToString();
+                    House3.Text = houseValues[3].ToString();
+                    House4.Text = houseValues[4].ToString();
+                    House5.Text = houseValues[5].ToString();
                 }
             }
         }

@@ -100,9 +100,10 @@ namespace TetraPolyGame
         /// <summary>Handles the mortgage action for a card.</summary>
         /// <param name="card">The card to be mortgaged.</param>
         /// <remarks>This method calculates the mortgage price of the card, deducts the amount from the player's funds, and sets the card as not mortgaged.</remarks>
-        public void OnMortgageCard(Card card)
+        public void UnMortgageCard(Card card)
         {
             int mor = card.GetMortgagePrice();
+            Money -=(mor);
             CheckMoney(mor);
             card.SetMorgaged(false);
         }

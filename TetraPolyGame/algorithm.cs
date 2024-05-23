@@ -59,7 +59,7 @@ namespace TetraPolyGame
                     int num = _CardsOwend[count].GetMortgagePrice();
                     if ( _Money == num)
                     {
-                        base.OnMortgageCard(_CardsOwend[count]);
+                        base.UnMortgageCard(_CardsOwend[count]);
                     }
                 }
 
