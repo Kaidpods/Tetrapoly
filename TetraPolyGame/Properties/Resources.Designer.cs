@@ -83,6 +83,16 @@ namespace TetraPolyGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NoTextBoardRotated {
+            get {
+                object obj = ResourceManager.GetObject("NoTextBoardRotated", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PlayerCamera {
             get {
                 object obj = ResourceManager.GetObject("PlayerCamera", resourceCulture);
@@ -126,6 +136,16 @@ namespace TetraPolyGame.Properties {
         internal static System.Drawing.Bitmap PlayerShip {
             get {
                 object obj = ResourceManager.GetObject("PlayerShip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RotatedMonopolyBoard {
+            get {
+                object obj = ResourceManager.GetObject("RotatedMonopolyBoard", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

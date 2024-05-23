@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1340" ResizeMode="NoResize">
+        Title="MainWindow" Height="900" Width="1400" ResizeMode="NoResize">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    <Grid Name="gameBoardGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="48,68,0,0">
+    <Grid Name="gameBoardGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="104,68,0,0">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -49,58 +49,46 @@
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Name="pos0" Grid.Column="0" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Height="60" Stroke="Black"  Width="60" Fill="#FF955436"/>
-        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Height="60" Stroke="Black" Width="60">
+        <Image Margin="-60,-60,0,0" Grid.ColumnSpan="12" Grid.RowSpan="12" Source="/Resources/NoTextBoardRotated.png" />
+        <Rectangle Name="pos0" Grid.Column="0" Grid.Row="0" Stroke="Black" Margin="-60,-60,0,0"/>
+        <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Stroke="Black"  Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0">
             <Rectangle.Fill>
                 <ImageBrush/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FF955436"/>
-        <Rectangle Name="pos4" Grid.Column="4" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="Black"/>
-        <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
-        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Height="60" Stroke="Black" Width="60">
+        <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos4" Grid.Column="4" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="\Resources\Group1.png" Stretch="Uniform"/>
+                <ImageBrush Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
-        <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
-        <Rectangle Name="pos10" Grid.Column="10" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos11" Grid.Column="10" Grid.Row="1" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
-        <Rectangle Name="pos12" Grid.Column="10" Grid.Row="2" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos13" Grid.Column="10" Grid.Row="3" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
-        <Rectangle Name="pos14" Grid.Column="10" Grid.Row="4" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
-        <Rectangle Name="pos15" Grid.Column="10" Grid.Row="5" Height="60" Stroke="Black" Width="60" Fill="Black"/>
-        <Rectangle Name="pos16" Grid.Column="10" Grid.Row="6" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
-        <Rectangle Name="pos17" Grid.Column="10" Grid.Row="7" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos18" Grid.Column="10" Grid.Row="8" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
-        <Rectangle Name="pos19" Grid.Column="10" Grid.Row="9" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
-        <Rectangle Name="pos20" Grid.Column="10" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos21" Grid.Column="9" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
-        <Rectangle Name="pos22" Grid.Column="8" Grid.Row="10" Height="60" Stroke="Black"  Width="60">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="/Resources/Group1.png" Stretch="Uniform" TileMode="None">
-                    <ImageBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
-                            <RotateTransform Angle="180" CenterX="0.5" CenterY="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Name="pos23" Grid.Column="7" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
-        <Rectangle Name="pos24" Grid.Column="6" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
-        <Rectangle Name="pos25" Grid.Column="5" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="Black"/>
-        <Rectangle Name="pos26" Grid.Column="4" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFFEF200"/>
-        <Rectangle Name="pos27" Grid.Column="3" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFFEF200"/>
-        <Rectangle Name="pos28" Grid.Column="2" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos29" Grid.Column="1" Grid.Row="10" Height="60" Stroke="Black" Width="60" Fill="#FFFEF200"/>
-        <Rectangle Name="pos30" Grid.Column="0" Grid.Row="10" Height="60" Stroke="Black" Width="60">
+        <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos10" Grid.Column="10" Grid.Row="0" Stroke="Black"  Width="60" Margin="0,-60,0,0"/>
+        <Rectangle Name="pos11" Grid.Column="10" Grid.Row="1" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos12" Grid.Column="10" Grid.Row="2" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos13" Grid.Column="10" Grid.Row="3" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos14" Grid.Column="10" Grid.Row="4" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos15" Grid.Column="10" Grid.Row="5" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos16" Grid.Column="10" Grid.Row="6" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos17" Grid.Column="10" Grid.Row="7" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos18" Grid.Column="10" Grid.Row="8" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos19" Grid.Column="10" Grid.Row="9" Height="60" Stroke="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos20" Grid.Column="10" Grid.Row="10" Stroke="Black" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Rectangle Name="pos21" Grid.Column="9" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos22" Grid.Column="8" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos23" Grid.Column="7" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos24" Grid.Column="6" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos25" Grid.Column="5" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos26" Grid.Column="4" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos27" Grid.Column="3" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos28" Grid.Column="2" Grid.Row="10" Stroke="Black"  Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos29" Grid.Column="1" Grid.Row="10" Stroke="Black" Width="60" Grid.RowSpan="2"/>
+        <Rectangle Name="pos30" Grid.Column="0" Grid.Row="10" Stroke="Black" Margin="-60,0,0,0" Grid.RowSpan="2">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/Resources/jailman.png" Stretch="Uniform">
                     <ImageBrush.RelativeTransform>
@@ -114,29 +102,16 @@
                 </ImageBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle Name="pos31" Grid.Column="0" Grid.Row="9" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
-        <Rectangle Name="pos32" Grid.Column="0" Grid.Row="8" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
-        <Rectangle Name="pos33" Grid.Column="0" Grid.Row="7" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos34" Grid.Column="0" Grid.Row="6" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
-        <Rectangle Name="pos35" Grid.Column="0" Grid.Row="5" Height="60" Stroke="Black"  Width="60" Fill="Black"/>
-        <Rectangle Name="pos36" Grid.Column="0" Grid.Row="4" Height="60" Stroke="Black"  Width="60">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="pack://application:,,,/Resources/Group1.png" Stretch="Uniform">
-                    <ImageBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
-                            <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Name="pos37" Grid.Column="0" Grid.Row="3" Height="60" Stroke="Black"  Width="60" Fill="#FF0072BB"/>
-        <Rectangle Name="pos38" Grid.Column="0" Grid.Row="2" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos39" Grid.Column="0" Grid.Row="1" Height="60" Stroke="Black" Width="60" Fill="#FF0072BB"/>
-        <Rectangle Name="posJail" Grid.Column="11" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos31" Grid.Column="0" Grid.Row="9" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos32" Grid.Column="0" Grid.Row="8" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos33" Grid.Column="0" Grid.Row="7" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos34" Grid.Column="0" Grid.Row="6" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos35" Grid.Column="0" Grid.Row="5" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos36" Grid.Column="0" Grid.Row="4" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos37" Grid.Column="0" Grid.Row="3" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos38" Grid.Column="0" Grid.Row="2" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="pos39" Grid.Column="0" Grid.Row="1" Height="60" Stroke="Black" Margin="-60,0,0,0"/>
+        <Rectangle Name="posJail" Grid.Column="11" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Ellipse Name ="TestPlayer" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,0,30,30">
             <Ellipse.Fill>
                 <ImageBrush ImageSource="/Resources/PlayerCamera.png" Stretch="Uniform"/>
