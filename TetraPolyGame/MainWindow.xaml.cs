@@ -66,10 +66,10 @@ namespace TetraPolyGame
             // Determine the next position (clockwise)
             int gridSize = 11;
             int newRow = 0, newColumn = 0;
-            if (players[0] != null)
+            if (players[truncount] != null)
             {
-                var currentRow = Grid.GetRow(players[0]);
-                var currentColumn = Grid.GetColumn(players[0]);
+                var currentRow = Grid.GetRow(players[truncount]);
+                var currentColumn = Grid.GetColumn(players[truncount]);
 
                 if (currentRow == 0 && currentColumn < gridSize - 1)
                 {
@@ -103,13 +103,13 @@ namespace TetraPolyGame
 
                 rowAnimation.Completed += (sender, e) =>
                 {
-                    Grid.SetRow(players[0], newRow);
-                    Grid.SetColumn(players[0], newColumn);
+                    Grid.SetRow(players[truncount], newRow);
+                    Grid.SetColumn(players[truncount], newColumn);
                     MoveClockwise(endRow, endColumn); // Repeat the clockwise movement
                 };
 
-                players[0].BeginAnimation(Grid.RowProperty, rowAnimation);
-                players[0].BeginAnimation(Grid.ColumnProperty, columnAnimation);
+                players[truncount].BeginAnimation(Grid.RowProperty, rowAnimation);
+                players[truncount].BeginAnimation(Grid.ColumnProperty, columnAnimation);
             }
         }
 
@@ -433,105 +433,108 @@ namespace TetraPolyGame
         }
 
 
-    /// <summary>
-    /// Handles the click event when the "unmortgage" button is clicked.
-    /// Retrieves the list of cards owned by the current player, selects a card based on user input,
-    /// unmortgages the selected card, and updates the UI accordingly.
-    /// </summary>
-    /// <param name="sender">The object that raised the event.</param>
-    /// <param name="e">The event arguments.</param>
-    private void unmorgage_Click(object sender, RoutedEventArgs e)
-    {
-        ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-        string st = (string)moragagepickacard.SelectedValue;
-        foreach (Card card in cards)
+        /// <summary>
+        /// Handles the click event when the "unmortgage" button is clicked.
+        /// Retrieves the list of cards owned by the current player, selects a card based on user input,
+        /// unmortgages the selected card, and updates the UI accordingly.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
+        private void unmorgage_Click(object sender, RoutedEventArgs e)
         {
-            if (card.ToString() == st)
+            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+            string st = (string)moragagepickacard.SelectedValue;
+            foreach (Card card in cards)
             {
-                ViewModel.Players[truncount].MortgageCard(card);
-                changebox();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Handles the click event when the mortgage button is clicked.
-    /// Mortgages a selected card from the player's cards list.
-    /// </summary>
-    /// <param name="sender">The object that raised the event.</param>
-    /// <param name="e">The event arguments.</param>
-    /// <remarks>
-    /// This method retrieves the selected card from the player's cards list,
-    /// parses the selected card information, mortgages the card, and updates the UI.
-    /// </remarks>
-    private void morgage_Click(object sender, RoutedEventArgs e)
-    {
-        ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-        string st = (string)moragagepickacard.SelectedValue;
-        foreach (Card card in cards)
-        {
-            if (card.ToString() == st)
-            {
-                ViewModel.Players[truncount].MortgageCard(card);
-                changebox();
+                if (card.ToString() == st)
+                {
+                    ViewModel.Players[truncount].MortgageCard(card);
+                    changebox();
+                }
             }
         }
 
+        /// <summary>
+        /// Handles the click event when the mortgage button is clicked.
+        /// Mortgages a selected card from the player's cards list.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <remarks>
+        /// This method retrieves the selected card from the player's cards list,
+        /// parses the selected card information, mortgages the card, and updates the UI.
+        /// </remarks>
+        private void morgage_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+            string st = (string)moragagepickacard.SelectedValue;
+            foreach (Card card in cards)
+            {
+                if (card.ToString() == st)
+                {
+                    ViewModel.Players[truncount].MortgageCard(card);
+                    changebox();
+                }
+            }
+
+        }
+
+        private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void EndTurnButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (truncount != players.Count - 1)
+            {
+                truncount = truncount + 1;
+            }
+            else
+            {
+                truncount = 0;
+            }
+            rolldice.IsEnabled = true;
+            EndTurnBtn.IsEnabled = false;
+            changebox();
+        }
+
+        private void CardsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var parent = button.Parent as FrameworkElement;
+            var popup = new CardDetails();
+            popup.Owner = this; // Set the owner to the main window
+
+            if (parent.Name == PlayerContainer1.Name)
+            {
+                popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
+                popup.Show();
+                popup.GetPlayer(ViewModel.Players[0]);
+            }
+            else if (parent.Name == PlayerContainer2.Name)
+            {
+                popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsOwned;
+                popup.ShowDialog();
+                popup.GetPlayer(ViewModel.Players[1]);
+            }
+            else if (parent.Name == PlayerContainer3.Name)
+            {
+                popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
+                popup.ShowDialog();
+                popup.GetPlayer(ViewModel.Players[2]);
+            }
+            else if (parent.Name == PlayerContainer4.Name)
+            {
+                popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsOwned;
+                popup.ShowDialog();
+                popup.GetPlayer(ViewModel.Players[3]);
+            }
+        }
     }
-
-    private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void EndTurnButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (truncount != players.Count - 1)
-        {
-            truncount = truncount + 1;
-        }
-        else
-        {
-            truncount = 0;
-        }
-        rolldice.IsEnabled = true;
-        EndTurnBtn.IsEnabled = false;
-        changebox();
-    }
-
-    private void CardsButton_Click(object sender, RoutedEventArgs e)
-    {
-        var button = sender as Button;
-        var parent = button.Parent as FrameworkElement;
-        var popup = new CardDetails();
-        popup.Owner = this; // Set the owner to the main window
-
-        if (parent.Name == PlayerContainer1.Name)
-        {
-            popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
-            popup.Show();
-            popup.GetPlayer(ViewModel.Players[0]);
-        }
-        else if (parent.Name == PlayerContainer2.Name)
-        {
-            popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsOwned;
-            popup.ShowDialog();
-        }
-        else if (parent.Name == PlayerContainer3.Name)
-        {
-            popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
-            popup.ShowDialog();
-        }
-        else if (parent.Name == PlayerContainer4.Name)
-        {
-            popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsOwned;
-            popup.ShowDialog();
-        }
-    }
-}
 }
