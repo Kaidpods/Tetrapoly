@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="795" Width="887" ResizeMode="NoResize">
-    <Grid Name="gameBoardGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
+        Title="MainWindow" Height="900" Width="1340" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    <Grid Name="gameBoardGrid" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="48,68,0,0">
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
@@ -34,57 +39,255 @@
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
         <Rectangle Name="pos0" Grid.Column="0" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Height="60" Stroke="Black"  Width="60" Fill="#FF955436"/>
+        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Height="60" Stroke="Black" Width="60">
+            <Rectangle.Fill>
+                <ImageBrush/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FF955436"/>
         <Rectangle Name="pos4" Grid.Column="4" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="Black"/>
+        <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
+        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Height="60" Stroke="Black" Width="60">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="\Resources\Group1.png" Stretch="Uniform"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
+        <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Height="60" Stroke="Black" Width="60" Fill="#FFAAE0FA"/>
         <Rectangle Name="pos10" Grid.Column="10" Grid.Row="0" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos11" Grid.Column="10" Grid.Row="1" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos11" Grid.Column="10" Grid.Row="1" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
         <Rectangle Name="pos12" Grid.Column="10" Grid.Row="2" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos13" Grid.Column="10" Grid.Row="3" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos14" Grid.Column="10" Grid.Row="4" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos15" Grid.Column="10" Grid.Row="5" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos16" Grid.Column="10" Grid.Row="6" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos13" Grid.Column="10" Grid.Row="3" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
+        <Rectangle Name="pos14" Grid.Column="10" Grid.Row="4" Height="60" Stroke="Black" Width="60" Fill="#FFD93A96"/>
+        <Rectangle Name="pos15" Grid.Column="10" Grid.Row="5" Height="60" Stroke="Black" Width="60" Fill="Black"/>
+        <Rectangle Name="pos16" Grid.Column="10" Grid.Row="6" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
         <Rectangle Name="pos17" Grid.Column="10" Grid.Row="7" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos18" Grid.Column="10" Grid.Row="8" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos19" Grid.Column="10" Grid.Row="9" Height="60" Stroke="Black" Width="60"/>
+        <Rectangle Name="pos18" Grid.Column="10" Grid.Row="8" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
+        <Rectangle Name="pos19" Grid.Column="10" Grid.Row="9" Height="60" Stroke="Black" Width="60" Fill="#FFF7941D"/>
         <Rectangle Name="pos20" Grid.Column="10" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos21" Grid.Column="9" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos22" Grid.Column="8" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos23" Grid.Column="7" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos24" Grid.Column="6" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos25" Grid.Column="5" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos26" Grid.Column="4" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos27" Grid.Column="3" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos21" Grid.Column="9" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
+        <Rectangle Name="pos22" Grid.Column="8" Grid.Row="10" Height="60" Stroke="Black"  Width="60">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Resources/Group1.png" Stretch="Uniform" TileMode="None">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="180" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Name="pos23" Grid.Column="7" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
+        <Rectangle Name="pos24" Grid.Column="6" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFED1B24"/>
+        <Rectangle Name="pos25" Grid.Column="5" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="Black"/>
+        <Rectangle Name="pos26" Grid.Column="4" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFFEF200"/>
+        <Rectangle Name="pos27" Grid.Column="3" Grid.Row="10" Height="60" Stroke="Black"  Width="60" Fill="#FFFEF200"/>
         <Rectangle Name="pos28" Grid.Column="2" Grid.Row="10" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos29" Grid.Column="1" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos30" Grid.Column="0" Grid.Row="10" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="pos31" Grid.Column="0" Grid.Row="9" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos32" Grid.Column="0" Grid.Row="8" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos29" Grid.Column="1" Grid.Row="10" Height="60" Stroke="Black" Width="60" Fill="#FFFEF200"/>
+        <Rectangle Name="pos30" Grid.Column="0" Grid.Row="10" Height="60" Stroke="Black" Width="60">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Resources/jailman.png" Stretch="Uniform">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="180" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Name="pos31" Grid.Column="0" Grid.Row="9" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
+        <Rectangle Name="pos32" Grid.Column="0" Grid.Row="8" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
         <Rectangle Name="pos33" Grid.Column="0" Grid.Row="7" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos34" Grid.Column="0" Grid.Row="6" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos35" Grid.Column="0" Grid.Row="5" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos36" Grid.Column="0" Grid.Row="4" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos37" Grid.Column="0" Grid.Row="3" Height="60" Stroke="Black"  Width="60"/>
+        <Rectangle Name="pos34" Grid.Column="0" Grid.Row="6" Height="60" Stroke="Black"  Width="60" Fill="#FF1FB25A"/>
+        <Rectangle Name="pos35" Grid.Column="0" Grid.Row="5" Height="60" Stroke="Black"  Width="60" Fill="Black"/>
+        <Rectangle Name="pos36" Grid.Column="0" Grid.Row="4" Height="60" Stroke="Black"  Width="60">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="pack://application:,,,/Resources/Group1.png" Stretch="Uniform">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Name="pos37" Grid.Column="0" Grid.Row="3" Height="60" Stroke="Black"  Width="60" Fill="#FF0072BB"/>
         <Rectangle Name="pos38" Grid.Column="0" Grid.Row="2" Height="60" Stroke="Black"  Width="60"/>
-        <Rectangle Name="pos39" Grid.Column="0" Grid.Row="1" Height="60" Stroke="Black" Width="60"/>
-        <Rectangle Name="posJail" Grid.Column="11" Grid.Row="11" Height="60" Stroke="Black" Width="60"/>
-        <Ellipse Name ="TestPlayer" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,0,40,40"/>
-        <Ellipse Name ="TestPlayer2" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="40,0,0,40"/>
-        <Ellipse Name ="TestPlayer3" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="40,40,0,0"/>
-        <Ellipse Name ="TestPlayer4" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,40,40,0"/>
-        <Button x:Name="rolldice" Content="roll the dice " HorizontalAlignment="Center" Height="60" Grid.Row="3" VerticalAlignment="Center" Width="119" Grid.Column="5" Grid.ColumnSpan="2" Click="rolldice_Click"/>
-        <Button x:Name="morgage" Content="morgage the card" HorizontalAlignment="Center" Height="60" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="morgage_Click"/>
-        <Button x:Name="unmorgage" Content="unmorgage a card" HorizontalAlignment="Left" Height="60" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="unmorgage_Click"/>
-        <ComboBox x:Name="unmoragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="5" SelectionChanged="unmoragagepickacard_SelectionChanged" />
-        <ComboBox x:Name="moragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="5" SelectionChanged="moragagepickacard_SelectionChanged" />
-        <Label x:Name="displaymoney" Grid.Column="3" Content="your nomber of money is 1000" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="60" Width="200" Margin="30,42,0,0" Grid.RowSpan="2" Grid.ColumnSpan="4"/>
+        <Rectangle Name="pos39" Grid.Column="0" Grid.Row="1" Height="60" Stroke="Black" Width="60" Fill="#FF0072BB"/>
+        <Rectangle Name="posJail" Grid.Column="11" Grid.Row="0" Height="60" Stroke="Black" Width="60"/>
+        <Ellipse Name ="TestPlayer" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,0,30,30">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="/Resources/PlayerCamera.png" Stretch="Uniform"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse Name ="TestPlayer2" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="30,0,0,30">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="/Resources/PlayerCar.png" Stretch="Uniform"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse Name ="TestPlayer3" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="30,30,0,0">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="/Resources/PlayerCat.png" Stretch="Uniform"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse Name ="TestPlayer4" Stroke="Black" Grid.Column="0" Grid.Row="0" Margin="0,30,30,0">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="/Resources/PlayerHat.png" Stretch="Uniform"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Button x:Name="rolldice" Content="Roll the dice " HorizontalAlignment="Center" Height="60" Grid.Row="12" VerticalAlignment="Center" Width="119" Grid.Column="0" Grid.ColumnSpan="2" Click="rolldice_Click"/>
+        <Button x:Name="morgage" Content="Morgage" HorizontalAlignment="Center" Height="60" Grid.Row="12" Grid.Column="11" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="morgage_Click"/>
+        <Button x:Name="unmorgage" Content="Unmorgage" HorizontalAlignment="Left" Height="60" Grid.Row="12" Grid.Column="6" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Click="unmorgage_Click"/>
+        <ComboBox x:Name="unmoragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="12" Grid.Column="8" SelectionChanged="unmoragagepickacard_SelectionChanged" />
+        <ComboBox x:Name="moragagepickacard" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" Grid.ColumnSpan="2" Grid.Row="12" Grid.Column="13" SelectionChanged="moragagepickacard_SelectionChanged" />
+        <Grid Name ="PlayerContainer1" Grid.Column="14" Grid.Row="0" Grid.ColumnSpan="7" Grid.RowSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush x:Name="Gradient1" EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3E3E3E" Offset="1"/>
+                    <GradientStop Color="#FF929292" Offset="0.943"/>
+                    <GradientStop Color="#FF929292" Offset="0.065"/>
+                    <GradientStop Color="#FFC7C7C7"/>
+                    <GradientStop Color="#FF3E3E3E"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="PlayerName1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" TextWrapping="Wrap" Text="{Binding Players[0].Money}"/>
+            <Rectangle Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="\Resources\PlayerCamera.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button Name="ViewPlayer1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+
+
+            </Border>
+        </Grid>
+        <Grid Name ="PlayerContainer2" Grid.Column="14" Grid.Row="3" Grid.ColumnSpan="7" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush x:Name="Gradient2" EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3E3E3E" Offset="1"/>
+                    <GradientStop Color="#FF929292" Offset="0.943"/>
+                    <GradientStop Color="#FF929292" Offset="0.065"/>
+                    <GradientStop Color="#FFC7C7C7"/>
+                    <GradientStop Color="#FF3E3E3E"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBox Name="PlayerName2" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" TextWrapping="Wrap" Text="{Binding Players[1].Money}"/>
+            <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerCar.png"/>
+            <Button Name="ViewPlayer2" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+            </Border>
+        </Grid>
+        <Grid Name ="PlayerContainer3" Grid.Column="14" Grid.Row="6" Grid.ColumnSpan="7" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush x:Name="Gradient3" EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC7C7C7"/>
+                    <GradientStop Color="#FF3E3E3E" Offset="1"/>
+                    <GradientStop Color="#FF929292" Offset="0.943"/>
+                    <GradientStop Color="#FF929292" Offset="0.065"/>
+                    <GradientStop Color="#FFC7C7C7"/>
+                    <GradientStop Color="#FF3E3E3E"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBox Name="PlayerName3" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" TextWrapping="Wrap" Text="{Binding Players[2].Money}"/>
+            <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerCat.png"/>
+            <Button Name="ViewPlayer3" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+            </Border>
+        </Grid>
+        <Grid Name ="PlayerContainer4" Grid.Column="14" Grid.Row="9" Grid.ColumnSpan="7" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush x:Name="Gradient4" EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3E3E3E" Offset="1"/>
+                    <GradientStop Color="#FF929292" Offset="0.943"/>
+                    <GradientStop Color="#FF929292" Offset="0.065"/>
+                    <GradientStop Color="#FFC7C7C7"/>
+                    <GradientStop Color="#FF3E3E3E"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBox Name="PlayerName4" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" TextWrapping="Wrap" Text="{Binding Players[3].Money}"/>
+            <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerHat.png"/>
+            <Button Name="ViewPlayer4" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60"/>
+        </Grid>
+        <Button Name="EndTurnBtn" Grid.Column="3" Grid.ColumnSpan="2" Content="End turn" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="60" Width="120" Click="EndTurnButton_Click"/>
     </Grid>
 </Window>

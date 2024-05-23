@@ -9,11 +9,50 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Group 1.png" />
+    <None Remove="Resources\Group 1.png" />
+    <None Remove="Resources\Group1.png" />
+    <None Remove="Resources\jailman.png" />
+    <None Remove="Resources\PlayerCamera.png" />
+    <None Remove="Resources\PlayerCar.png" />
+    <None Remove="Resources\PlayerCat.png" />
+    <None Remove="Resources\PlayerHat.png" />
+    <None Remove="Resources\PlayerShip.png" />
+    <None Remove="Resources\TestBackground.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.11.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.14" />
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Group1.png" />
+    <Resource Include="Resources\jailman.png" />
+    <Resource Include="Resources\PlayerCamera.png" />
+    <Resource Include="Resources\PlayerCar.png" />
+    <Resource Include="Resources\PlayerCat.png" />
+    <Resource Include="Resources\PlayerHat.png" />
+    <Resource Include="Resources\PlayerShip.png" />
+    <Resource Include="Resources\TestBackground.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
