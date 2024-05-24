@@ -20,6 +20,8 @@ namespace TetraPolyGame
     public partial class CardDetails : Window
     {
         private Player player;
+
+
         public CardDetails()
         {
             InitializeComponent();
@@ -32,23 +34,52 @@ namespace TetraPolyGame
 
         public void SetupFields()
         {
-            foreach (Property property in player.CardsOwned)
+            foreach (Card card in player.CardsOwned)
             {
-                if (property.GetName() == PlayerCards.SelectedValue.ToString())
+                if (card is Property)
                 {
-                    int[] houseValues = property.GetHouseRents();
-                    Name.Text = property.GetName();
-                    Rent.Text = property.GetRent().ToString();
-                    Price.Text = property.GetPrice().ToString();
-                    Colour.Text = property.GetColour();
-                    House1.Text = houseValues[1].ToString();
-                    House2.Text = houseValues[2].ToString();
-                    House3.Text = houseValues[3].ToString();
-                    House4.Text = houseValues[4].ToString();
-                    House5.Text = houseValues[5].ToString();
+                    Property property = (Property)card;
+                    if (property.GetName() == PlayerCards.SelectedValue.ToString())
+                    {
+                        int[] houseValues = property.GetHouseRents();
+                        Name.Text = property.GetName();
+                        Rent.Text = property.GetRent().ToString();
+                        Price.Text = property.GetPrice().ToString();
+                        Colour.Text = property.GetColour();
+                        House1.Text = houseValues[1].ToString();
+                        House2.Text = houseValues[2].ToString();
+                        House3.Text = houseValues[3].ToString();
+                        House4.Text = houseValues[4].ToString();
+                        House5.Text = houseValues[5].ToString();
+                    }
+
                 }
+                else if (card is Transport)
+                {
+                    Transport transport = (Transport)card;
+                    if (transport.GetName() == PlayerCards.SelectedValue.ToString())
+                    {
+                        int rent = transport.GetRent();
+                        Name.Text = transport.GetName();
+                        Rent.Text = rent.ToString();
+                        Price.Text = transport.GetPrice().ToString();
+                        Colour.Visibility = Visibility.Collapsed;
+                        ColourLbl.Visibility = Visibility.Collapsed;
+                        House1.Text = (rent * 1).ToString();
+                        House2.Text = (rent * 2).ToString();
+                        House3.Text = (rent * 4).ToString();
+                        House4.Text = (rent * 8).ToString();
+                        Owned1.Content = "1 Owned";
+                        Owned2.Content = "2 Owned";
+                        Owned3.Content = "3 Owned";
+                        Owned4.Content = "4 Owned";
+                        House5.Visibility = Visibility.Collapsed;
+                    }
+                }
+
             }
         }
+
 
         private void PlayerCards_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

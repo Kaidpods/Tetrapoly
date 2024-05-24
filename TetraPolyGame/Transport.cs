@@ -1,22 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents.DocumentStructures;
 
 namespace TetraPolyGame
 {
     public class Transport : Utility
     {
-        public Transport(double multiplier, string name, int position, int price, int rent, Player owned, bool mortgaged,
-                        int mortgagePrice, int mortgageCost) : base(multiplier,name,position, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
+        public Transport(string name, int position, int price, int rent, Player owned, bool mortgaged,
+                        int mortgagePrice, int mortgageCost) : base(name, position, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
         {
             rent = 25;
-            multiplier = 1.0;
         }
-        public int GetRailRent()
+
+        public override int GetRent()
         {
-            return Convert.ToInt32(GetRent() * GetMult());
+            CheckMultiplier();
+            return Convert.ToInt32(base.GetRent() * GetMult());
+        }
+
+        public void CheckMultiplier()
+        {
+            ObservableCollection<Card> playerCards = WhoOwns().CardsOwned;
+            int amount = 0;
+            foreach (Card card in playerCards)
+            {
+                if (card is Transport)
+                {
+                    Transport transport = (Transport)card;
+                    if (transport.IsMortgaged() == false)
+                    {
+                        amount++;
+                    }
+                }
+            }
+            switch (amount)
+            {
+                case 1:
+                    SetMultiplier(1);
+                    break;
+
+                case 2:
+                    SetMultiplier(2);
+                    break;
+
+                case 3:
+                    SetMultiplier(4);
+                    break;
+
+                case 4:
+                    SetMultiplier(8);
+                    break;
+            }
         }
     }
 }

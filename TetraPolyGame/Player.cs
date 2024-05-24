@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Automation.Peers;
+using System.Windows.Controls;
 namespace TetraPolyGame
 {
     public class Player : INotifyPropertyChanged
@@ -127,18 +128,21 @@ namespace TetraPolyGame
         /// If the player rolls doubles three times in a row, they go to jail.
         /// If the player is in jail, they must roll doubles to get out.
         /// </remarks>
-        virtual public void MovePlayer()
+        virtual public void MovePlayer(TextBlock e)
         {
+            int totalRoll = 0;
             if (_IsAilve == true)
             {
                 if (_InJail == false)
                 {
                     int count = 0;
                     bool b = true;
+                    
                     while (b)
                     {
                         int move = RollDice();
                         int move2 = RollDice();
+                        totalRoll += move + move2;
                         _Position = _Position + move + move2;
                         if (_Position > 39)
                         {
@@ -176,6 +180,7 @@ namespace TetraPolyGame
                     }
                 }
             }
+            e.Text = "Dice Roll:\r\n\r\n" + totalRoll;
         }
 
         /// <summary>

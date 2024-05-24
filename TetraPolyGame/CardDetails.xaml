@@ -20,13 +20,13 @@
         <TextBox Name="House4" HorizontalAlignment="Left" Margin="630,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox Name="House5" HorizontalAlignment="Left" Margin="630,372,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <TextBox Name="Colour" HorizontalAlignment="Left" Margin="630,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <Label Content="Colour" HorizontalAlignment="Left" Margin="669,31,0,0" VerticalAlignment="Top"/>
-        <Label Content="1 House" HorizontalAlignment="Left" Margin="577,173,0,0" VerticalAlignment="Top"/>
-        <Label Content="2 House" HorizontalAlignment="Left" Margin="577,0,0,0" VerticalAlignment="Center"/>
-        <Label Content="3 House" HorizontalAlignment="Left" Margin="577,235,0,0" VerticalAlignment="Top"/>
-        <Label Content="4 House" HorizontalAlignment="Left" Margin="577,266,0,0" VerticalAlignment="Top"/>
-        <Label Content="5 House" HorizontalAlignment="Left" Margin="577,368,0,0" VerticalAlignment="Top"/>
+        <Label Name="ColourLbl" Content="Colour" HorizontalAlignment="Left" Margin="669,31,0,0" VerticalAlignment="Top"/>
         <TextBox Name="Rent" HorizontalAlignment="Left" Margin="632,131,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Label Name="Owned1" Content="1 House" HorizontalAlignment="Left" Margin="577,173,0,0" VerticalAlignment="Top"/>
+        <Label Name="Owned2" Content="2 House" HorizontalAlignment="Left" Margin="577,0,0,0" VerticalAlignment="Center"/>
+        <Label Name="Owned3" Content="3 House" HorizontalAlignment="Left" Margin="577,235,0,0" VerticalAlignment="Top"/>
+        <Label Name="Owned4" Content="4 House" HorizontalAlignment="Left" Margin="577,266,0,0" VerticalAlignment="Top"/>
+        <Label Name="Owned5" Content="5 House" HorizontalAlignment="Left" Margin="577,368,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

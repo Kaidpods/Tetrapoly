@@ -47,12 +47,8 @@ namespace TetraPolyGame
             players.Add(TestPlayer3);
             players.Add(TestPlayer4);
 
-            Cards = database.GetProperties();
-            ComChaCards = database.GetCommunityChance();
-            Shuffle.Shuffle.ShuffleList(ComChaCards);
-            var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-            ChanceCommunities = chanceCommunities;
 
+            SetupCards();
 
             //MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
         }
@@ -60,6 +56,17 @@ namespace TetraPolyGame
         public void AddPlayer(Player p)
         {
             Players.Add(p);
+        }
+
+        private void SetupCards()
+        {
+            Cards = database.GetProperties();
+            ObservableCollection<Card> tempTransport = database.GetTransport();
+            tempTransport.ToList().ForEach(Cards.Add);
+            ComChaCards = database.GetCommunityChance();
+            Shuffle.Shuffle.ShuffleList(ComChaCards);
+            var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+            ChanceCommunities = chanceCommunities;
         }
 
         private void MoveClockwise(int endRow, int endColumn)
@@ -126,7 +133,7 @@ namespace TetraPolyGame
         {
             if (!Onlyoneleft())
             {
-                ViewModel.Players[truncount].MovePlayer();
+                ViewModel.Players[truncount].MovePlayer(DiceRollCounter);
                 MovePlayer(players[truncount], ViewModel.Players[truncount].GetPosition());
                 checkposition(truncount);
             }
@@ -179,15 +186,15 @@ namespace TetraPolyGame
                 if (pos == card.GetPosition())
                 {
 
-                    if (card.IsOwned() != null)
+                    if (card.WhoOwns() != null)
                     {
-                        if (card.IsOwned() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
                             ViewModel.Players[turn].Money -= r;
                             ViewModel.Players[turn].CheckMoney(r);
                         }
-                        else if ((card.IsOwned() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
+                        else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
                         {
                             Property tempProp = (Property)card;
                             MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
@@ -213,7 +220,7 @@ namespace TetraPolyGame
                                 ViewModel.Players[turn].AddHouse(tempProp);
                             }
                         }
-                        else if ((card.IsOwned() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
+                        else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
                         {
                             Property tempProp = (Property)card;
                             int cost = 0;
@@ -238,11 +245,11 @@ namespace TetraPolyGame
                         }
                     }
 
-                    else if (card.IsOwned() == null)
+                    else if (card.WhoOwns() == null)
                     {
                         if ((card is Property) || (card is Transport) || (card is Utility) && (ViewModel.Players[turn] is not algorithm))
                         {
-                            MessageBoxResult result = MessageBox.Show("Do you want to buy?", "Buying", MessageBoxButton.YesNo);
+                            MessageBoxResult result = MessageBox.Show("Do you want to buy: " + card.GetName() + "\nThe price is: $" + card.GetPrice(), "Buying", MessageBoxButton.YesNo);
                             if (result == MessageBoxResult.Yes)
                             {
                                 ViewModel.Players[turn].buy(true, card);
@@ -291,6 +298,7 @@ namespace TetraPolyGame
             {
                 temp = ChanceCommunities.Pop();
 
+                MessageBox.Show(temp.GetDesc());
                 switch (temp.GetDesc())
                 {
                     case "Advance To Boardwalk":
@@ -345,7 +353,6 @@ namespace TetraPolyGame
 
                         break;
                 }
-                MessageBox.Show(temp.GetDesc());
             }
             catch (Exception e)
             {
@@ -556,6 +563,7 @@ namespace TetraPolyGame
                 popup.Show();
                 popup.GetPlayer(ViewModel.Players[3]);
             }
+            popup.Owner = null;
         }
     }
 }

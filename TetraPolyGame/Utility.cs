@@ -11,12 +11,10 @@ namespace TetraPolyGame
     public class Utility : Card
     {
         private double multiplier;
-        private int position;
-        public Utility(double multiplier, string name, int position, int price, int rent, Player owned, bool mortgaged,
+        public Utility(string name, int position, int price, int rent, Player owned, bool mortgaged,
                         int mortgagePrice, int mortgageCost) : base(name, position, price, rent, owned, mortgaged, mortgagePrice, mortgageCost)
         {
-            this.multiplier = multiplier;
-            multiplier = 1.0;
+            multiplier = 1;
         }
 
         public int GetRollRent(int diceRoll)
@@ -27,6 +25,11 @@ namespace TetraPolyGame
         public double GetMult()
         {
             return multiplier;
+        }
+
+        public void SetMultiplier(double multiplier)
+        {
+            this.multiplier = multiplier;
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace TetraPolyGame
 {
@@ -48,9 +50,9 @@ namespace TetraPolyGame
             }
         }
         //this make the algorithm Move
-        public override void MovePlayer()
+        public override void MovePlayer(TextBlock e)
         {
-            base.MovePlayer();
+            base.MovePlayer(e);
             int count = 0;
             while (_CardsOwend[count] != null)
             {

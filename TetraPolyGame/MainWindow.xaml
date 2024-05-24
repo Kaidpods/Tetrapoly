@@ -264,5 +264,6 @@
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60"/>
         </Grid>
         <Button Name="EndTurnBtn" Grid.Column="3" Grid.ColumnSpan="2" Content="End turn" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="60" Width="120" Click="EndTurnButton_Click"/>
+        <TextBlock x:Name="DiceRollCounter" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center" Height="60" Width="61" TextAlignment="Center" Margin="-60,0,0,0" IsEnabled="False"><Run Language="en-gb" Text="Dice Roll:"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
     </Grid>
 </Window>

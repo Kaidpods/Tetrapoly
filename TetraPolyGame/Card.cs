@@ -66,7 +66,7 @@ namespace TetraPolyGame
             // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
         }
 
-        public Player IsOwned()
+        public Player WhoOwns()
         {
             return owned;
         }

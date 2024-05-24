@@ -61,6 +61,44 @@ namespace TetraPolyGame
             return properties;
         }
 
+        public ObservableCollection<Card> GetTransport()
+        {
+            ObservableCollection<Card> Transports = [];
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_SQLconnectionStrng))
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand("SELECT * FROM dbo.TransportCards", conn);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read data from each row and create card objects
+                            string name = reader.GetString(0);
+                            int position = reader.GetInt32(1);
+                            int price = reader.GetInt32(2);
+                            int rent = reader.GetInt32(3);
+                            int mortgagePrice = reader.GetInt32(4);
+                            int mortgageCost = reader.GetInt32(4);
+                            // Other relevant columns can be retrieved similarly
+
+                            Transport tempTransport = new Transport(name, position, price, rent, null, false, mortgagePrice, mortgageCost);
+                            Transports.Add(tempTransport);
+
+
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw new Exception("Unable to retrieve transport cards!");
+            }
+            return Transports;
+        }
+
         public List<ChanceCommunity> GetCommunityChance()
         {
             List<ChanceCommunity> chanceCommunities = [];
