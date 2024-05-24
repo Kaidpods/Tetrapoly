@@ -539,6 +539,12 @@ namespace TetraPolyGame
             var popup = new CardDetails();
             popup.Owner = this; // Set the owner to the main window
 
+            popup.Closing += delegate
+            {
+                popup.Owner = null;
+                this.Focus();
+            };
+
             if (parent.Name == PlayerContainer1.Name)
             {
                 popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
@@ -563,7 +569,7 @@ namespace TetraPolyGame
                 popup.Show();
                 popup.GetPlayer(ViewModel.Players[3]);
             }
-            popup.Owner = null;
+
         }
     }
 }
