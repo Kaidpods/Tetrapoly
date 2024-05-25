@@ -22,7 +22,7 @@ namespace TetraPolyGame
             return Convert.ToInt32(base.GetRent() * GetMult());
         }
 
-        public void CheckMultiplier()
+        public override void CheckMultiplier()
         {
             ObservableCollection<Card> playerCards = WhoOwns().CardsOwned;
             int amount = 0;
@@ -56,5 +56,7 @@ namespace TetraPolyGame
                     break;
             }
         }
+
+
     }
 }

@@ -28,6 +28,7 @@ namespace TetraPolyGame
         private ObservableCollection<Card> Cards = new();
         private Stack<ChanceCommunity> ChanceCards = new();
         private Stack<ChanceCommunity> CommunityCards = new();
+        public static int PastRoll;
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
         private Random rng = new Random();
@@ -206,7 +207,13 @@ namespace TetraPolyGame
 
                     if (card.WhoOwns() != null)
                     {
-                        if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        if (card is Utility && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        {
+                            Utility tempUtility = (Utility)card;
+
+                            int r = tempUtility.GetRollRent(PastRoll);
+                        }
+                        else if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
                             MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);

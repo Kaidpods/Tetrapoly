@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,7 @@ namespace TetraPolyGame
         /// <returns>The rent value for the property.</returns>
         public override int GetRent()
         {
+            UpdateRent();
             return base.GetRent();
         }
 
@@ -79,7 +81,79 @@ namespace TetraPolyGame
         /// </remarks>
         public override void UpdateRent()
         {
-            SetRent(houseRent[numberOfHouses]);
+            ObservableCollection<Card> cards = WhoOwns().CardsOwned;
+
+            double multiplier = 1;
+            int colourAmount = 0;
+
+            foreach (Card card in cards)
+            {
+                if (card is Property)
+                {
+                    Property tempProp = (Property)card;
+                    if (tempProp.colour == colour)
+                    {
+                        colourAmount++;
+                    }
+                }
+            }
+
+            switch (colour)
+            {
+                case "BROWN": 
+                    if (colourAmount == 2)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+                case "LBLUE":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+                case "PINK":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+
+                case "ORANGE":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+                case "RED":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+
+                case "YELLOW":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+                case "GREEN":
+                    if (colourAmount == 3)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+
+                case "DBLUE":
+                    if (colourAmount == 2)
+                    {
+                        multiplier = 2;
+                    }
+                    break;
+            }
+
+            SetRent(Convert.ToInt32(houseRent[numberOfHouses] * multiplier));
         }
 
         /// <summary>Returns a string representation of the object.</summary>

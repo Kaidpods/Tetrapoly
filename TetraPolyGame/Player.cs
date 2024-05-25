@@ -181,6 +181,7 @@ namespace TetraPolyGame
                 }
             }
             e.Text = "Dice Roll:\r\n\r\n" + totalRoll;
+            MainWindow.PastRoll = totalRoll;
         }
 
         /// <summary>

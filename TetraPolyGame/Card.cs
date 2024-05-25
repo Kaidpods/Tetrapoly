@@ -43,8 +43,7 @@ namespace TetraPolyGame
 
         public virtual int GetRent()
         {
-            // Implement your rent calculation logic here
-            // Example: return rent * numberOfHouses;
+            
             return rent;
         }
 
@@ -62,8 +61,7 @@ namespace TetraPolyGame
 
         public virtual void UpdateRent()
         {
-            // Implement your rent update logic here
-            // Example: rent = baseRent + (numberOfHouses * houseRentIncrement);
+            
         }
 
         public Player WhoOwns()
