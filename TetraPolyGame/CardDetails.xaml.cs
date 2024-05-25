@@ -46,6 +46,11 @@ namespace TetraPolyGame
                         Rent.Text = property.GetRent().ToString();
                         Price.Text = property.GetPrice().ToString();
                         Colour.Text = property.GetColour();
+                        Owned1.Content = "1 House";
+                        Owned2.Content = "2 House";
+                        Owned3.Content = "3 House";
+                        Owned4.Content = "4 House";
+                        Owned5.Visibility = Visibility.Visible;
                         House1.Text = houseValues[1].ToString();
                         House2.Text = houseValues[2].ToString();
                         House3.Text = houseValues[3].ToString();
@@ -73,6 +78,28 @@ namespace TetraPolyGame
                         Owned2.Content = "2 Owned";
                         Owned3.Content = "3 Owned";
                         Owned4.Content = "4 Owned";
+                        Owned5.Visibility = Visibility.Collapsed;
+                        House5.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else if (card is Utility)
+                {
+                    Utility utility = (Utility)card;
+                    if (utility.GetName() == PlayerCards.SelectedValue.ToString())
+                    {
+                        Name.Text = utility.GetName();
+                        Rent.Text = "Not applicable";
+                        Price.Text = utility.GetPrice().ToString();
+                        Colour.Visibility = Visibility.Collapsed;
+                        ColourLbl.Visibility = Visibility.Collapsed;
+                        House1.Text = "Dice roll (Times) 4";
+                        House2.Text = "Dice roll (Times) 10";
+
+                        Owned1.Content = "1 Owned";
+                        Owned2.Content = "2 Owned";
+                        Owned3.Visibility = Visibility.Collapsed;
+                        Owned4.Visibility = Visibility.Collapsed;
+                        Owned5.Visibility = Visibility.Collapsed;
                         House5.Visibility = Visibility.Collapsed;
                     }
                 }

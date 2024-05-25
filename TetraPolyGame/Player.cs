@@ -226,6 +226,11 @@ namespace TetraPolyGame
                 }
             }
         }
+
+        public string GetPlayerName()
+        {
+            return _Name;
+        }
         /// <summary>Checks if the total mortgage value of owned cards is greater than or equal to the negative money balance.</summary>
         /// <returns>True if the total mortgage value is greater than or equal to the negative money balance, false otherwise.</returns>
         public bool checktotalmorgag()
@@ -377,7 +382,7 @@ namespace TetraPolyGame
             return _chanceCommunitiesOwend;
         }
 
-        /// <summary>Adds a ChanceCommunity to the list of owned ChanceCommunities.</summary>
+        /// <summary>Adds a ChanceCommunity to the list of owned ChanceCards.</summary>
         /// <param name="chance">The ChanceCommunity to be added.</param>
         public void AddchanceCommunitiesOwend(ChanceCommunity chance)
         {

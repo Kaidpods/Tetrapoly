@@ -29,6 +29,11 @@ namespace TetraPolyGame
         {
             return Description;
         }
+
+        public string GetCardType()
+        {
+            return Type.ToString();
+        }
     }
 
 }

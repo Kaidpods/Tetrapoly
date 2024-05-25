@@ -26,7 +26,8 @@ namespace TetraPolyGame
         public static AllCards cards = AllCards.Instance;
         private MSSQLdataAccess database = new();
         private ObservableCollection<Card> Cards = new();
-        private Stack<ChanceCommunity> ChanceCommunities = new();
+        private Stack<ChanceCommunity> ChanceCards = new();
+        private Stack<ChanceCommunity> CommunityCards = new();
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
         private Random rng = new Random();
@@ -62,11 +63,28 @@ namespace TetraPolyGame
         {
             Cards = database.GetProperties();
             ObservableCollection<Card> tempTransport = database.GetTransport();
+            ObservableCollection<Card> tempUtility = database.GetUtility();
             tempTransport.ToList().ForEach(Cards.Add);
+            tempUtility.ToList().ForEach(Cards.Add);
+
             ComChaCards = database.GetCommunityChance();
             Shuffle.Shuffle.ShuffleList(ComChaCards);
             var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-            ChanceCommunities = chanceCommunities;
+
+            foreach (var card in chanceCommunities)
+            {
+                switch (card.GetCardType())
+                {
+                    case "COMMUNITY":
+                        CommunityCards.Push(card);
+                        break;
+
+                    case "CHANCE":
+                        ChanceCards.Push(card);
+                        break;
+                }
+                
+            }
         }
 
         private void MoveClockwise(int endRow, int endColumn)
@@ -191,6 +209,7 @@ namespace TetraPolyGame
                         if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
+                            MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
                             ViewModel.Players[turn].Money -= r;
                             ViewModel.Players[turn].CheckMoney(r);
                         }
@@ -270,13 +289,13 @@ namespace TetraPolyGame
 
                 }
             }
-            if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 28))
+            if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 17))
             {
-                getComCha(ViewModel.Players[turn]);
+                GetCommunity(ViewModel.Players[turn]);
             }
             else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
             {
-                getComCha(ViewModel.Players[turn]);
+                GetChance(ViewModel.Players[turn]);
             }
             if (ViewModel.Players[turn].GetPosition() == 30)
             {
@@ -291,76 +310,163 @@ namespace TetraPolyGame
         /// Retrieves a Chance or Community Chest card, sets its effect, and executes it on the player.
         /// </summary>
         /// <param name="player">The player to execute the card's effect on.</param>
-        public void getComCha(Player p)
+        public void GetChance(Player p)
         {
             ChanceCommunity temp;
             try
             {
-                temp = ChanceCommunities.Pop();
+                temp = ChanceCards.Pop();
 
-                MessageBox.Show(temp.GetDesc());
-                switch (temp.GetDesc())
+                MessageBox.Show(temp.GetDesc(), "Chance Card");
+                if (temp.GetCardType() == "CHANCE")
                 {
-                    case "Advance To Boardwalk":
-                        p.MoveToPosition(39);
-                        MovePlayer(players[truncount], 39);
-                        break;
+                    switch (temp.GetDesc())
+                    {
+                        case "Advance To Boardwalk":
+                            p.MoveToPosition(39);
+                            MovePlayer(players[truncount], 39);
+                            break;
 
-                    case "Advance To Go":
-                        p.Money += (200); p.SetPos(0);
-                        MovePlayer(players[truncount], 0);
-                        break;
+                        case "Advance To Go":
+                            p.Money += (200); p.SetPos(0);
+                            MovePlayer(players[truncount], 0);
+                            break;
 
-                    case "Go back 3 spaces":
-                        p.SetPos(p.GetPosition() - 3);
-                        MovePlayer(players[truncount], p.GetPosition());
-                        break;
+                        case "Go back 3 spaces":
+                            p.SetPos(p.GetPosition() - 3);
+                            MovePlayer(players[truncount], p.GetPosition());
+                            break;
 
-                    case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
-                        p.SetPos(-1);
-                        p.SetInJaile(true);
-                        MovePlayer(players[truncount], p.GetPosition());
-                        break;
+                        case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
+                            p.SetPos(-1);
+                            p.SetInJaile(true);
+                            MovePlayer(players[truncount], p.GetPosition());
+                            break;
 
-                    case "Fined for a LEZ (Light Emmision Zone) Charge":
-                        p.CheckMoney(60);
+                        case "Fined for a LEZ (Light Emmision Zone) Charge":
+                            p.CheckMoney(60);
 
-                        break;
+                            break;
 
-                    case "Your building loan matures. Collect $150":
-                        p.Money += (150);
+                        case "Your building loan matures. Collect $150":
+                            p.Money += (150);
 
-                        break;
+                            break;
 
-                    case "Get Out of Jail Free":
-                        p.SetPos(10); p.SetInJaile(false);
-                        MovePlayer(players[truncount], 10);
-                        break;
+                        case "Get Out of Jail Free":
+                            p.SetPos(10); p.SetInJaile(false);
+                            MovePlayer(players[truncount], 10);
+                            break;
 
-                    case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
-                        p.Money += (100);
+                        case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
+                            p.Money += (100);
 
-                        break;
+                            break;
 
-                    case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
-                        p.Money += (200);
+                        case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
+                            p.Money += (200);
 
-                        break;
+                            break;
 
-                    case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
-                        p.SetPos(p.GetPosition() + 2);
-                        MovePlayer(players[truncount], p.GetPosition());
+                        case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
+                            p.SetPos(p.GetPosition() + 2);
+                            MovePlayer(players[truncount], p.GetPosition());
 
-                        break;
+                            break;
+                    }
                 }
             }
             catch (Exception e)
             {
                 Shuffle.Shuffle.ShuffleList(ComChaCards);
                 var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-                ChanceCommunities = chanceCommunities;
+                ChanceCards = chanceCommunities;
 
-                getComCha(p);
+                GetChance(p);
+            }
+
+
+        }
+
+        public void GetCommunity(Player p)
+        {
+            ChanceCommunity temp;
+            try
+            {
+                temp = CommunityCards.Pop();
+
+                MessageBox.Show(temp.GetDesc(), "Community Card");
+
+                if (temp.GetCardType() == "COMMUNITY")
+                {
+                    switch (temp.GetDesc())
+                    {
+                        case "Advance To Go":
+                            p.Money += (200); p.SetPos(0);
+                            MovePlayer(players[truncount], 0);
+                            break;
+
+                        case "Bank error in your favor. Collect $200":
+                            p.Money += (200);
+                            break;
+
+                        case "Your properties are known to be cared for. The extra attention brings in more customers. Collect $100":
+                            p.Money += (100);
+                            break;
+
+                        case "You organize a free health screening event for the community. Pay $25 for supplies, but advance to GO (collect $200) for your good deed.":
+                            p.Money += (200); p.SetPos(0);
+                            MovePlayer(players[truncount], 0);
+                            break;
+
+                        case "You help install a new water filtration system in your community. Pay $50 for parts, but your property values increase. Collect $100.":
+                            p.Money += (50);
+
+                            break;
+
+                        case "You plant trees in your community, enhancing local biodiversity. Collect $75 as a grant for your green initiative.":
+                            p.Money += (75);
+                            break;
+
+                        case "You form a partnership with local businesses to support SDGs. Collect $200 as a funding reward.":
+                            p.Money += (200);
+
+                            break;
+
+                        case "A drought has affected the local community garden, reducing harvests. Pay $50 for emergency food supplies.":
+                            p.Money -= (50);
+
+                            break;
+
+                        case "The local school loses funding, affecting education quality. Pay $50 to support after-school programs.":
+                            p.Money -= (50);
+                            break;
+
+                        case "New infrastructure project causes road closures, affecting your commute. Pay $25 for additional transportation costs.":
+
+                            break;
+
+                        case "Partnership project fails due to lack of coordination. Pay $75 to cover losses.":
+                            p.Money -= (50);
+                            break;
+
+                        case "You start a community garden that provides fresh produce to your neighborhood. Collect $100 for your efforts.":
+                            p.Money += (100);
+                            break;
+
+                        case "You participate in a climate change awareness rally. Pay $10 to cover event costs, but collect $50 for raising awareness.":
+                            p.Money += (40);
+                            break;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Shuffle.Shuffle.ShuffleList(ComChaCards);
+                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+                ChanceCards = chanceCommunities;
+
+                GetCommunity(p);
             }
 
 
@@ -530,6 +636,40 @@ namespace TetraPolyGame
             rolldice.IsEnabled = true;
             EndTurnBtn.IsEnabled = false;
             changebox();
+            switch (truncount)
+            {
+                case 0:
+                    Player1Active.Visibility = Visibility.Visible;
+
+                    Player2Active.Visibility = Visibility.Hidden;
+                    Player3Active.Visibility = Visibility.Hidden;
+                    Player4Active.Visibility = Visibility.Hidden;
+                    break;
+
+                case 1:
+                    Player2Active.Visibility = Visibility.Visible;
+
+                    Player1Active.Visibility = Visibility.Hidden;
+                    Player3Active.Visibility = Visibility.Hidden;
+                    Player4Active.Visibility = Visibility.Hidden;
+                    break;
+
+                case 2:
+                    Player3Active.Visibility = Visibility.Visible;
+
+                    Player2Active.Visibility = Visibility.Hidden;
+                    Player1Active.Visibility = Visibility.Hidden;
+                    Player4Active.Visibility = Visibility.Hidden;
+                    break;
+
+                case 3:
+                    Player4Active.Visibility = Visibility.Visible;
+
+                    Player1Active.Visibility = Visibility.Hidden;
+                    Player2Active.Visibility = Visibility.Hidden;
+                    Player3Active.Visibility = Visibility.Hidden;
+                    break;
+            }
         }
 
         private void CardsButton_Click(object sender, RoutedEventArgs e)

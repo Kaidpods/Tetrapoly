@@ -52,20 +52,12 @@
         <Image Margin="-60,-60,0,0" Grid.ColumnSpan="12" Grid.RowSpan="12" Source="/Resources/NoTextBoardRotated.png" />
         <Rectangle Name="pos0" Grid.Column="0" Grid.Row="0" Stroke="Black" Margin="-60,-60,0,0"/>
         <Rectangle Name="pos1" Grid.Column="1" Grid.Row="0" Stroke="Black"  Width="60" Margin="0,-60,0,0"/>
-        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0">
-            <Rectangle.Fill>
-                <ImageBrush/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Name="pos2" Grid.Column="2" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos3" Grid.Column="3" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos4" Grid.Column="4" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos5" Grid.Column="5" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos6" Grid.Column="6" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
-        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0">
-            <Rectangle.Fill>
-                <ImageBrush Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Rectangle Name="pos7" Grid.Column="7" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos8" Grid.Column="8" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos9" Grid.Column="9" Grid.Row="0" Stroke="Black" Width="60" Margin="0,-60,0,0"/>
         <Rectangle Name="pos10" Grid.Column="10" Grid.Row="0" Stroke="Black"  Width="60" Margin="0,-60,0,0"/>
@@ -169,6 +161,7 @@
             </Rectangle>
             <Button Name="ViewPlayer1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+                <Ellipse Name="Player1Active" Margin="179,29,179,29" Fill="#FF4FB135"/>
 
 
             </Border>
@@ -201,6 +194,7 @@
             <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerCar.png"/>
             <Button Name="ViewPlayer2" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+                <Ellipse Name="Player2Active" Margin="179,29,179,29" Fill="#FF4FB135" Visibility="Hidden"/>
             </Border>
         </Grid>
         <Grid Name ="PlayerContainer3" Grid.Column="14" Grid.Row="6" Grid.ColumnSpan="7" Grid.RowSpan="2">
@@ -232,6 +226,7 @@
             <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerCat.png"/>
             <Button Name="ViewPlayer3" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
             <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+                <Ellipse Name="Player3Active" Margin="179,29,179,29" Fill="#FF4FB135" Visibility="Hidden"/>
             </Border>
         </Grid>
         <Grid Name ="PlayerContainer4" Grid.Column="14" Grid.Row="9" Grid.ColumnSpan="7" Grid.RowSpan="2">
@@ -249,6 +244,7 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
+
             <Grid.Background>
                 <LinearGradientBrush x:Name="Gradient4" EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF3E3E3E" Offset="1"/>
@@ -258,10 +254,16 @@
                     <GradientStop Color="#FF3E3E3E"/>
                 </LinearGradientBrush>
             </Grid.Background>
+
             <TextBox Name="PlayerName4" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" IsEnabled="False" TextWrapping="Wrap" Text="{Binding Players[3].Money}"/>
             <Image Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Source="\Resources\PlayerHat.png"/>
             <Button Name="ViewPlayer4" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="View Cards" Click="CardsButton_Click" />
-            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60"/>
+            <Border BorderBrush="Black" BorderThickness="1" Height="120" Margin="0,0,-360,-60">
+                <Ellipse Name="Player4Active" Margin="179,29,179,29" Fill="#FF4FB135" Visibility="Hidden"/>
+
+
+            </Border>
+
         </Grid>
         <Button Name="EndTurnBtn" Grid.Column="3" Grid.ColumnSpan="2" Content="End turn" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="60" Width="120" Click="EndTurnButton_Click"/>
         <TextBlock x:Name="DiceRollCounter" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center" Height="60" Width="61" TextAlignment="Center" Margin="-60,0,0,0" IsEnabled="False"><Run Language="en-gb" Text="Dice Roll:"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
