@@ -14,7 +14,7 @@ namespace TetraPolyGame
         public static bool EventChance()
         {
             //percentage chance of a random event happening
-            int chancePercentage = 5;
+            int chancePercentage = 30;
 
 
                 //gets a number between 0 and 100
@@ -39,7 +39,12 @@ namespace TetraPolyGame
             {
                 while ((line = file.ReadLine()) != null)
                 {
-                    lines.Add(line);
+                    string[] parts = line.Split(',');
+                    int ID = int.Parse(parts[0]);
+                    string name = parts[1];
+                    string desc = parts[2];
+
+                    Events.Add(new Event(ID, name, desc));
                 }
                 file.Close();
 
