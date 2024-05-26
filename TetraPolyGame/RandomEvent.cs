@@ -14,7 +14,7 @@ namespace TetraPolyGame
         public static bool EventChance()
         {
             //percentage chance of a random event happening
-            int chancePercentage = 30;
+            int chancePercentage = 15;
 
 
                 //gets a number between 0 and 100

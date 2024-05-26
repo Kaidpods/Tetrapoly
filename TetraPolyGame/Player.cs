@@ -174,7 +174,7 @@ namespace TetraPolyGame
                         }
                     }
                 }
-                if (_InJail == true)
+                else if (_InJail == true)
                 {
                     MessageBoxResult result = MessageBox.Show("Would you like to get out of jail for $50?", "Yes or no?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     int r1;
