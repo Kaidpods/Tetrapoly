@@ -19,3 +19,12 @@ This 'Tetrapoly' application is implemented in C# and provides a digital version
 
 ## Installation
 1. Clone this repository (To use with an IDE):
+
+## Screenshots
+Include screenshots or GIFs here to showcase your application's user interface and gameplay, emphasizing the grid-based board representation.
+
+## Contributing
+Contributions are welcome! If you'd like to improve the game or add new features, feel free to submit a pull request.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
