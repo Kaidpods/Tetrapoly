@@ -141,6 +141,22 @@ namespace TetraPolyGame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1,City lacks water,All players must pay $25 to build a well
+        ///2,City lacks electricity,All players must pay $75 for the construction of new wind turbines
+        ///3,Public transport check,All players move to Motherwell train station
+        ///4,Not enough staff,All players must pay $30 to hire &amp; train each new staff
+        ///5,Air pollution,All players must pay $10 to install ventilation for each property they have
+        ///6,Sea level rises,All players must move back a space
+        ///7,New bridge constructed,All players move forward 2 spaces
+        ///8,Wa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string RandomEvents {
+            get {
+                return ResourceManager.GetString("RandomEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap RotatedMonopolyBoard {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
 using System.Drawing;
@@ -28,6 +29,7 @@ namespace TetraPolyGame
         private ObservableCollection<Card> Cards = new();
         private Stack<ChanceCommunity> ChanceCards = new();
         private Stack<ChanceCommunity> CommunityCards = new();
+        private List<Event> Events = RandomEvent.GetEvents();
         public static int PastRoll;
         protected List<Player> Players = [];
         private List<Ellipse> players = [];
@@ -118,9 +120,10 @@ namespace TetraPolyGame
                     newRow = currentRow - 1;
                     newColumn = currentColumn;
                 }
-                // Stop the movement when reaching (10, 3)
+                // Stop the movement when reaching (Endrow, Endcollumn)
                 if (currentRow == endRow && currentColumn == endColumn)
                 {
+                    EndTurnBtn.IsEnabled = true;
                     return;
                 }
 
@@ -212,15 +215,31 @@ namespace TetraPolyGame
                             Utility tempUtility = (Utility)card;
 
                             int r = tempUtility.GetRollRent(PastRoll);
+                            MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ViewModel.Players[turn].Money -= r;
+                            card.WhoOwns().Money += r;
+                            ViewModel.Players[turn].CheckMoney();
+                        }
+                        else if (card is Transport && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        {
+                            Transport tempTransport = (Transport)card;
+
+                            int r = tempTransport.GetRent();
+                            MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ViewModel.Players[turn].Money -= r;
+                            card.WhoOwns().Money += r;
+                            ViewModel.Players[turn].CheckMoney();
                         }
                         else if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
                             MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
                             ViewModel.Players[turn].Money -= r;
-                            ViewModel.Players[turn].CheckMoney(r);
+                            card.WhoOwns().Money += r;
+                            ViewModel.Players[turn].CheckMoney();
                         }
-                        else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
+                    }
+                    if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
                         {
                             Property tempProp = (Property)card;
                             MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
@@ -242,8 +261,16 @@ namespace TetraPolyGame
                                     case "DBLUE": { cost = 200; break; }
 
                                 }
-                                ViewModel.Players[turn].CheckMoney(cost);
-                                ViewModel.Players[turn].AddHouse(tempProp);
+                                if (ViewModel.Players[turn].Money <= cost)
+                                {
+                                    MessageBox.Show("Cant buy the house", "Not Enough!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                                }
+                                else
+                                {
+                                    ViewModel.Players[turn].Money -= cost;
+                                    ViewModel.Players[turn].AddHouse(tempProp);
+                                }
+                                
                             }
                         }
                         else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
@@ -265,9 +292,15 @@ namespace TetraPolyGame
                                 case "DBLUE": { cost = 200; break; }
 
                             }
-                            ViewModel.Players[turn].CheckMoney(cost);
-                            Property pro = (Property)card;
-                            ViewModel.Players[turn].AddHouse(pro);
+                            if (ViewModel.Players[turn].Money <= cost)
+                            {
+                                MessageBox.Show("Cant buy the house", "Not Enough!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                            }
+                            else
+                            {
+                                ViewModel.Players[turn].Money -= cost;
+                                ViewModel.Players[turn].AddHouse(tempProp);
+                            }
                         }
                     }
 
@@ -332,6 +365,7 @@ namespace TetraPolyGame
                         case "Advance To Boardwalk":
                             p.MoveToPosition(39);
                             MovePlayer(players[truncount], 39);
+                            checkposition(truncount);
                             break;
 
                         case "Advance To Go":
@@ -342,6 +376,7 @@ namespace TetraPolyGame
                         case "Go back 3 spaces":
                             p.SetPos(p.GetPosition() - 3);
                             MovePlayer(players[truncount], p.GetPosition());
+                            checkposition(truncount);
                             break;
 
                         case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
@@ -350,9 +385,9 @@ namespace TetraPolyGame
                             MovePlayer(players[truncount], p.GetPosition());
                             break;
 
-                        case "Fined for a LEZ (Light Emmision Zone) Charge":
-                            p.CheckMoney(60);
-
+                        case "Fined for a LEZ (Light Emmision Zone) Charge ($60)":
+                            p.Money -= 60;
+                            p.CheckMoney();
                             break;
 
                         case "Your building loan matures. Collect $150":
@@ -378,6 +413,7 @@ namespace TetraPolyGame
                         case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
                             p.SetPos(p.GetPosition() + 2);
                             MovePlayer(players[truncount], p.GetPosition());
+                            checkposition(truncount);
 
                             break;
                     }
@@ -417,7 +453,7 @@ namespace TetraPolyGame
                             p.Money += (200);
                             break;
 
-                        case "Your properties are known to be cared for. The extra attention brings in more customers. Collect $100":
+                        case "Your properties are known to be cared for. The extra attention brings in more customers, Collect $100.":
                             p.Money += (100);
                             break;
 
@@ -442,19 +478,22 @@ namespace TetraPolyGame
 
                         case "A drought has affected the local community garden, reducing harvests. Pay $50 for emergency food supplies.":
                             p.Money -= (50);
-
+                            p.CheckMoney();
                             break;
 
                         case "The local school loses funding, affecting education quality. Pay $50 to support after-school programs.":
                             p.Money -= (50);
+                            p.CheckMoney();
                             break;
 
                         case "New infrastructure project causes road closures, affecting your commute. Pay $25 for additional transportation costs.":
-
+                            p.Money -= (50);
+                            p.CheckMoney();
                             break;
 
                         case "Partnership project fails due to lack of coordination. Pay $75 to cover losses.":
-                            p.Money -= (50);
+                            p.Money -= (750);
+                            p.CheckMoney();
                             break;
 
                         case "You start a community garden that provides fresh produce to your neighborhood. Collect $100 for your efforts.":
@@ -520,7 +559,7 @@ namespace TetraPolyGame
             {
                 turnorder();
                 rolldice.IsEnabled = false;
-                EndTurnBtn.IsEnabled = true;
+                //EndTurnBtn.IsEnabled = true;
             }
             else
             {
@@ -676,6 +715,136 @@ namespace TetraPolyGame
                     Player2Active.Visibility = Visibility.Hidden;
                     Player3Active.Visibility = Visibility.Hidden;
                     break;
+            }
+
+            Random RandomID = new Random();
+            if (RandomEvent.EventChance())
+            {
+                CheckEvent(RandomID.Next(1, 11));
+            }
+        }
+
+        private void CheckEvent(int ID)
+        {
+            foreach (Event AnEvent in Events)
+            {
+                if (AnEvent.GetId() == ID)
+                {
+                    int index = 0;
+                    int money = 0;
+                    switch (AnEvent.GetId())
+                    {
+                        case 1:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 25;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 2:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 75;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 3:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.SetPos(35);
+                                MovePlayer(players[index], 35);
+                                checkposition(index);
+                                index++;
+                            }
+                            break;
+
+                        case 4:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 30;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 5:
+
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                foreach (Card card in player.CardsOwned)
+                                {
+                                    if (card is Property)
+                                    {
+                                        money += 10;
+                                    }
+                                }
+                                player.Money -= money;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 6:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.SetPos(player.GetPosition() - 1);
+                                MovePlayer(players[index], player.GetPosition());
+                                checkposition(index);
+                                index++;
+                            }
+                            break;
+
+                        case 7:
+                            foreach (Player player in ViewModel.Players)
+                            {   
+                                player.SetPos(player.GetPosition() + 2);
+                                MovePlayer(players[index], player.GetPosition());
+                                checkposition(index);
+                                index++;
+                            }
+                            break;
+
+                        case 8:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 40;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 9:
+                            
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                foreach (Card card in player.CardsOwned)
+                                {
+                                    if (card is Property)
+                                    {
+                                        money += 25;
+                                    }
+                                }
+                                player.Money -= money;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 10:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 100;
+                                player.CheckMoney();
+                            }
+                            break;
+
+                        case 11:
+                            foreach (Player player in ViewModel.Players)
+                            {
+                                player.Money -= 120;
+                                player.CheckMoney();
+                            }
+                            break;
+                    }
+                }
             }
         }
 

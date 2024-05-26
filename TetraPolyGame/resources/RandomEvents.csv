@@ -1,12 +1,11 @@
-1,City lacks water,All players must pay to build a well
-2,City lacks electricity,All players must pay for the construction of new wind turbines
-3,Public transport investment,All players move to the nearest train station
-4,Not enough staff,All players must pay to hire & train each new staff for each hotel/house they have
-5,Air pollution,All players must pay to install ventilation for each hotel/house they have
+1,City lacks water,All players must pay $25 to build a well
+2,City lacks electricity,All players must pay $75 for the construction of new wind turbines
+3,Public transport check,All players move to Motherwell train station
+4,Not enough staff,All players must pay $30 to hire & train each new staff
+5,Air pollution,All players must pay $10 to install ventilation for each property they have
 6,Sea level rises,All players must move back a space
 7,New bridge constructed,All players move forward 2 spaces
-8,Wasted food, All players must pay for rubbish collection
-9,Flooding,All players must pay for repairs for each house/hotel owned
-10,Lack of lumber due to deforestation,All players are unable to purchase houses/hotels for this round
-11,Rise in crime rate,Rent for all properties lowered this turn
-12,WiFi investment,All players must invest in wifi to keep residents happy
+8,Wasted food,All players must pay $40 for rubbish collection
+9,Flooding,All players must pay $25 for repairs for each property owned
+10,Lack of lumber due to deforestation,All players must pay $100 to import more lumber and plant some saplings
+11,Rise in crime rate,Players lose $120 due to increased violence and vandalism in their properties

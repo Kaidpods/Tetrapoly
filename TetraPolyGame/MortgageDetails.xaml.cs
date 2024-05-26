@@ -17,12 +17,12 @@ namespace TetraPolyGame
     /// <summary>
     /// Interaction logic for MortgageDetails.xaml
     /// </summary>
-    public partial class CardDetails : Window
+    public partial class MortgageDetails : Window
     {
         private Player player;
 
 
-        public CardDetails()
+        public MortgageDetails()
         {
             InitializeComponent();
         }
@@ -41,10 +41,13 @@ namespace TetraPolyGame
                     Property property = (Property)card;
                     if (property.GetName() == PlayerCards.SelectedValue.ToString())
                     {
+                        int price = property.GetMortgagePrice();
+
+                        price += (property.GetHouseCount() * 25);
                         int[] houseValues = property.GetHouseRents();
                         Name.Text = property.GetName();
                         Rent.Text = property.GetRent().ToString();
-                        Price.Text = property.GetPrice().ToString();
+                        Price.Text = price.ToString();
                         Colour.Text = property.GetColour();
                         Owned1.Content = "1 House";
                         Owned2.Content = "2 House";
@@ -67,7 +70,7 @@ namespace TetraPolyGame
                         int rent = transport.GetRent();
                         Name.Text = transport.GetName();
                         Rent.Text = rent.ToString();
-                        Price.Text = transport.GetPrice().ToString();
+                        Price.Text = transport.GetMortgagePrice().ToString();
                         Colour.Visibility = Visibility.Collapsed;
                         ColourLbl.Visibility = Visibility.Collapsed;
                         House1.Text = (rent * 1).ToString();
@@ -89,7 +92,7 @@ namespace TetraPolyGame
                     {
                         Name.Text = utility.GetName();
                         Rent.Text = "Not applicable";
-                        Price.Text = utility.GetPrice().ToString();
+                        Price.Text = utility.GetMortgagePrice().ToString();
                         Colour.Visibility = Visibility.Collapsed;
                         ColourLbl.Visibility = Visibility.Collapsed;
                         House1.Text = "Dice roll (Times) 4";
@@ -110,7 +113,25 @@ namespace TetraPolyGame
 
         private void PlayerCards_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MortgageBtn.IsEnabled = true;
             SetupFields();
+        }
+
+        public Card GetCardSelected()
+        {
+            foreach (Card card in player.CardsOwned)
+            {
+                if (PlayerCards.SelectedItem != null && card.ToString() == PlayerCards.SelectedItem.ToString())
+                {
+                    return card;
+                }
+            }
+            return null;
+        }
+
+        private void MortgageButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

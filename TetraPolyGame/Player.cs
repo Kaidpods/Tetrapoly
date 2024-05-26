@@ -96,6 +96,11 @@ namespace TetraPolyGame
         {
             card.SetMorgaged(true);
             int mor = card.GetMortgagePrice();
+            if (card is Property)
+            {
+                Property tempProperty = (Property)card;
+                mor += tempProperty.GetHouseCount() * 25;
+            }
             Money +=(mor);
         }
         /// <summary>Handles the mortgage action for a card.</summary>
@@ -105,7 +110,7 @@ namespace TetraPolyGame
         {
             int mor = card.GetMortgagePrice();
             Money -=(mor);
-            CheckMoney(mor);
+            CheckMoney();
             card.SetMorgaged(false);
         }
 
@@ -171,13 +176,40 @@ namespace TetraPolyGame
                 }
                 if (_InJail == true)
                 {
-                    int r1 = RollDice();
-                    int r2 = RollDice();
-                    if (r1 == r2)
+                    MessageBoxResult result = MessageBox.Show("Would you like to get out of jail for $50?", "Yes or no?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    int r1;
+                    int r2;
+                    if (result == MessageBoxResult.Yes)
                     {
-                        _InJail = false;
-                        _Position = 10;
+                        if (Money <= 50)
+                        {
+                            MessageBox.Show("Sorry, you dont have enough money!", "Keep on rolling!");
+                            r1 = RollDice();
+                            r2 = RollDice();
+                            if (r1 == r2)
+                            {
+                                _InJail = false;
+                                _Position = 10;
+                            }
+                        }
+                        else
+                        {
+                            Money -= 50;
+                            _InJail = false;
+                            _Position = 10;
+                        }
+                    } 
+                    else
+                    {
+                        r1 = RollDice();
+                        r2 = RollDice();
+                        if (r1 == r2)
+                        {
+                            _InJail = false;
+                            _Position = 10;
+                        }
                     }
+                    
                 }
             }
             e.Text = "Dice Roll:\r\n\r\n" + totalRoll;
@@ -198,9 +230,15 @@ namespace TetraPolyGame
             if (chois == true)
             {
                 int se = gc.GetPrice();
-                Money -= se;
-                CheckMoney(se);
-                buyCard(gc);
+                if (se > Money)
+                {
+                    MessageBox.Show("You dont have enough money to buy", "Not enough money", MessageBoxButton.OK, MessageBoxImage.Stop);
+                }
+                else
+                {
+                    Money -= se;
+                    buyCard(gc);
+                }
             }
 
         }
@@ -212,7 +250,7 @@ namespace TetraPolyGame
         /// If the deduction results in a negative balance, it checks if the player can mortgage properties to cover the debt.
         /// If mortgaging is not possible, the player is marked as not alive.
         /// </remarks>
-        virtual public void CheckMoney(int money)
+        virtual public void CheckMoney()
         {
             if (Money < 0)
             {
@@ -236,18 +274,20 @@ namespace TetraPolyGame
         /// <returns>True if the total mortgage value is greater than or equal to the negative money balance, false otherwise.</returns>
         public bool checktotalmorgag()
         {
-            int count = 0;
             int total = 0;
-            while (_CardsOwend[count] != null)
+            foreach(Card card in CardsOwned)
             {
-                if (_CardsOwend[count] is Card && _CardsOwend[count].IsMortgaged() == false)
+                if (card.IsMortgaged() == false)
                 {
-                    total = _CardsOwend[count].GetMortgagePrice();
+                    total = card.GetMortgagePrice();
+                    if (card is Property)
+                    {
+                        Property tempProperty = (Property)card;
+                        total += tempProperty.GetHouseCount() * 25;
+                    }
                 }
-
-                count = count + 1;
             }
-            if (total >= (_Money * -1))
+            if (total >= (Money * -1))
             {
                 return true;
             }
@@ -264,8 +304,22 @@ namespace TetraPolyGame
         /// </remarks>
         public void asktomortgage()
         {
-            string s = "you need to morgae some of your a cards";
-            MessageBoxResult w = MessageBox.Show(s);
+            string s = "You need to mortgage some cards to stay alive";
+            var popup = new MortgageDetails();
+
+            popup.MortgageBtn.Click += delegate
+            {
+                MortgageCard(popup.GetCardSelected());
+
+                if (Money > 0)
+                {
+                    popup.Close();
+                }
+            };
+
+            popup.ShowDialog();
+
+
         }
 
         /// <summary>Adds the specified amount of money to the current balance.</summary>
