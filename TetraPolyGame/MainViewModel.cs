@@ -28,10 +28,10 @@ namespace TetraPolyGame
         {
             Players =
             [
-                new("Kaiden", 1000),
-                new("David", 1000),
-                new("Kyle", 1000),
-                new("Daniel", 1000)
+                new("Kaiden", 300),
+                new("David", 300),
+                new("Kyle", 300),
+                new("Daniel", 300)
             ];
         }
 

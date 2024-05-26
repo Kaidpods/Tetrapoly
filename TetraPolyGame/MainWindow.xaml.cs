@@ -539,6 +539,7 @@ namespace TetraPolyGame
                     else if (Position == -1)
                     {
                         Grid.SetRow(e, 0); Grid.SetColumn(e, 11);
+                        EndTurnBtn.IsEnabled = true;
                     }
                 }
             }

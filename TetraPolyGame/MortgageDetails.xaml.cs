@@ -30,6 +30,7 @@ namespace TetraPolyGame
         public void GetPlayer(Player GotPlayer)
         {
             player = GotPlayer;
+            BalanceTxt.Text = player.Money.ToString();
         }
 
         public void SetupFields()
@@ -121,7 +122,7 @@ namespace TetraPolyGame
         {
             foreach (Card card in player.CardsOwned)
             {
-                if (PlayerCards.SelectedItem != null && card.ToString() == PlayerCards.SelectedItem.ToString())
+                if (PlayerCards.SelectedItem != null && card.GetName().ToString() == PlayerCards.SelectedItem.ToString())
                 {
                     return card;
                 }

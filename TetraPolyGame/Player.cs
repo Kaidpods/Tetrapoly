@@ -307,16 +307,19 @@ namespace TetraPolyGame
             string s = "You need to mortgage some cards to stay alive";
             var popup = new MortgageDetails();
 
-            popup.MortgageBtn.Click += delegate
-            {
-                MortgageCard(popup.GetCardSelected());
+            //popup.MortgageBtn.Click += delegate
+            //{
+            //    MortgageCard(popup.GetCardSelected());
 
-                if (Money > 0)
-                {
-                    popup.Close();
-                }
-            };
+            //    if (Money > 0)
+            //    {
+            //        popup.Close();
+            //    }
+            //};
 
+
+            popup.PlayerCards.ItemsSource = CardsNames;
+            popup.GetPlayer(this);
             popup.ShowDialog();
 
 
