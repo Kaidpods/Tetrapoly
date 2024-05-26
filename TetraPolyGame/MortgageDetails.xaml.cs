@@ -131,7 +131,21 @@ namespace TetraPolyGame
 
         private void MortgageButton_Click(object sender, RoutedEventArgs e)
         {
+            Card selectedCard = GetCardSelected();
 
+            int balance = player.Money += selectedCard.GetMortgagePrice();
+            if (balance > 0)
+            {
+                player.Money = balance;
+                selectedCard.SetMorgaged(true);
+                MessageBox.Show("You now have enough balance to continue", "Good job!", MessageBoxButton.OK);
+                this.Close();
+            } else
+            {
+                selectedCard.SetMorgaged(true);
+                player.Money = balance;
+                BalanceTxt.Text = balance.ToString();
+            }
         }
     }
 }

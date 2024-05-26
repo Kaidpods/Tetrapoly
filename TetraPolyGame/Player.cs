@@ -415,6 +415,8 @@ namespace TetraPolyGame
             }
         }
 
+        /// <summary>Gets the names of the cards owned.</summary>
+        /// <returns>An ObservableCollection of strings containing the names of the owned cards.</returns>
         public ObservableCollection<string> CardsNames
         {
             get
