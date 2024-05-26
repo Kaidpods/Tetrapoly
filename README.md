@@ -21,10 +21,35 @@ This 'Tetrapoly' application is implemented in C# and provides a digital version
 1. Clone this repository (To use with an IDE):
 
 ## Screenshots
-Include screenshots or GIFs here to showcase your application's user interface and gameplay, emphasizing the grid-based board representation.
+Game Design: ![image](https://github.com/Kaidpods/Tetrapoly/assets/143604935/37ce3ec3-5315-4557-9bf4-6e6c16927bf0)
+Above is the current design and appearance of the board
+
+Movement: ![MovementAnimation](https://github.com/Kaidpods/Tetrapoly/assets/143604935/292ad355-3d7c-4935-af5e-bd67d48b58e4)
+Here is how the movement should look on the board, with each player being able to roll a dice and move.
+
+Viewing cards: ![CardDetailsAnimation](https://github.com/Kaidpods/Tetrapoly/assets/143604935/4a1ff853-0a65-4aa5-a2ff-c2c86655e8d0)
+
+## Future Plans
+
+1. **AI Opponents**:
+   - Create computer-controlled opponents (AI players) to play against human players.
+
+2. **Customizable Rules**:
+   - Allow players to customize game rules, such as changing starting money, property prices, or rent calculations.
+   - Implement a settings menu where players can adjust game parameters.
+
+3. **Animations and Sound Effects**:
+   - Enhance the user experience with animations for dice rolls, property purchases, and other game events.
+   - Add sound effects (e.g., dice rolling, property trading) to make the game more engaging.
+
+4. **Save and Load Game State**:
+   - Implement a save/load feature so that players can continue their game later.
+   - Save player progress, property ownership, and other relevant data.
+
+5. **Improved UI/UX**:
+   - Enhance the user interface (UI) design to be more visually appealing.
+   - Ensure that the game is intuitive and easy to navigate.
 
 ## Contributing
 Contributions are welcome! If you'd like to improve the game or add new features, feel free to submit a pull request.
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
