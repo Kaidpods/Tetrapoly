@@ -86,7 +86,7 @@ namespace TetraPolyGame
                         ChanceCards.Push(card);
                         break;
                 }
-                
+
             }
         }
 
@@ -240,42 +240,11 @@ namespace TetraPolyGame
                         }
                     }
                     if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
+                    {
+                        Property tempProp = (Property)card;
+                        MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
                         {
-                            Property tempProp = (Property)card;
-                            MessageBoxResult result = MessageBox.Show("Do you want to buy a house?", "House Buying", MessageBoxButton.YesNo);
-                            if (result == MessageBoxResult.Yes)
-                            {
-                                int cost = 0;
-                                switch (tempProp.GetColour())
-                                {
-                                    case "BROWN": { cost = 50; break; }
-                                    case "LBLUE": { cost = 50; break; }
-                                    case "PINK": { cost = 50; break; }
-
-                                    case "ORANGE": { cost = 100; break; }
-                                    case "RED": { cost = 100; break; }
-
-                                    case "YELLOW": { cost = 150; break; }
-                                    case "GREEN": { cost = 150; break; }
-
-                                    case "DBLUE": { cost = 200; break; }
-
-                                }
-                                if (ViewModel.Players[turn].Money <= cost)
-                                {
-                                    MessageBox.Show("Cant buy the house", "Not Enough!", MessageBoxButton.OK, MessageBoxImage.Stop);
-                                }
-                                else
-                                {
-                                    ViewModel.Players[turn].Money -= cost;
-                                    ViewModel.Players[turn].AddHouse(tempProp);
-                                }
-                                
-                            }
-                        }
-                        else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
-                        {
-                            Property tempProp = (Property)card;
                             int cost = 0;
                             switch (tempProp.GetColour())
                             {
@@ -301,9 +270,38 @@ namespace TetraPolyGame
                                 ViewModel.Players[turn].Money -= cost;
                                 ViewModel.Players[turn].AddHouse(tempProp);
                             }
+
                         }
                     }
+                    else if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && ViewModel.Players[turn] is algorithm)
+                    {
+                        Property tempProp = (Property)card;
+                        int cost = 0;
+                        switch (tempProp.GetColour())
+                        {
+                            case "BROWN": { cost = 50; break; }
+                            case "LBLUE": { cost = 50; break; }
+                            case "PINK": { cost = 50; break; }
 
+                            case "ORANGE": { cost = 100; break; }
+                            case "RED": { cost = 100; break; }
+
+                            case "YELLOW": { cost = 150; break; }
+                            case "GREEN": { cost = 150; break; }
+
+                            case "DBLUE": { cost = 200; break; }
+
+                        }
+                        if (ViewModel.Players[turn].Money <= cost)
+                        {
+                            MessageBox.Show("Cant buy the house", "Not Enough!", MessageBoxButton.OK, MessageBoxImage.Stop);
+                        }
+                        else
+                        {
+                            ViewModel.Players[turn].Money -= cost;
+                            ViewModel.Players[turn].AddHouse(tempProp);
+                        }
+                    }
                     else if (card.WhoOwns() == null)
                     {
                         if ((card is Property) || (card is Transport) || (card is Utility) && (ViewModel.Players[turn] is not algorithm))
@@ -324,568 +322,569 @@ namespace TetraPolyGame
                         }
 
                     }
+                }
 
-                    t = false;
+                t = false;
+
+                if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 17))
+                {
+                    GetCommunity(ViewModel.Players[turn]);
+                }
+                else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
+                {
+                    GetChance(ViewModel.Players[turn]);
+                }
+                if (ViewModel.Players[turn].GetPosition() == 30)
+                {
+                    ViewModel.Players[turn].SetInJaile(true);
+                    ViewModel.Players[turn].setPosition(-1);
+                    MovePlayer(players[turn], -1);
+
 
                 }
             }
-            if ((ViewModel.Players[turn].GetPosition() == 2) || (ViewModel.Players[turn].GetPosition() == 33) || (ViewModel.Players[turn].GetPosition() == 17))
-            {
-                GetCommunity(ViewModel.Players[turn]);
-            }
-            else if ((ViewModel.Players[turn].GetPosition() == 7) || (ViewModel.Players[turn].GetPosition() == 22) || (ViewModel.Players[turn].GetPosition() == 36))
-            {
-                GetChance(ViewModel.Players[turn]);
-            }
-            if (ViewModel.Players[turn].GetPosition() == 30)
-            {
-                ViewModel.Players[turn].SetInJaile(true);
-                ViewModel.Players[turn].setPosition(-1);
-                MovePlayer(players[turn], -1);
-
-
-            }
         }
+
         /// <summary>
         /// Retrieves a Chance or Community Chest card, sets its effect, and executes it on the player.
         /// </summary>
         /// <param name="player">The player to execute the card's effect on.</param>
         public void GetChance(Player p)
+{
+    ChanceCommunity temp;
+    try
+    {
+        temp = ChanceCards.Pop();
+
+        MessageBox.Show(temp.GetDesc(), "Chance Card");
+        if (temp.GetCardType() == "CHANCE")
         {
-            ChanceCommunity temp;
-            try
+            switch (temp.GetDesc())
             {
-                temp = ChanceCards.Pop();
-
-                MessageBox.Show(temp.GetDesc(), "Chance Card");
-                if (temp.GetCardType() == "CHANCE")
-                {
-                    switch (temp.GetDesc())
-                    {
-                        case "Advance To Boardwalk":
-                            p.MoveToPosition(39);
-                            MovePlayer(players[truncount], 39);
-                            checkposition(truncount);
-                            break;
-
-                        case "Advance To Go":
-                            p.Money += (200); p.SetPos(0);
-                            MovePlayer(players[truncount], 0);
-                            break;
-
-                        case "Go back 3 spaces":
-                            p.SetPos(p.GetPosition() - 3);
-                            MovePlayer(players[truncount], p.GetPosition());
-                            checkposition(truncount);
-                            break;
-
-                        case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
-                            p.SetPos(-1);
-                            p.SetInJaile(true);
-                            MovePlayer(players[truncount], p.GetPosition());
-                            break;
-
-                        case "Fined for a LEZ (Light Emmision Zone) Charge ($60)":
-                            p.Money -= 60;
-                            p.CheckMoney();
-                            break;
-
-                        case "Your building loan matures. Collect $150":
-                            p.Money += (150);
-
-                            break;
-
-                        case "Get Out of Jail Free":
-                            p.SetPos(10); p.SetInJaile(false);
-                            MovePlayer(players[truncount], 10);
-                            break;
-
-                        case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
-                            p.Money += (100);
-
-                            break;
-
-                        case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
-                            p.Money += (200);
-
-                            break;
-
-                        case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
-                            p.SetPos(p.GetPosition() + 2);
-                            MovePlayer(players[truncount], p.GetPosition());
-                            checkposition(truncount);
-
-                            break;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Shuffle.Shuffle.ShuffleList(ComChaCards);
-                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-                ChanceCards = chanceCommunities;
-
-                GetChance(p);
-            }
-
-
-        }
-
-        public void GetCommunity(Player p)
-        {
-            ChanceCommunity temp;
-            try
-            {
-                temp = CommunityCards.Pop();
-
-                MessageBox.Show(temp.GetDesc(), "Community Card");
-
-                if (temp.GetCardType() == "COMMUNITY")
-                {
-                    switch (temp.GetDesc())
-                    {
-                        case "Advance To Go":
-                            p.Money += (200); p.SetPos(0);
-                            MovePlayer(players[truncount], 0);
-                            break;
-
-                        case "Bank error in your favor. Collect $200":
-                            p.Money += (200);
-                            break;
-
-                        case "Your properties are known to be cared for. The extra attention brings in more customers, Collect $100.":
-                            p.Money += (100);
-                            break;
-
-                        case "You organize a free health screening event for the community. Pay $25 for supplies, but advance to GO (collect $200) for your good deed.":
-                            p.Money += (200); p.SetPos(0);
-                            MovePlayer(players[truncount], 0);
-                            break;
-
-                        case "You help install a new water filtration system in your community. Pay $50 for parts, but your property values increase. Collect $100.":
-                            p.Money += (50);
-
-                            break;
-
-                        case "You plant trees in your community, enhancing local biodiversity. Collect $75 as a grant for your green initiative.":
-                            p.Money += (75);
-                            break;
-
-                        case "You form a partnership with local businesses to support SDGs. Collect $200 as a funding reward.":
-                            p.Money += (200);
-
-                            break;
-
-                        case "A drought has affected the local community garden, reducing harvests. Pay $50 for emergency food supplies.":
-                            p.Money -= (50);
-                            p.CheckMoney();
-                            break;
-
-                        case "The local school loses funding, affecting education quality. Pay $50 to support after-school programs.":
-                            p.Money -= (50);
-                            p.CheckMoney();
-                            break;
-
-                        case "New infrastructure project causes road closures, affecting your commute. Pay $25 for additional transportation costs.":
-                            p.Money -= (50);
-                            p.CheckMoney();
-                            break;
-
-                        case "Partnership project fails due to lack of coordination. Pay $75 to cover losses.":
-                            p.Money -= (750);
-                            p.CheckMoney();
-                            break;
-
-                        case "You start a community garden that provides fresh produce to your neighborhood. Collect $100 for your efforts.":
-                            p.Money += (100);
-                            break;
-
-                        case "You participate in a climate change awareness rally. Pay $10 to cover event costs, but collect $50 for raising awareness.":
-                            p.Money += (40);
-                            break;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Shuffle.Shuffle.ShuffleList(ComChaCards);
-                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-                ChanceCards = chanceCommunities;
-
-                GetCommunity(p);
-            }
-
-
-        }
-
-        /// <summary>
-        /// Moves the visual elements on the board
-        /// </summary>
-        /// <param name="e">The player eclipse icons (Or anything that can be used to feature a player)</param>
-        /// <param name="Position"></param>
-        public void MovePlayer(UIElement e, int Position)
-        {
-            foreach (UIElement element in gameBoardGrid.Children)
-            {
-                if (element is System.Windows.Shapes.Rectangle rectangle)
-                {
-                    if (rectangle.Name == ("pos") + Position.ToString() && Position != -1)
-                    {
-                        MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle));
-                        break;
-                    }
-                    else if (Position == -1)
-                    {
-                        Grid.SetRow(e, 0); Grid.SetColumn(e, 11);
-                    }
-                }
-            }
-
-        }
-        /// <summary>
-        /// Handles the click event when the "rolldice" button is clicked.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
-        /// <remarks>
-        /// This method checks the current player's money status. If the player has money,
-        /// it proceeds with the turn order. If the player has no money, it prompts the player
-        /// to mortgage properties. Finally, it updates the user interface.
-        /// </remarks>
-        private void rolldice_Click(object sender, RoutedEventArgs e)
-        {
-            int i = ViewModel.Players[truncount].Money;
-            if (i > 0)
-            {
-                turnorder();
-                rolldice.IsEnabled = false;
-                //EndTurnBtn.IsEnabled = true;
-            }
-            else
-            {
-                ViewModel.Players[truncount].asktomortgage();
-            }
-            changebox();
-        }
-        /// <summary>
-        /// Clears and updates the items in the unmortgaged and mortgaged card pickers based on the player's cards.
-        /// Also displays the player's current money.
-        /// </summary>
-        /// <remarks>
-        /// This method populates the unmortgaged and mortgaged card pickers with the player's cards.
-        /// It also displays the player's current money on the UI.
-        /// </remarks>
-        public void changebox()
-        {
-            unmoragagepickacard.Items.Clear();
-            moragagepickacard.Items.Clear();
-            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-            string str;
-            string b5;
-            unmoragagepickacard.SelectedIndex = 0;
-            moragagepickacard.SelectedIndex = 0;
-            if (cards == null)
-            {
-                b5 = "there are no cards";
-
-                unmoragagepickacard.Items.Add(b5);
-                moragagepickacard.Items.Add(b5);
-                moragagepickacard.IsEnabled = false;
-                unmoragagepickacard.IsEnabled = false;
-            }
-            else
-            {
-                foreach (Card card in cards)
-                {
-                    str = card.ToString();
-                    bool b1 = card.IsMortgaged();
-
-                    if (b1 == true)
-                    {
-                        unmoragagepickacard.Items.Add(str);
-                    }
-                    else
-                    {
-                        moragagepickacard.Items.Add(str);
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Handles the click event when the "unmortgage" button is clicked.
-        /// Retrieves the list of cards owned by the current player, selects a card based on user input,
-        /// unmortgages the selected card, and updates the UI accordingly.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
-        private void unmorgage_Click(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-            string st = (string)unmoragagepickacard.SelectedValue;
-            foreach (Card card in cards)
-            {
-                if (card.ToString() == st)
-                {
-                    ViewModel.Players[truncount].UnMortgageCard(card);
-                    changebox();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Handles the click event when the mortgage button is clicked.
-        /// Mortgages a selected card from the player's cards list.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
-        /// <remarks>
-        /// This method retrieves the selected card from the player's cards list,
-        /// parses the selected card information, mortgages the card, and updates the UI.
-        /// </remarks>
-        private void morgage_Click(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
-            string st = (string)moragagepickacard.SelectedValue;
-            foreach (Card card in cards)
-            {
-                if (card.ToString() == st)
-                {
-                    ViewModel.Players[truncount].MortgageCard(card);
-                    changebox();
-                }
-            }
-
-        }
-
-        private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void EndTurnButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (truncount != players.Count - 1)
-            {
-                truncount = truncount + 1;
-            }
-            else
-            {
-                truncount = 0;
-            }
-            rolldice.IsEnabled = true;
-            EndTurnBtn.IsEnabled = false;
-            changebox();
-            switch (truncount)
-            {
-                case 0:
-                    Player1Active.Visibility = Visibility.Visible;
-
-                    Player2Active.Visibility = Visibility.Hidden;
-                    Player3Active.Visibility = Visibility.Hidden;
-                    Player4Active.Visibility = Visibility.Hidden;
+                case "Advance To Boardwalk":
+                    p.MoveToPosition(39);
+                    MovePlayer(players[truncount], 39);
+                    checkposition(truncount);
                     break;
 
-                case 1:
-                    Player2Active.Visibility = Visibility.Visible;
+                case "Advance To Go":
+                    p.Money += (200); p.SetPos(0);
+                    MovePlayer(players[truncount], 0);
+                    break;
 
-                    Player1Active.Visibility = Visibility.Hidden;
-                    Player3Active.Visibility = Visibility.Hidden;
-                    Player4Active.Visibility = Visibility.Hidden;
+                case "Go back 3 spaces":
+                    p.SetPos(p.GetPosition() - 3);
+                    MovePlayer(players[truncount], p.GetPosition());
+                    checkposition(truncount);
+                    break;
+
+                case "Go to Jail. Go directly to Jail, do not pass Go, do not collect $200.":
+                    p.SetPos(-1);
+                    p.SetInJaile(true);
+                    MovePlayer(players[truncount], p.GetPosition());
+                    break;
+
+                case "Fined for a LEZ (Light Emmision Zone) Charge ($60)":
+                    p.Money -= 60;
+                    p.CheckMoney();
+                    break;
+
+                case "Your building loan matures. Collect $150":
+                    p.Money += (150);
+
+                    break;
+
+                case "Get Out of Jail Free":
+                    p.SetPos(10); p.SetInJaile(false);
+                    MovePlayer(players[truncount], 10);
+                    break;
+
+                case "Advocate for affordable housing! Pay 100 Coins but gain 200 back!":
+                    p.Money += (100);
+
+                    break;
+
+                case "Your investment in a women-led business has turned out amazing for you! You've profited 200!":
+                    p.Money += (200);
+
+                    break;
+
+                case "You stumble upon a beach littered with plastic waste. Clean it up and move forward 2 spaces.":
+                    p.SetPos(p.GetPosition() + 2);
+                    MovePlayer(players[truncount], p.GetPosition());
+                    checkposition(truncount);
+
+                    break;
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Shuffle.Shuffle.ShuffleList(ComChaCards);
+        var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+        ChanceCards = chanceCommunities;
+
+        GetChance(p);
+    }
+
+
+}
+
+public void GetCommunity(Player p)
+{
+    ChanceCommunity temp;
+    try
+    {
+        temp = CommunityCards.Pop();
+
+        MessageBox.Show(temp.GetDesc(), "Community Card");
+
+        if (temp.GetCardType() == "COMMUNITY")
+        {
+            switch (temp.GetDesc())
+            {
+                case "Advance To Go":
+                    p.Money += (200); p.SetPos(0);
+                    MovePlayer(players[truncount], 0);
+                    break;
+
+                case "Bank error in your favor. Collect $200":
+                    p.Money += (200);
+                    break;
+
+                case "Your properties are known to be cared for. The extra attention brings in more customers, Collect $100.":
+                    p.Money += (100);
+                    break;
+
+                case "You organize a free health screening event for the community. Pay $25 for supplies, but advance to GO (collect $200) for your good deed.":
+                    p.Money += (200); p.SetPos(0);
+                    MovePlayer(players[truncount], 0);
+                    break;
+
+                case "You help install a new water filtration system in your community. Pay $50 for parts, but your property values increase. Collect $100.":
+                    p.Money += (50);
+
+                    break;
+
+                case "You plant trees in your community, enhancing local biodiversity. Collect $75 as a grant for your green initiative.":
+                    p.Money += (75);
+                    break;
+
+                case "You form a partnership with local businesses to support SDGs. Collect $200 as a funding reward.":
+                    p.Money += (200);
+
+                    break;
+
+                case "A drought has affected the local community garden, reducing harvests. Pay $50 for emergency food supplies.":
+                    p.Money -= (50);
+                    p.CheckMoney();
+                    break;
+
+                case "The local school loses funding, affecting education quality. Pay $50 to support after-school programs.":
+                    p.Money -= (50);
+                    p.CheckMoney();
+                    break;
+
+                case "New infrastructure project causes road closures, affecting your commute. Pay $25 for additional transportation costs.":
+                    p.Money -= (50);
+                    p.CheckMoney();
+                    break;
+
+                case "Partnership project fails due to lack of coordination. Pay $75 to cover losses.":
+                    p.Money -= (750);
+                    p.CheckMoney();
+                    break;
+
+                case "You start a community garden that provides fresh produce to your neighborhood. Collect $100 for your efforts.":
+                    p.Money += (100);
+                    break;
+
+                case "You participate in a climate change awareness rally. Pay $10 to cover event costs, but collect $50 for raising awareness.":
+                    p.Money += (40);
+                    break;
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Shuffle.Shuffle.ShuffleList(ComChaCards);
+        var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
+        ChanceCards = chanceCommunities;
+
+        GetCommunity(p);
+    }
+
+
+}
+
+/// <summary>
+/// Moves the visual elements on the board
+/// </summary>
+/// <param name="e">The player eclipse icons (Or anything that can be used to feature a player)</param>
+/// <param name="Position"></param>
+public void MovePlayer(UIElement e, int Position)
+{
+    foreach (UIElement element in gameBoardGrid.Children)
+    {
+        if (element is System.Windows.Shapes.Rectangle rectangle)
+        {
+            if (rectangle.Name == ("pos") + Position.ToString() && Position != -1)
+            {
+                MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle));
+                break;
+            }
+            else if (Position == -1)
+            {
+                Grid.SetRow(e, 0); Grid.SetColumn(e, 11);
+            }
+        }
+    }
+
+}
+/// <summary>
+/// Handles the click event when the "rolldice" button is clicked.
+/// </summary>
+/// <param name="sender">The object that raised the event.</param>
+/// <param name="e">The event arguments.</param>
+/// <remarks>
+/// This method checks the current player's money status. If the player has money,
+/// it proceeds with the turn order. If the player has no money, it prompts the player
+/// to mortgage properties. Finally, it updates the user interface.
+/// </remarks>
+private void rolldice_Click(object sender, RoutedEventArgs e)
+{
+    int i = ViewModel.Players[truncount].Money;
+    if (i > 0)
+    {
+        turnorder();
+        rolldice.IsEnabled = false;
+        //EndTurnBtn.IsEnabled = true;
+    }
+    else
+    {
+        ViewModel.Players[truncount].asktomortgage();
+    }
+    changebox();
+}
+/// <summary>
+/// Clears and updates the items in the unmortgaged and mortgaged card pickers based on the player's cards.
+/// Also displays the player's current money.
+/// </summary>
+/// <remarks>
+/// This method populates the unmortgaged and mortgaged card pickers with the player's cards.
+/// It also displays the player's current money on the UI.
+/// </remarks>
+public void changebox()
+{
+    unmoragagepickacard.Items.Clear();
+    moragagepickacard.Items.Clear();
+    ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+    string str;
+    string b5;
+    unmoragagepickacard.SelectedIndex = 0;
+    moragagepickacard.SelectedIndex = 0;
+    if (cards == null)
+    {
+        b5 = "there are no cards";
+
+        unmoragagepickacard.Items.Add(b5);
+        moragagepickacard.Items.Add(b5);
+        moragagepickacard.IsEnabled = false;
+        unmoragagepickacard.IsEnabled = false;
+    }
+    else
+    {
+        foreach (Card card in cards)
+        {
+            str = card.ToString();
+            bool b1 = card.IsMortgaged();
+
+            if (b1 == true)
+            {
+                unmoragagepickacard.Items.Add(str);
+            }
+            else
+            {
+                moragagepickacard.Items.Add(str);
+            }
+        }
+    }
+}
+
+
+/// <summary>
+/// Handles the click event when the "unmortgage" button is clicked.
+/// Retrieves the list of cards owned by the current player, selects a card based on user input,
+/// unmortgages the selected card, and updates the UI accordingly.
+/// </summary>
+/// <param name="sender">The object that raised the event.</param>
+/// <param name="e">The event arguments.</param>
+private void unmorgage_Click(object sender, RoutedEventArgs e)
+{
+    ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+    string st = (string)unmoragagepickacard.SelectedValue;
+    foreach (Card card in cards)
+    {
+        if (card.ToString() == st)
+        {
+            ViewModel.Players[truncount].UnMortgageCard(card);
+            changebox();
+        }
+    }
+}
+
+/// <summary>
+/// Handles the click event when the mortgage button is clicked.
+/// Mortgages a selected card from the player's cards list.
+/// </summary>
+/// <param name="sender">The object that raised the event.</param>
+/// <param name="e">The event arguments.</param>
+/// <remarks>
+/// This method retrieves the selected card from the player's cards list,
+/// parses the selected card information, mortgages the card, and updates the UI.
+/// </remarks>
+private void morgage_Click(object sender, RoutedEventArgs e)
+{
+    ObservableCollection<Card> cards = ViewModel.Players[truncount].CardsOwned;
+    string st = (string)moragagepickacard.SelectedValue;
+    foreach (Card card in cards)
+    {
+        if (card.ToString() == st)
+        {
+            ViewModel.Players[truncount].MortgageCard(card);
+            changebox();
+        }
+    }
+
+}
+
+private void unmoragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+
+}
+
+private void moragagepickacard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+
+}
+
+private void EndTurnButton_Click(object sender, RoutedEventArgs e)
+{
+    if (truncount != players.Count - 1)
+    {
+        truncount = truncount + 1;
+    }
+    else
+    {
+        truncount = 0;
+    }
+    rolldice.IsEnabled = true;
+    EndTurnBtn.IsEnabled = false;
+    changebox();
+    switch (truncount)
+    {
+        case 0:
+            Player1Active.Visibility = Visibility.Visible;
+
+            Player2Active.Visibility = Visibility.Hidden;
+            Player3Active.Visibility = Visibility.Hidden;
+            Player4Active.Visibility = Visibility.Hidden;
+            break;
+
+        case 1:
+            Player2Active.Visibility = Visibility.Visible;
+
+            Player1Active.Visibility = Visibility.Hidden;
+            Player3Active.Visibility = Visibility.Hidden;
+            Player4Active.Visibility = Visibility.Hidden;
+            break;
+
+        case 2:
+            Player3Active.Visibility = Visibility.Visible;
+
+            Player2Active.Visibility = Visibility.Hidden;
+            Player1Active.Visibility = Visibility.Hidden;
+            Player4Active.Visibility = Visibility.Hidden;
+            break;
+
+        case 3:
+            Player4Active.Visibility = Visibility.Visible;
+
+            Player1Active.Visibility = Visibility.Hidden;
+            Player2Active.Visibility = Visibility.Hidden;
+            Player3Active.Visibility = Visibility.Hidden;
+            break;
+    }
+
+    Random RandomID = new Random();
+    if (RandomEvent.EventChance())
+    {
+        CheckEvent(RandomID.Next(1, 11));
+    }
+}
+
+private void CheckEvent(int ID)
+{
+    foreach (Event AnEvent in Events)
+    {
+        if (AnEvent.GetId() == ID)
+        {
+            int index = 0;
+            int money = 0;
+            switch (AnEvent.GetId())
+            {
+                case 1:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 25;
+                        player.CheckMoney();
+                    }
                     break;
 
                 case 2:
-                    Player3Active.Visibility = Visibility.Visible;
-
-                    Player2Active.Visibility = Visibility.Hidden;
-                    Player1Active.Visibility = Visibility.Hidden;
-                    Player4Active.Visibility = Visibility.Hidden;
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 75;
+                        player.CheckMoney();
+                    }
                     break;
 
                 case 3:
-                    Player4Active.Visibility = Visibility.Visible;
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.SetPos(35);
+                        MovePlayer(players[index], 35);
+                        checkposition(index);
+                        index++;
+                    }
+                    break;
 
-                    Player1Active.Visibility = Visibility.Hidden;
-                    Player2Active.Visibility = Visibility.Hidden;
-                    Player3Active.Visibility = Visibility.Hidden;
+                case 4:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 30;
+                        player.CheckMoney();
+                    }
+                    break;
+
+                case 5:
+
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        foreach (Card card in player.CardsOwned)
+                        {
+                            if (card is Property)
+                            {
+                                money += 10;
+                            }
+                        }
+                        player.Money -= money;
+                        player.CheckMoney();
+                    }
+                    break;
+
+                case 6:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.SetPos(player.GetPosition() - 1);
+                        MovePlayer(players[index], player.GetPosition());
+                        checkposition(index);
+                        index++;
+                    }
+                    break;
+
+                case 7:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.SetPos(player.GetPosition() + 2);
+                        MovePlayer(players[index], player.GetPosition());
+                        checkposition(index);
+                        index++;
+                    }
+                    break;
+
+                case 8:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 40;
+                        player.CheckMoney();
+                    }
+                    break;
+
+                case 9:
+
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        foreach (Card card in player.CardsOwned)
+                        {
+                            if (card is Property)
+                            {
+                                money += 25;
+                            }
+                        }
+                        player.Money -= money;
+                        player.CheckMoney();
+                    }
+                    break;
+
+                case 10:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 100;
+                        player.CheckMoney();
+                    }
+                    break;
+
+                case 11:
+                    foreach (Player player in ViewModel.Players)
+                    {
+                        player.Money -= 120;
+                        player.CheckMoney();
+                    }
                     break;
             }
-
-            Random RandomID = new Random();
-            if (RandomEvent.EventChance())
-            {
-                CheckEvent(RandomID.Next(1, 11));
-            }
         }
+    }
+}
 
-        private void CheckEvent(int ID)
-        {
-            foreach (Event AnEvent in Events)
-            {
-                if (AnEvent.GetId() == ID)
-                {
-                    int index = 0;
-                    int money = 0;
-                    switch (AnEvent.GetId())
-                    {
-                        case 1:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 25;
-                                player.CheckMoney();
-                            }
-                            break;
+private void CardsButton_Click(object sender, RoutedEventArgs e)
+{
+    var button = sender as Button;
+    var parent = button.Parent as FrameworkElement;
+    var popup = new CardDetails();
+    popup.Owner = this; // Set the owner to the main window
 
-                        case 2:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 75;
-                                player.CheckMoney();
-                            }
-                            break;
+    popup.Closing += delegate
+    {
+        popup.Owner = null;
+        this.Focus();
+    };
 
-                        case 3:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.SetPos(35);
-                                MovePlayer(players[index], 35);
-                                checkposition(index);
-                                index++;
-                            }
-                            break;
+    if (parent.Name == PlayerContainer1.Name)
+    {
+        popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
+        popup.Show();
+        popup.GetPlayer(ViewModel.Players[0]);
+    }
+    else if (parent.Name == PlayerContainer2.Name)
+    {
+        popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsNames;
+        popup.Show();
+        popup.GetPlayer(ViewModel.Players[1]);
+    }
+    else if (parent.Name == PlayerContainer3.Name)
+    {
+        popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
+        popup.Show();
+        popup.GetPlayer(ViewModel.Players[2]);
+    }
+    else if (parent.Name == PlayerContainer4.Name)
+    {
+        popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsNames;
+        popup.Show();
+        popup.GetPlayer(ViewModel.Players[3]);
+    }
 
-                        case 4:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 30;
-                                player.CheckMoney();
-                            }
-                            break;
-
-                        case 5:
-
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                foreach (Card card in player.CardsOwned)
-                                {
-                                    if (card is Property)
-                                    {
-                                        money += 10;
-                                    }
-                                }
-                                player.Money -= money;
-                                player.CheckMoney();
-                            }
-                            break;
-
-                        case 6:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.SetPos(player.GetPosition() - 1);
-                                MovePlayer(players[index], player.GetPosition());
-                                checkposition(index);
-                                index++;
-                            }
-                            break;
-
-                        case 7:
-                            foreach (Player player in ViewModel.Players)
-                            {   
-                                player.SetPos(player.GetPosition() + 2);
-                                MovePlayer(players[index], player.GetPosition());
-                                checkposition(index);
-                                index++;
-                            }
-                            break;
-
-                        case 8:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 40;
-                                player.CheckMoney();
-                            }
-                            break;
-
-                        case 9:
-                            
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                foreach (Card card in player.CardsOwned)
-                                {
-                                    if (card is Property)
-                                    {
-                                        money += 25;
-                                    }
-                                }
-                                player.Money -= money;
-                                player.CheckMoney();
-                            }
-                            break;
-
-                        case 10:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 100;
-                                player.CheckMoney();
-                            }
-                            break;
-
-                        case 11:
-                            foreach (Player player in ViewModel.Players)
-                            {
-                                player.Money -= 120;
-                                player.CheckMoney();
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-
-        private void CardsButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-            var parent = button.Parent as FrameworkElement;
-            var popup = new CardDetails();
-            popup.Owner = this; // Set the owner to the main window
-
-            popup.Closing += delegate
-            {
-                popup.Owner = null;
-                this.Focus();
-            };
-
-            if (parent.Name == PlayerContainer1.Name)
-            {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[0].CardsNames;
-                popup.Show();
-                popup.GetPlayer(ViewModel.Players[0]);
-            }
-            else if (parent.Name == PlayerContainer2.Name)
-            {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[1].CardsNames;
-                popup.Show();
-                popup.GetPlayer(ViewModel.Players[1]);
-            }
-            else if (parent.Name == PlayerContainer3.Name)
-            {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[2].CardsNames;
-                popup.Show();
-                popup.GetPlayer(ViewModel.Players[2]);
-            }
-            else if (parent.Name == PlayerContainer4.Name)
-            {
-                popup.PlayerCards.ItemsSource = ViewModel.Players[3].CardsNames;
-                popup.Show();
-                popup.GetPlayer(ViewModel.Players[3]);
-            }
-
-        }
+}
     }
 }
