@@ -69,8 +69,14 @@ namespace TetraPolyGame
             ObservableCollection<Card> tempUtility = database.GetUtility();
             tempTransport.ToList().ForEach(Cards.Add);
             tempUtility.ToList().ForEach(Cards.Add);
-
             ComChaCards = database.GetCommunityChance();
+
+            UpdateChanceCommunity();
+        }
+
+        private void UpdateChanceCommunity()
+        {
+            
             Shuffle.Shuffle.ShuffleList(ComChaCards);
             var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
 
@@ -416,16 +422,20 @@ namespace TetraPolyGame
             }
             catch (Exception e)
             {
-                Shuffle.Shuffle.ShuffleList(ComChaCards);
-                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-                ChanceCards = chanceCommunities;
-
+                UpdateChanceCommunity();
                 GetChance(p);
             }
 
 
         }
 
+        /// <summary>
+        /// Retrieves a community card for a player and performs the corresponding action.
+        /// </summary>
+        /// <param name="p">The player for whom the community card action is performed.</param>
+        /// <remarks>
+        /// The method pops a community card from the stack, displays its description in a message box, and then executes the action based on the card type and description.
+        /// </remarks>
         public void GetCommunity(Player p)
         {
             ChanceCommunity temp;
@@ -503,10 +513,7 @@ namespace TetraPolyGame
             }
             catch (Exception e)
             {
-                Shuffle.Shuffle.ShuffleList(ComChaCards);
-                var chanceCommunities = new Stack<ChanceCommunity>(ComChaCards);
-                ChanceCards = chanceCommunities;
-
+                UpdateChanceCommunity();
                 GetCommunity(p);
             }
 

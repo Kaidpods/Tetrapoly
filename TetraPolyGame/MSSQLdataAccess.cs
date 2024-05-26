@@ -14,6 +14,9 @@ namespace TetraPolyGame
             _SQLconnectionStrng = "Data Source=kaidenserver.database.windows.net;Initial Catalog=PublicQuestions;User ID=ReadOnly;Password=Reading123;Connect Timeout=60;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
+        /// <summary>Retrieves a collection of property cards from the database.</summary>
+        /// <returns>An ObservableCollection of Card objects representing the property cards.</returns>
+        /// <exception cref="Exception">Thrown when unable to retrieve property cards from the database.</exception>
         public ObservableCollection<Card> GetProperties()
         {
             ObservableCollection<Card> properties = [];
@@ -61,6 +64,9 @@ namespace TetraPolyGame
             return properties;
         }
 
+        /// <summary>Retrieves a collection of transport cards from the database.</summary>
+        /// <returns>An ObservableCollection of Card objects representing transport cards.</returns>
+        /// <exception cref="Exception">Thrown when unable to retrieve transport cards from the database.</exception>
         public ObservableCollection<Card> GetTransport()
         {
             ObservableCollection<Card> Transports = [];
@@ -99,6 +105,11 @@ namespace TetraPolyGame
             return Transports;
         }
 
+        /// <summary>
+        /// Retrieves a collection of utility cards from the database.
+        /// </summary>
+        /// <returns>An ObservableCollection of Card objects representing utility cards.</returns>
+        /// <exception cref="Exception">Thrown when unable to retrieve utility cards from the database.</exception>
         public ObservableCollection<Card> GetUtility()
         {
             ObservableCollection<Card> Utilities = [];
@@ -137,6 +148,9 @@ namespace TetraPolyGame
             return Utilities;
         }
 
+        /// <summary>Retrieves a list of ChanceCommunity objects from the database.</summary>
+        /// <returns>A list of ChanceCommunity objects.</returns>
+        /// <exception cref="Exception">Thrown when unable to retrieve property cards from the database.</exception>
         public List<ChanceCommunity> GetCommunityChance()
         {
             List<ChanceCommunity> chanceCommunities = [];
