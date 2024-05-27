@@ -252,7 +252,7 @@ namespace TetraPolyGame
         /// </remarks>
         virtual public void CheckMoney()
         {
-            if (Money < 0)
+            if (Money <= 0)
             {
                 bool b = checktotalmorgag();
                 if (b == true)

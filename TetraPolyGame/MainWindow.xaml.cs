@@ -64,9 +64,35 @@ namespace TetraPolyGame
         {
             Players.Add(p);
         }
+        /// <summary>
+        /// This is here to adjust cards and set each and every one to be mortgaged
+        /// Might not be optimised the best
+        /// </summary>
+        public void AdjustCards()
+        {
+            foreach (Player player in ViewModel.Players)
+            {
+                foreach (Card card in player.CardsOwned)
+                {
+                    if (card.IsMortgaged() == true)
+                    {
+                        foreach (Card GameCard in Cards)
+                        {
+                            if (card.GetName() == GameCard.GetName())
+                            {
+                                GameCard.SetMorgaged(card.IsMortgaged());
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+        }
 
         private void PlayerSelection()
         {
+            int money = 1250;
             var PlayerSelectWin = new PlayerSelect();
             PlayerSelectWin.StartBtn.Click += delegate
             {
@@ -79,8 +105,8 @@ namespace TetraPolyGame
                     case 0:
                         ViewModel.Players =
             [
-                new(PlayerSelectWin.P1.Text, 1000),
-                new(PlayerSelectWin.P2.Text, 1000)
+                new(PlayerSelectWin.P1.Text, money),
+                new(PlayerSelectWin.P2.Text, money)
             ];
                         TestPlayer3.Visibility = Visibility.Hidden;
                         TestPlayer4.Visibility = Visibility.Hidden;
@@ -90,9 +116,9 @@ namespace TetraPolyGame
 
                     case 1:
                         ViewModel.Players = [
-                new(PlayerSelectWin.P1.Text, 1000),
-                new(PlayerSelectWin.P2.Text, 1000),
-                new(PlayerSelectWin.P3.Text, 1000)
+                new(PlayerSelectWin.P1.Text, money),
+                new(PlayerSelectWin.P2.Text, money),
+                new(PlayerSelectWin.P3.Text, money)
             ];
                         TestPlayer4.Visibility = Visibility.Hidden;
                         PlayerContainer4.Visibility = Visibility.Hidden;
@@ -100,10 +126,10 @@ namespace TetraPolyGame
 
                     case 2:
                         ViewModel.Players = [
-                new(PlayerSelectWin.P1.Text, 1000),
-                new(PlayerSelectWin.P2.Text, 1000),
-                new(PlayerSelectWin.P3.Text, 1000),
-                new(PlayerSelectWin.P4.Text, 1000)
+                new(PlayerSelectWin.P1.Text, money),
+                new(PlayerSelectWin.P2.Text, money),
+                new(PlayerSelectWin.P3.Text, money),
+                new(PlayerSelectWin.P4.Text, money)
             ];
                         break;
 
@@ -148,15 +174,15 @@ namespace TetraPolyGame
             }
         }
 
-        private void MoveClockwise(int endRow, int endColumn)
+        private void MoveClockwise(int endRow, int endColumn, Ellipse ec)
         {
             // Determine the next position (clockwise)
             int gridSize = 11;
             int newRow = 0, newColumn = 0;
             if (players[truncount] != null)
             {
-                var currentRow = Grid.GetRow(players[truncount]);
-                var currentColumn = Grid.GetColumn(players[truncount]);
+                var currentRow = Grid.GetRow(ec);
+                var currentColumn = Grid.GetColumn(ec);
 
                 if (currentRow == 0 && currentColumn < gridSize - 1)
                 {
@@ -191,13 +217,13 @@ namespace TetraPolyGame
 
                 rowAnimation.Completed += (sender, e) =>
                 {
-                    Grid.SetRow(players[truncount], newRow);
-                    Grid.SetColumn(players[truncount], newColumn);
-                    MoveClockwise(endRow, endColumn); // Repeat the clockwise movement
+                    Grid.SetRow(ec, newRow);
+                    Grid.SetColumn(ec, newColumn);
+                    MoveClockwise(endRow, endColumn, ec); // Repeat the clockwise movement
                 };
 
-                players[truncount].BeginAnimation(Grid.RowProperty, rowAnimation);
-                players[truncount].BeginAnimation(Grid.ColumnProperty, columnAnimation);
+                ec.BeginAnimation(Grid.RowProperty, rowAnimation);
+                ec.BeginAnimation(Grid.ColumnProperty, columnAnimation);
             }
         }
 
@@ -216,10 +242,22 @@ namespace TetraPolyGame
                 ViewModel.Players[truncount].MovePlayer(DiceRollCounter);
                 MovePlayer(players[truncount], ViewModel.Players[truncount].GetPosition());
                 checkposition(truncount);
+                if (ViewModel.Players[truncount].GetInJail())
+                {
+                    EndTurnBtn.IsEnabled = true;
+                }
             }
             else
             {
-
+                foreach (var player in ViewModel.Players)
+                {
+                    if (player.GetAilve())
+                    {
+                         MessageBox.Show("You have won the game " + player.GetPlayerName() + ", Congragulations!", "Great job!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                         this.Close();
+                    }
+                }
+                
             }
         }
         // Onlyone left
@@ -245,6 +283,11 @@ namespace TetraPolyGame
             {
                 b = false;
             }
+            else if (count == 0)
+            {
+                MessageBox.Show("Everyone is dead", "No One Wins");
+                this.Close ();
+            }
             return b;
         }
 
@@ -268,17 +311,7 @@ namespace TetraPolyGame
 
                     if (card.WhoOwns() != null)
                     {
-                        if (card is Utility && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
-                        {
-                            Utility tempUtility = (Utility)card;
-
-                            int r = tempUtility.GetRollRent(PastRoll);
-                            MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            ViewModel.Players[turn].Money -= r;
-                            card.WhoOwns().Money += r;
-                            ViewModel.Players[turn].CheckMoney();
-                        }
-                        else if (card is Transport && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        if (card is Transport && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             Transport tempTransport = (Transport)card;
 
@@ -288,6 +321,17 @@ namespace TetraPolyGame
                             card.WhoOwns().Money += r;
                             ViewModel.Players[turn].CheckMoney();
                         }
+                        else if (card is Utility && card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
+                        {
+                            Utility tempUtility = (Utility)card;
+
+                            int r = tempUtility.GetRollRent(PastRoll);
+                            MessageBox.Show("You landed on " + card.WhoOwns().GetPlayerName() + "'s Property! \nYou now have to pay $" + r + " rent!", "Oh no!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ViewModel.Players[turn].Money -= r;
+                            card.WhoOwns().Money += r;
+                            ViewModel.Players[turn].CheckMoney();
+                        }
+                        
                         else if (card.WhoOwns() != ViewModel.Players[turn] && card.IsMortgaged() == false)
                         {
                             int r = card.GetRent();
@@ -296,6 +340,7 @@ namespace TetraPolyGame
                             card.WhoOwns().Money += r;
                             ViewModel.Players[turn].CheckMoney();
                         }
+                        AdjustCards();
                     }
                     if ((card.WhoOwns() == ViewModel.Players[turn]) && (card is Property) && (ViewModel.Players[turn] is not algorithm))
                     {
@@ -471,6 +516,7 @@ namespace TetraPolyGame
                             break;
                     }
                 }
+                AdjustCards();
             }
             catch (Exception e)
             {
@@ -549,7 +595,7 @@ namespace TetraPolyGame
                             break;
 
                         case "Partnership project fails due to lack of coordination. Pay $75 to cover losses.":
-                            p.Money -= (750);
+                            p.Money -= (75);
                             p.CheckMoney();
                             break;
 
@@ -562,13 +608,14 @@ namespace TetraPolyGame
                             break;
                     }
                 }
+                AdjustCards();
             }
             catch (Exception e)
             {
                 UpdateChanceCommunity();
                 GetCommunity(p);
             }
-
+            
 
         }
 
@@ -577,7 +624,7 @@ namespace TetraPolyGame
         /// </summary>
         /// <param name="e">The player eclipse icons (Or anything that can be used to feature a player)</param>
         /// <param name="Position"></param>
-        public void MovePlayer(UIElement e, int Position)
+        public void MovePlayer(Ellipse e, int Position)
         {
             foreach (UIElement element in gameBoardGrid.Children)
             {
@@ -585,7 +632,7 @@ namespace TetraPolyGame
                 {
                     if (rectangle.Name == ("pos") + Position.ToString() && Position != -1)
                     {
-                        MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle));
+                        MoveClockwise(Grid.GetRow(rectangle), Grid.GetColumn(rectangle), e);
                         break;
                     }
                     else if (Position == -1)
@@ -618,9 +665,53 @@ namespace TetraPolyGame
             }
             else
             {
-                ViewModel.Players[truncount].asktomortgage();
+                RemovePlayer();
+                if (truncount == ViewModel.Players.Count - 1)
+                {
+                    truncount = 0;
+                }
+                
+                truncount++;
             }
+
             changebox();
+        }
+
+        private void RemovePlayer()
+        {
+            
+            switch (truncount)
+            {
+                case 0:
+                    var PlayerToRemove = players[truncount];
+                    PlayerToRemove.Visibility = Visibility.Hidden;
+
+                    PlayerContainer1.Visibility = Visibility.Hidden;
+                    break;
+
+                case 1:
+                    var PlayerToRemove2 = players[truncount];
+                    PlayerToRemove2.Visibility = Visibility.Hidden;
+
+                    PlayerContainer2.Visibility = Visibility.Hidden;
+                    break;
+
+                case 2:
+                    var PlayerToRemove3 = players[truncount];
+                    PlayerToRemove3.Visibility = Visibility.Hidden;
+
+                    PlayerContainer3.Visibility = Visibility.Hidden;
+                    break;
+
+                case 3:
+                    var PlayerToRemove4 = players[truncount];
+                    PlayerToRemove4.Visibility = Visibility.Hidden;
+
+                    PlayerContainer4.Visibility = Visibility.Hidden;
+                    break;
+            }
+
+            
         }
         /// <summary>
         /// Clears and updates the items in the unmortgaged and mortgaged card pickers based on the player's cards.
@@ -683,6 +774,13 @@ namespace TetraPolyGame
             {
                 if (card.ToString() == st)
                 {
+                    foreach (Card GameCard in Cards)
+                    {
+                        if (card.GetName() == GameCard.GetName())
+                        {
+                            GameCard.SetMorgaged(false);
+                        }
+                    }
                     ViewModel.Players[truncount].UnMortgageCard(card);
                     changebox();
                 }
@@ -707,6 +805,13 @@ namespace TetraPolyGame
             {
                 if (card.ToString() == st)
                 {
+                    foreach (Card GameCard in Cards)
+                    {
+                        if (card.GetName() == GameCard.GetName())
+                        {
+                            GameCard.SetMorgaged(true);
+                        }
+                    }
                     ViewModel.Players[truncount].MortgageCard(card);
                     changebox();
                 }
@@ -729,6 +834,20 @@ namespace TetraPolyGame
             if (truncount != ViewModel.Players.Count - 1)
             {
                 truncount = truncount + 1;
+                if (ViewModel.Players[truncount].GetAilve() == false && truncount == ViewModel.Players.Count - 1)
+                {
+                    RemovePlayer();
+                    truncount++;
+                }
+                else if (ViewModel.Players[truncount].GetAilve() == false && truncount != ViewModel.Players.Count -1)
+                {
+                    RemovePlayer();
+                    truncount++;
+                }else if (ViewModel.Players[truncount].GetAilve() == false && truncount == ViewModel.Players.Count - 1)
+                {
+                    RemovePlayer();
+                    truncount = 0;
+                }
             }
             else
             {
@@ -809,11 +928,14 @@ namespace TetraPolyGame
                         case 3:
                             foreach (Player player in ViewModel.Players)
                             {
-                                player.SetPos(35);
-                                MovePlayer(players[index], 35);
-                                checkposition(index);
-                                index++;
-                            }
+                                if (player.GetAilve())
+                                {
+                                    player.setPosition(35);
+                                    MovePlayer(players[index], player.GetPosition());
+                                    checkposition(index);
+                                    index++;
+                                }
+                                }
                             break;
 
                         case 4:
@@ -843,23 +965,29 @@ namespace TetraPolyGame
                         case 6:
                             foreach (Player player in ViewModel.Players)
                             {
-                                if (player.GetPosition() != 0)
+                                if (player.GetAilve())
                                 {
-                                    player.SetPos(player.GetPosition() - 1);
-                                    MovePlayer(players[index], player.GetPosition());
-                                    checkposition(index);
+                                    if (player.GetPosition() != 0)
+                                    {
+                                        player.SetPos(player.GetPosition() - 1);
+                                        MovePlayer(players[index], player.GetPosition());
+                                        checkposition(index);
+                                    }
+                                    index++;
                                 }
-                                index++;
                             }
                             break;
 
                         case 7:
                             foreach (Player player in ViewModel.Players)
                             {
+                                if (player.GetAilve())
+                                {
                                 player.SetPos(player.GetPosition() + 2);
                                 MovePlayer(players[index], player.GetPosition());
                                 checkposition(index);
                                 index++;
+                                }
                             }
                             break;
 
@@ -905,6 +1033,7 @@ namespace TetraPolyGame
                     }
                 }
             }
+            AdjustCards();
         }
 
         private void CardsButton_Click(object sender, RoutedEventArgs e)

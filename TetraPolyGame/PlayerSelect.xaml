@@ -25,34 +25,6 @@
         <TextBox Name="P2" HorizontalAlignment="Left" Margin="93,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" IsEnabled="True" TextChanged="P2_TextChanged"/>
         <TextBox Name="P3" HorizontalAlignment="Left" Margin="93,239,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
         <TextBox Name="P4" HorizontalAlignment="Left" Margin="93,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
-        <ComboBox x:Name ="Player1colour" HorizontalAlignment="Left" Margin="315,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" IsEnabled="False" Visibility="Hidden">
-            <Button x:Name="Player1red" Content="red" IsDefault="True"/>
-            <Button x:Name="Player1green" Content="green"/>
-            <Button x:Name="Player1yellow" Content="yellow" IsDefault="True"/>
-            <Button x:Name="Player1blue" Content="blue"/>
-        </ComboBox>
-        <Label Content="Select the player1 colour" HorizontalAlignment="Left" Margin="315,18,0,0" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"/>
-        <Label Content="Select the player2 colour" HorizontalAlignment="Left" Margin="564,18,0,0" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"/>
-        <ComboBox x:Name ="Player2colour" HorizontalAlignment="Left" Margin="564,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" IsEnabled="False" Visibility="Hidden">
-            <Button x:Name="Player2red" Content="red"/>
-            <Button x:Name="Player2green" Content="green"/>
-            <Button x:Name="Player2yellow" Content="yellow"/>
-            <Button x:Name="Player2blue" Content="blue"/>
-        </ComboBox>
-        <ComboBox x:Name ="Player3colour" HorizontalAlignment="Left" Margin="315,226,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" IsEnabled="False" Visibility="Hidden">
-            <Button x:Name="Player3red" Content="red" IsDefault="True"/>
-            <Button x:Name="Player3green" Content="green"/>
-            <Button x:Name="Player3yellow" Content="yellow" IsDefault="True"/>
-            <Button x:Name="Player3blue" Content="blue"/>
-        </ComboBox>
-        <ComboBox x:Name ="Player4colour" HorizontalAlignment="Left" Margin="564,226,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" IsEnabled="False" Visibility="Hidden">
-            <Button x:Name="Player4red" Content="red" IsDefault="True"/>
-            <Button x:Name="Player4green" Content="green"/>
-            <Button x:Name="Player4yellow" Content="yellow" IsDefault="True"/>
-            <Button x:Name="Player4blue" Content="blue"/>
-        </ComboBox>
-        <Label Content="Select the player3 colour" HorizontalAlignment="Left" Margin="315,191,0,0" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"/>
-        <Label Content="Select the player4 colour" HorizontalAlignment="Left" Margin="564,190,0,0" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden"/>
         <Button Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="40,393,0,0" VerticalAlignment="Top" Click="StartButton_Click" Height="21" Width="150"/>
     </Grid>
 </Window>
