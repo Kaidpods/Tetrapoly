@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="TetraPolyGame.Player" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIgQAAwCACQIoAIAIEQAoSACigAAQAAAAABmAAQAJAI=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TetraPolyGame.Property">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAAIAgAAAAAECAAAAAAAAQAAAAAgAQBAAAAAIAA=</HashCode>
+      <FileName>Property.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.RandomEvent">
+    <Position X="13.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAABAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>RandomEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.Transport">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Transport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.Utility">
+    <Position X="3.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAEAAAAIAAAAQAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Utility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.MainViewModel" BaseTypeListCollapsed="true">
+    <Position X="10" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgBAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TetraPolyGame.Event">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAABAAAAAAAQAAAAAAAAAAAAAAAIABAA=</HashCode>
+      <FileName>Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.ChanceCommunity">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAABAAAAACAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ChanceCommunity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.Card">
+    <Position X="5.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABIAAKACAAAAAEEAAAKAIIACAEAAEAAAAAAAAAJiQ=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.AllCards">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAEAAAAAAAAAAAAAEAAAAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>AllCards.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TetraPolyGame.MainWindow" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEAAgAACAaIEBAAAgASADIUgAgAFBAIIgAABAQAAw=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="TetraPolyGame.CardType">
+    <Position X="15.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChanceCommunity.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

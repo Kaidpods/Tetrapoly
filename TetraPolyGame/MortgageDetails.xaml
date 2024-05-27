@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="MortgageDetails" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFC5C5C5">
+        Title="MortgageDetails" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFC5C5C5" Closing="Window_Closing">
     <Grid>
         <ComboBox Name ="PlayerCards" HorizontalAlignment="Left" Margin="40,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerCards_SelectionChanged"/>
         <Rectangle HorizontalAlignment="Left" Height="414" Margin="235,0,0,0" VerticalAlignment="Center" Width="2" Fill="Black"/>

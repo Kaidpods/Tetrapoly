@@ -21,6 +21,7 @@ namespace TetraPolyGame
     {
         private Player player;
 
+        public bool HasMortgaged { get; private set; }
 
         public MortgageDetails()
         {
@@ -30,7 +31,7 @@ namespace TetraPolyGame
         public void GetPlayer(Player GotPlayer)
         {
             player = GotPlayer;
-            BalanceTxt.Text = player.Money.ToString();
+            BalanceTxt.Text = "$" + player.Money.ToString();
         }
 
         public void SetupFields()
@@ -140,12 +141,22 @@ namespace TetraPolyGame
                 player.Money = balance;
                 selectedCard.SetMorgaged(true);
                 MessageBox.Show("You now have enough balance to continue", "Good job!", MessageBoxButton.OK);
+                HasMortgaged = true;
                 this.Close();
             } else
             {
                 selectedCard.SetMorgaged(true);
                 player.Money = balance;
                 BalanceTxt.Text = balance.ToString();
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!HasMortgaged)
+            {
+                MessageBox.Show("You havent finished mortgaging yet!", "Can't close!", MessageBoxButton.OK, MessageBoxImage.Error);
+                e.Cancel = true;
             }
         }
     }
