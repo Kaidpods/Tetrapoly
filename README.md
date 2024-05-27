@@ -18,7 +18,7 @@ This 'Tetrapoly' application is implemented in C# and provides a digital version
   - Random events can occur at the end of every users turn
 
 ## Installation
-1. Clone this repository (To use with an IDE):
+Select one of the releases at the right and follow the instructions listed.
 
 ## Screenshots
 Game Design: ![image](https://github.com/Kaidpods/Tetrapoly/assets/143604935/37ce3ec3-5315-4557-9bf4-6e6c16927bf0)
