@@ -43,8 +43,11 @@ namespace TetraPolyGame
             InitializeComponent();
             EndTurnBtn.IsEnabled = false;
 
+            
+
 
             ViewModel = (MainViewModel)DataContext;
+            PlayerSelection();
             //For Testing purposes
             players.Add(TestPlayer);
             players.Add(TestPlayer2);
@@ -60,6 +63,55 @@ namespace TetraPolyGame
         public void AddPlayer(Player p)
         {
             Players.Add(p);
+        }
+
+        private void PlayerSelection()
+        {
+            var PlayerSelectWin = new PlayerSelect();
+            PlayerSelectWin.StartBtn.Click += delegate
+            {
+                switch (PlayerSelectWin.PlayerAmount.SelectedIndex)
+                {
+                    case -1:
+
+                        break;
+
+                    case 0:
+                        ViewModel.Players =
+            [
+                new(PlayerSelectWin.P1.Text, 1000),
+                new(PlayerSelectWin.P2.Text, 1000)
+            ];
+                        TestPlayer3.Visibility = Visibility.Hidden;
+                        TestPlayer4.Visibility = Visibility.Hidden;
+                        PlayerContainer3.Visibility = Visibility.Hidden;
+                        PlayerContainer4.Visibility = Visibility.Hidden;
+                        break;
+
+                    case 1:
+                        ViewModel.Players = [
+                new(PlayerSelectWin.P1.Text, 1000),
+                new(PlayerSelectWin.P2.Text, 1000),
+                new(PlayerSelectWin.P3.Text, 1000)
+            ];
+                        TestPlayer4.Visibility = Visibility.Hidden;
+                        PlayerContainer4.Visibility = Visibility.Hidden;
+                        break;
+
+                    case 2:
+                        ViewModel.Players = [
+                new(PlayerSelectWin.P1.Text, 1000),
+                new(PlayerSelectWin.P2.Text, 1000),
+                new(PlayerSelectWin.P3.Text, 1000),
+                new(PlayerSelectWin.P4.Text, 1000)
+            ];
+                        break;
+
+                }
+                PlayerSelectWin.Close();
+            };
+
+            PlayerSelectWin.ShowDialog();
         }
 
         private void SetupCards()
@@ -674,7 +726,7 @@ namespace TetraPolyGame
 
         private void EndTurnButton_Click(object sender, RoutedEventArgs e)
         {
-            if (truncount != players.Count - 1)
+            if (truncount != ViewModel.Players.Count - 1)
             {
                 truncount = truncount + 1;
             }

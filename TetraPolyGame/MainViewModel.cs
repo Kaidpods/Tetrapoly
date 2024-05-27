@@ -26,13 +26,7 @@ namespace TetraPolyGame
 
         public MainViewModel()
         {
-            Players =
-            [
-                new("Kaiden", 300),
-                new("David", 300),
-                new("Kyle", 300),
-                new("Daniel", 300)
-            ];
+            
         }
 
         protected void OnPropertyChanged(string propertyName)
