@@ -19,8 +19,15 @@
     <None Remove="Resources\PlayerCat.png" />
     <None Remove="Resources\PlayerHat.png" />
     <None Remove="Resources\PlayerShip.png" />
+    <None Remove="Resources\RandomEvents.csv" />
     <None Remove="Resources\RotatedMonopolyBoard.png" />
     <None Remove="Resources\TestBackground.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\RandomEvents.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -61,12 +68,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\RandomEvents.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
