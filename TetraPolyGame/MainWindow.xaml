@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1400" ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFF6262"/>
+            <GradientStop Color="#FFF99090" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>

@@ -54,9 +54,10 @@ namespace TetraPolyGame
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = PlayerAmount.SelectedItem;
-            var tempButton = (Button)selectedItem;
-            
-            MessageBox.Show("Starting the game with: " + tempButton.Content.ToString() + " Players", "Game Start!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            TextBox textBox = (TextBox)selectedItem;
+
+            MessageBox.Show("Starting the game with: " + textBox.Text.ToString() + " Players", "Game Start!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            this.Close();
         }
     }
 }

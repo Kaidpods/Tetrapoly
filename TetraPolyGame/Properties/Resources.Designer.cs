@@ -61,6 +61,16 @@ namespace TetraPolyGame.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon _787a4893_50b4_4e22_908a_60fa18cc4bb1 {
+            get {
+                object obj = ResourceManager.GetObject("787a4893-50b4-4e22-908a-60fa18cc4bb1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Group1 {
@@ -77,6 +87,16 @@ namespace TetraPolyGame.Properties {
             get {
                 object obj = ResourceManager.GetObject("jailman", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] JustOneMoreMove {
+            get {
+                object obj = ResourceManager.GetObject("JustOneMoreMove", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

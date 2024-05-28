@@ -34,7 +34,7 @@ namespace TetraPolyGame
             //read from csv file containing unique id for each case, name of event, description of event
             List<String> lines = new List<String>();
             string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("resources\\RandomEvents.csv");
+            System.IO.StreamReader file = new System.IO.StreamReader("Resources\\RandomEvents.csv");
             try
             {
                 while ((line = file.ReadLine()) != null)

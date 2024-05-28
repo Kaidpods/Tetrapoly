@@ -6,10 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>787a4893-50b4-4e22-908a-60fa18cc4bb1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Group 1.png" />
+    <None Remove="PlayerSelectBackground.png" />
+    <None Remove="Resources\787a4893-50b4-4e22-908a-60fa18cc4bb1.ico" />
     <None Remove="Resources\Group 1.png" />
     <None Remove="Resources\Group1.png" />
     <None Remove="Resources\jailman.png" />
@@ -25,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="787a4893-50b4-4e22-908a-60fa18cc4bb1.ico" />
+    <Content Include="bin\Debug\net8.0-windows\Resources\JustOneMoreMove.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\RandomEvents.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -40,6 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="PlayerSelectBackground.png" />
+    <Resource Include="Resources\787a4893-50b4-4e22-908a-60fa18cc4bb1.ico" />
     <Resource Include="Resources\Group1.png" />
     <Resource Include="Resources\jailman.png" />
     <Resource Include="Resources\NoTextBoardRotated.png" />

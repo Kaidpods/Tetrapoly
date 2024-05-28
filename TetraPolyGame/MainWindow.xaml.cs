@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TetraPolyGame.Properties;
 
 
 namespace TetraPolyGame
@@ -36,13 +37,13 @@ namespace TetraPolyGame
         private Random rng = new Random();
         private List<ChanceCommunity> ComChaCards = [];
         private int truncount = 0;
+        private MusicPlayer musicPlayer = new();
         public MainViewModel ViewModel { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             EndTurnBtn.IsEnabled = false;
-
             
 
 
@@ -58,6 +59,12 @@ namespace TetraPolyGame
             SetupCards();
 
             //MessageBox.Show(Canvas.GetLeft(pos0).ToString() + Canvas.GetTop(pos0).ToString());
+
+            //Create a new MusicPlayer object
+            
+
+            //Call the MPlayer method, this will play the music and should loop the music
+            musicPlayer.MPlayer("Resources\\JustOneMoreMove.mp3");
         }
         //set the players
         public void AddPlayer(Player p)
@@ -94,7 +101,8 @@ namespace TetraPolyGame
         {
             int money = 1250;
             var PlayerSelectWin = new PlayerSelect();
-            PlayerSelectWin.StartBtn.Click += delegate
+
+            PlayerSelectWin.Closed += delegate
             {
                 switch (PlayerSelectWin.PlayerAmount.SelectedIndex)
                 {
@@ -136,7 +144,7 @@ namespace TetraPolyGame
                 }
                 PlayerSelectWin.Close();
             };
-
+            
             PlayerSelectWin.ShowDialog();
         }
 

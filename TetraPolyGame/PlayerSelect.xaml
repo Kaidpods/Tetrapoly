@@ -5,16 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetraPolyGame"
         mc:Ignorable="d"
-        Title="PlayerSelect" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFC5C5C5">
+        Title="PlayerSelect" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                    <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FFFF5E5E"/>
+            <GradientStop Color="#FF969696" Offset="1"/>
+            <GradientStop Color="#FFFFB9B9" Offset="0.284"/>
+            <GradientStop Color="#FFFFD1D1" Offset="0.305"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
     <Grid>
         <Label Content="Select how many people are playing" HorizontalAlignment="Left" Margin="14,18,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name ="PlayerAmount" HorizontalAlignment="Left" Margin="40,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True">
-            <Button x:Name="Player2" Content="2"/>
-            <Button x:Name="Player3" Content="3"/>
-            <Button x:Name="Player4" Content="4"/>
+        <ComboBox x:Name ="PlayerAmount" HorizontalAlignment="Left" Margin="40,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" SelectedIndex="0">
+            <TextBox x:Name="Player2" Text="2"/>
+            <TextBox x:Name="Player3" Text="3"/>
+            <TextBox x:Name="Player4" Text="4"/>
         </ComboBox>
         <Rectangle HorizontalAlignment="Left" Height="414" Margin="235,0,0,0" VerticalAlignment="Center" Width="2" Fill="Black"/>
         <Label Name="P1name" Content="Player1" HorizontalAlignment="Left" Margin="40,173,0,0" VerticalAlignment="Top"/>
