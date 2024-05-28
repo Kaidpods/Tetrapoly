@@ -25,7 +25,7 @@
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    <Grid>
+    <Grid Name="ContainerGrid">
         <Label Content="Select how many people are playing" HorizontalAlignment="Left" Margin="14,18,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name ="PlayerAmount" HorizontalAlignment="Left" Margin="40,57,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="PlayerAmount_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsDropDownOpen="True" SelectedIndex="0">
             <TextBox x:Name="Player2" Text="2"/>
@@ -37,10 +37,10 @@
         <Label Name="P2name" Content="Player2" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center"/>
         <Label Name="P3name" Content="Player3" HorizontalAlignment="Left" Margin="40,235,0,0" VerticalAlignment="Top"/>
         <Label Name="P4name" Content="Player4" HorizontalAlignment="Left" Margin="40,266,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="P1" HorizontalAlignment="Left" Margin="93,177,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="True" TextChanged="P1_TextChanged"/>
-        <TextBox Name="P2" HorizontalAlignment="Left" Margin="93,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" IsEnabled="True" TextChanged="P2_TextChanged"/>
-        <TextBox Name="P3" HorizontalAlignment="Left" Margin="93,239,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
-        <TextBox Name="P4" HorizontalAlignment="Left" Margin="93,270,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
+        <TextBox Name="P1" HorizontalAlignment="Left" Margin="93,177,0,0" TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="120" IsEnabled="True" TextChanged="P1_TextChanged"/>
+        <TextBox Name="P2" HorizontalAlignment="Left" Margin="93,0,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Center" Width="120" IsEnabled="True" TextChanged="P2_TextChanged"/>
+        <TextBox Name="P3" HorizontalAlignment="Left" Margin="93,239,0,0" TextWrapping="Wrap" Text="Player 3" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
+        <TextBox Name="P4" HorizontalAlignment="Left" Margin="93,270,0,0" TextWrapping="Wrap" Text="Player 4" VerticalAlignment="Top" Width="120" IsEnabled="True"/>
         <Button Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="40,393,0,0" VerticalAlignment="Top" Click="StartButton_Click" Height="21" Width="150"/>
     </Grid>
 </Window>

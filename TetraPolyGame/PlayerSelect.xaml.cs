@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,43 @@ namespace TetraPolyGame
         {
             var selectedItem = PlayerAmount.SelectedItem;
             TextBox textBox = (TextBox)selectedItem;
+            foreach (UIElement element in ContainerGrid.Children)
+            {
+                if (element is TextBox)
+                {
+                    TextBox ScreenTextbox = (TextBox)element;
+                    switch (ScreenTextbox.Name)
+                    {
+                        case "P1":
+                            if (ScreenTextbox.Text.IsNullOrEmpty())
+                            {
+                                P1.Text = "Player 1";
+                            }
+                            break;
+
+                        case "P2":
+                            if (ScreenTextbox.Text.IsNullOrEmpty())
+                            {
+                                P1.Text = "Player 2";
+                            }
+                            break;
+
+                        case "P3":
+                            if (ScreenTextbox.Text.IsNullOrEmpty())
+                            {
+                                P1.Text = "Player 3";
+                            }
+                            break;
+
+                        case "P4":
+                            if (ScreenTextbox.Text.IsNullOrEmpty())
+                            {
+                                P1.Text = "Player 4";
+                            }
+                            break;
+                    }
+                }
+            }
 
             MessageBox.Show("Starting the game with: " + textBox.Text.ToString() + " Players", "Game Start!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             this.Close();
