@@ -18,7 +18,7 @@ This 'Tetrapoly' application is implemented in C# and provides a digital version
   - Random events can occur at the end of every users turn
 
 ## Installation
-1. Clone this repository (To use with an IDE):
+Select one of the releases at the right and follow the instructions listed.
 
 ## Screenshots
 Game Design: ![image](https://github.com/Kaidpods/Tetrapoly/assets/143604935/37ce3ec3-5315-4557-9bf4-6e6c16927bf0)
@@ -27,7 +27,8 @@ Above is the current design and appearance of the board
 Movement: ![MovementAnimation](https://github.com/Kaidpods/Tetrapoly/assets/143604935/292ad355-3d7c-4935-af5e-bd67d48b58e4)
 Here is how the movement should look on the board, with each player being able to roll a dice and move.
 
-Viewing cards: ![CardDetailsAnimation](https://github.com/Kaidpods/Tetrapoly/assets/143604935/4a1ff853-0a65-4aa5-a2ff-c2c86655e8d0)
+Viewing cards: 
+![CardDetailsAnimation](https://github.com/Kaidpods/Tetrapoly/assets/143604935/4a1ff853-0a65-4aa5-a2ff-c2c86655e8d0)
 
 ## Future Plans
 
