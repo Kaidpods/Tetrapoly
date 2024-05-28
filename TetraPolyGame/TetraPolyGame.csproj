@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Content Include="787a4893-50b4-4e22-908a-60fa18cc4bb1.ico" />
-    <Content Include="bin\Debug\net8.0-windows\Resources\JustOneMoreMove.mp3">
+    <Content Include="Resources\JustOneMoreMove.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RandomEvents.csv">
@@ -77,6 +77,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0-windows\Resources\" />
   </ItemGroup>
 
 </Project>
